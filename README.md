@@ -30,7 +30,7 @@ Java/Spring Boot 백엔드 개발자의 온라인 이력서입니다. GitHub Pag
 ### 로컬 실행
 ```bash
 # 저장소 클론
-git clone https://github.com/yourusername/resume.git
+git clone https://github.com/pipe-down/resume.git
 cd resume
 
 # 로컬 서버 실행 (Python)
@@ -47,17 +47,17 @@ npx serve
 1. GitHub 저장소 Settings → Pages
 2. Source: "Deploy from a branch" 선택
 3. Branch: main (또는 master) 선택
-4. 배포 URL: `https://[username].github.io/resume/`
+4. 배포 URL: `https://pipe-down.github.io/resume/`
 
 ## 📝 사용 방법
 
 ### 일반 방문자 (공개 URL)
-- `https://[username].github.io/resume/`
+- `https://pipe-down.github.io/resume/`
 - PDF 다운로드 버튼만 표시됨
 - 편집 및 설정 기능 비활성화
 
 ### 관리자 모드 (본인만 사용)
-- `https://[username].github.io/resume/?admin=true`
+- `https://pipe-down.github.io/resume/?admin=true`
 - 모든 편집 및 설정 기능 활성화
 - 실시간 편집 가능
 
@@ -91,7 +91,7 @@ resume/
 ├── .gitignore         # Git 제외 파일
 ├── CLAUDE.md          # AI 코딩 가이드라인
 └── docs/              # 인사평가 문서 (gitignore)
-    └── 디케이테크인_인사평가/
+    └── 2025_인사평가/
 ```
 
 ## 🔧 커스터마이징
@@ -126,14 +126,6 @@ HTML 구조에 새로운 섹션 추가 가능:
 3. **백업**: 정기적으로 JSON 파일로 백업 권장
 4. **관리자 URL**: 관리자 모드 URL은 비공개로 유지
 
-## 📄 라이선스
-
-MIT License - 자유롭게 사용, 수정, 배포 가능합니다.
-
-## 🤝 기여
-
-이슈나 PR은 언제든 환영합니다!
-
 ---
 
-Made with ❤️ by 박정호
+Made by 박정호
