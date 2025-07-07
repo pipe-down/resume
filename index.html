@@ -238,34 +238,6 @@
             opacity: 1;
         }
         
-        /* Web View Button - 작은 크기 */
-        .web-button {
-            position: fixed;
-            bottom: 1rem;
-            right: 1rem;
-            background: #8b5cf6;
-            color: white;
-            padding: 0.375rem 0.75rem;
-            border-radius: 4px;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-            font-weight: 500;
-            font-size: 0.625rem;
-            transition: all 0.2s ease;
-            z-index: 40;
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-            cursor: pointer;
-            border: none;
-            opacity: 0.8;
-        }
-        
-        .web-button:hover {
-            background: #7c3aed;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-            opacity: 1;
-        }
-        
         /* Edit Mode Button - 작은 크기 */
         .edit-button {
             position: fixed;
@@ -824,12 +796,6 @@
             <span id="editButtonText">편집</span>
         </button>
         
-        <!-- Web View Button -->
-        <button onclick="toggleWebView()" class="web-button" id="webViewButton" title="웹에서 보기" style="position: static; margin: 0;">
-            <i class="fas fa-globe"></i>
-            <span>웹에서 보기</span>
-        </button>
-        
         <!-- PDF Export Button -->
         <button onclick="exportToPDF()" class="pdf-button" title="PDF로 내보내기" style="position: static; margin: 0;">
             <i class="fas fa-file-pdf"></i>
@@ -880,10 +846,14 @@
                 </div>
             </div>
             <div class="flex flex-wrap gap-4 text-sm text-gray-600">
-                <a href="mailto:pjhsk00@naver.com" class="flex items-center hover:text-gray-900 transition-colors"><i class="fas fa-envelope mr-2"></i><span class="editable">pjhsk00@naver.com</span></a>
+                <span class="flex items-center hover:text-gray-900 transition-colors"><i class="fas fa-envelope mr-2"></i><span class="editable">pjhsk00@naver.com</span></span>
                 <span class="flex items-center"><i class="fas fa-map-marker-alt mr-2"></i><span class="editable">판교</span></span>
                 <span class="flex items-center"><i class="fas fa-code mr-2"></i><span class="editable">풀스택 개발 가능</span></span>
                 <span class="flex items-center"><i class="fas fa-calendar-check mr-2"></i><span class="editable">즉시 근무 가능</span></span>
+                <!-- 웹에서 보기 링크 -->
+                <a href="https://pipe-down.github.io/resume/" target="_blank" class="flex items-center hover:text-gray-900 transition-colors">
+                    <i class="fas fa-globe mr-2"></i><span>웹에서 보기</span>
+                </a>
             </div>
         </header>
 
@@ -1110,7 +1080,7 @@
                         <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded">Redis</span>
                         <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded">AI (Gemini API)</span>
                     </div>
-                    <a href="https://getmoim.com" target="_blank" class="text-sm text-gray-600 hover:text-gray-900">프로젝트 방문 →</a>
+                    <a href="https://getmoim.com" target="_blank" class="text-sm text-gray-600 hover:text-gray-900"><i class="fas fa-globe mr-2"></i>프로젝트 방문 →</a>
                 </div>
                 <div class="card p-5">
                     <h3 class="text-base font-semibold text-gray-900 mb-2 editable">개인 포트폴리오 및 블로그 플랫폼</h3>
@@ -1145,7 +1115,7 @@
                         <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded">Chrome Extension API</span>
                         <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded">HTML/CSS</span>
                     </div>
-                    <a href="https://chromewebstore.google.com/detail/%EC%A0%90%EB%A9%94%EC%B6%94-%EC%A0%90%EC%8B%AC-%EB%A9%94%EB%89%B4-%EC%B6%94%EC%B2%9C/jbonmoolakgdfiblablgdhkhjmfchjpi" target="_blank" class="text-sm text-gray-600 hover:text-gray-900">프로젝트 방문 →</a>
+                    <a href="https://chromewebstore.google.com/detail/%EC%A0%90%EB%A9%94%EC%B6%94-%EC%A0%90%EC%8B%AC-%EB%A9%94%EB%89%B4-%EC%B6%94%EC%B2%9C/jbonmoolakgdfiblablgdhkhjmfchjpi" target="_blank" class="text-sm text-gray-600 hover:text-gray-900"><i class="fas fa-globe mr-2"></i>프로젝트 방문 →</a>
                 </div>
             </div>
             <div class="grid md:grid-cols-2 gap-4 mt-4">
@@ -1244,11 +1214,6 @@
                     el.removeAttribute('contenteditable');
                 });
                 
-                // 웹에서 보기 버튼 숨기기 (GitHub Pages에서는 필요 없음)
-                const webViewButton = document.getElementById('webViewButton');
-                if (webViewButton) {
-                    webViewButton.style.display = 'none';
-                }
             }
 
             // --- DATA ---
@@ -1632,23 +1597,6 @@
             }
 
         });
-        
-        // 웹에서 보기 토글 함수
-        function toggleWebView() {
-            // 현재 페이지 URL 가져오기
-            const currentUrl = window.location.href;
-            
-            // GitHub Pages URL인 경우
-            if (currentUrl.includes('github.io')) {
-                // 로컬 개발 서버 URL로 리다이렉트 (일반적으로 사용하는 포트)
-                window.open('http://localhost:8000', '_blank');
-            } else {
-                // 로컬에서 실행 중인 경우, GitHub Pages URL로 리다이렉트
-                const githubUsername = 'pipe-down'; // 실제 GitHub 사용자명으로 변경
-                const repoName = 'resume'; // 실제 저장소 이름으로 변경
-                window.open(`https://${githubUsername}.github.io/${repoName}/`, '_blank');
-            }
-        }
         
         // PDF Export Function
         function exportToPDF() {
