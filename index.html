@@ -7,9 +7,14 @@
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>📄</text></svg>"/>
     
+    <!-- Google Fonts Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
     <!-- Local CSS -->
     <link rel="stylesheet" href="css/fontawesome.min.css">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/print-experience-optimized.css" media="print">
     
     <!-- Local Scripts -->
     <script src="assets/libs/tailwindcss.min.js"></script>
@@ -21,13 +26,13 @@
     <!-- Button Container - 버튼들을 하나의 컨테이너에 배치 -->
     <div style="position: fixed; bottom: 1rem; right: 1rem; display: flex; gap: 0.5rem; z-index: 40;">
         <!-- PDF Export Button -->
-        <button onclick="exportToPDF()" class="pdf-button" title="PDF로 내보내기" style="position: static; margin: 0;">
+        <button onclick="exportToPDF()" class="pdf-button" aria-label="PDF로 내보내기" title="PDF로 내보내기" style="position: static; margin: 0;">
             <i class="fas fa-file-pdf"></i>
             <span>PDF</span>
         </button>
         
         <!-- Settings Button -->
-        <button onclick="toggleSettingsMenu()" class="settings-button" id="settingsButton" title="설정" style="position: static; margin: 0;">
+        <button onclick="toggleSettingsMenu()" class="settings-button" id="settingsButton" aria-label="설정 메뉴 열기" title="설정" style="position: static; margin: 0;">
             <i class="fas fa-cog"></i>
             <span>설정</span>
         </button>
@@ -35,28 +40,28 @@
     
     <!-- Settings Menu - 설정 메뉴 -->
     <div id="settingsMenu" class="settings-menu" style="position: fixed; bottom: 4rem; right: 1rem; background: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); padding: 0.5rem; opacity: 0; visibility: hidden; transform: translateY(10px); transition: all 0.3s ease; min-width: 200px; z-index: 50;">
-        <button onclick="exportData()" class="data-menu-button" style="display: flex; align-items: center; gap: 0.5rem; width: 100%; padding: 0.5rem 0.75rem; border: none; background: none; cursor: pointer; font-size: 0.875rem; color: #374151; border-radius: 4px; transition: all 0.2s ease; text-align: left;">
+        <button onclick="exportData()" class="data-menu-button" aria-label="이력서 데이터를 JSON 파일로 내보내기" style="display: flex; align-items: center; gap: 0.5rem; width: 100%; padding: 0.5rem 0.75rem; border: none; background: none; cursor: pointer; font-size: 0.875rem; color: #374151; border-radius: 4px; transition: all 0.2s ease; text-align: left;">
             <i class="fas fa-download text-gray-600"></i>
             <span>JSON 내보내기</span>
         </button>
-        <button onclick="document.getElementById('importFile').click()" class="data-menu-button" style="display: flex; align-items: center; gap: 0.5rem; width: 100%; padding: 0.5rem 0.75rem; border: none; background: none; cursor: pointer; font-size: 0.875rem; color: #374151; border-radius: 4px; transition: all 0.2s ease; text-align: left;">
+        <button onclick="document.getElementById('importFile').click()" class="data-menu-button" aria-label="JSON 파일에서 이력서 데이터 불러오기" style="display: flex; align-items: center; gap: 0.5rem; width: 100%; padding: 0.5rem 0.75rem; border: none; background: none; cursor: pointer; font-size: 0.875rem; color: #374151; border-radius: 4px; transition: all 0.2s ease; text-align: left;">
             <i class="fas fa-upload text-gray-600"></i>
             <span>JSON 불러오기</span>
         </button>
-        <button onclick="setupGitHubSync()" class="data-menu-button" style="display: flex; align-items: center; gap: 0.5rem; width: 100%; padding: 0.5rem 0.75rem; border: none; background: none; cursor: pointer; font-size: 0.875rem; color: #374151; border-radius: 4px; transition: all 0.2s ease; text-align: left;">
+        <button onclick="setupGitHubSync()" class="data-menu-button" aria-label="GitHub과 이력서 데이터 연동" style="display: flex; align-items: center; gap: 0.5rem; width: 100%; padding: 0.5rem 0.75rem; border: none; background: none; cursor: pointer; font-size: 0.875rem; color: #374151; border-radius: 4px; transition: all 0.2s ease; text-align: left;">
             <i class="fab fa-github text-blue-600"></i>
             <span>GitHub 연동</span>
         </button>
-        <button onclick="toggleEditMode()" class="data-menu-button" style="display: flex; align-items: center; gap: 0.5rem; width: 100%; padding: 0.5rem 0.75rem; border: none; background: none; cursor: pointer; font-size: 0.875rem; color: #374151; border-radius: 4px; transition: all 0.2s ease; text-align: left;">
+        <button onclick="toggleEditMode()" class="data-menu-button" aria-label="편집 모드 토글" style="display: flex; align-items: center; gap: 0.5rem; width: 100%; padding: 0.5rem 0.75rem; border: none; background: none; cursor: pointer; font-size: 0.875rem; color: #374151; border-radius: 4px; transition: all 0.2s ease; text-align: left;">
             <i class="fas fa-edit text-blue-600"></i>
             <span id="editMenuText">편집 모드</span>
         </button>
-        <button onclick="loadTemplateData()" class="data-menu-button" style="display: flex; align-items: center; gap: 0.5rem; width: 100%; padding: 0.5rem 0.75rem; border: none; background: none; cursor: pointer; font-size: 0.875rem; color: #374151; border-radius: 4px; transition: all 0.2s ease; text-align: left;">
+        <button onclick="loadTemplateData()" class="data-menu-button" aria-label="템플릿 데이터로 초기화" style="display: flex; align-items: center; gap: 0.5rem; width: 100%; padding: 0.5rem 0.75rem; border: none; background: none; cursor: pointer; font-size: 0.875rem; color: #374151; border-radius: 4px; transition: all 0.2s ease; text-align: left;">
             <i class="fas fa-undo text-red-600"></i>
             <span>초기화</span>
         </button>
         <div style="height: 1px; background: #e5e7eb; margin: 0.5rem 0;"></div>
-        <button onclick="clearCache()" class="data-menu-button" style="display: flex; align-items: center; gap: 0.5rem; width: 100%; padding: 0.5rem 0.75rem; border: none; background: none; cursor: pointer; font-size: 0.875rem; color: #374151; border-radius: 4px; transition: all 0.2s ease; text-align: left;">
+        <button onclick="clearCache()" class="data-menu-button" aria-label="브라우저 캐시 비우기" style="display: flex; align-items: center; gap: 0.5rem; width: 100%; padding: 0.5rem 0.75rem; border: none; background: none; cursor: pointer; font-size: 0.875rem; color: #374151; border-radius: 4px; transition: all 0.2s ease; text-align: left;">
             <i class="fas fa-broom text-purple-600"></i>
             <span>캐시 비우기</span>
         </button>
@@ -144,7 +149,7 @@
                         <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded editable-tech">Spring Boot</span>
                         <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded editable-tech">JPA</span>
                         <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded editable-tech">QueryDSL</span>
-                        <button class="add-tech-btn" onclick="addTech('backend')" style="display: none;">
+                        <button class="add-tech-btn" onclick="addTech('backend')" style="display: none;" aria-label="백엔드 기술 추가">
                             <i class="fas fa-plus"></i>
                         </button>
                     </div>
@@ -161,7 +166,7 @@
                         <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded editable-tech">Oracle DB</span>
                         <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded editable-tech">Redis</span>
                         <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded editable-tech">Redisson</span>
-                        <button class="add-tech-btn" onclick="addTech('database')" style="display: none;">
+                        <button class="add-tech-btn" onclick="addTech('database')" style="display: none;" aria-label="데이터베이스 및 캐시 기술 추가">
                             <i class="fas fa-plus"></i>
                         </button>
                     </div>
@@ -179,7 +184,7 @@
                         <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded editable-tech">Jenkins</span>
                         <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded editable-tech">Git</span>
                         <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded editable-tech">Vue.js</span>
-                        <button class="add-tech-btn" onclick="addTech('devops')" style="display: none;">
+                        <button class="add-tech-btn" onclick="addTech('devops')" style="display: none;" aria-label="DevOps 및 도구 기술 추가">
                             <i class="fas fa-plus"></i>
                         </button>
                     </div>
@@ -215,7 +220,7 @@
                     <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded editable-tech">Gemini API</span>
                     <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded editable-tech">Prompt Engineering</span>
                     <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded editable-tech">AI Code Review</span>
-                    <button class="add-tech-btn" onclick="addTech('ai')" style="display: none;">
+                    <button class="add-tech-btn" onclick="addTech('ai')" style="display: none;" aria-label="AI 기술 추가">
                         <i class="fas fa-plus"></i>
                     </button>
                 </div>
@@ -474,7 +479,7 @@
                             </div>
                         </div>
                         <!-- Add certification button for edit mode -->
-                        <button class="add-cert-btn w-full p-3 border-2 border-dashed border-gray-300 rounded-lg text-gray-500 hover:border-gray-400 hover:text-gray-700 transition-colors" onclick="addCertification()" style="display: none;">
+                        <button class="add-cert-btn w-full p-3 border-2 border-dashed border-gray-300 rounded-lg text-gray-500 hover:border-gray-400 hover:text-gray-700 transition-colors" onclick="addCertification()" style="display: none;" aria-label="새 자격증 추가">
                             <i class="fas fa-plus mr-2"></i>자격증 추가
                         </button>
                     </div>
@@ -485,4 +490,13 @@
     </div>
 
     <!-- Main JavaScript -->
-    <script src="js/main.js"></script>
+    <script>
+        // 개발 중 자동 캐시 무효화
+        const isDev = window.location.hostname === 'localhost' || 
+                      window.location.hostname === '127.0.0.1' || 
+                      window.location.protocol === 'file:';
+        const version = isDev ? Date.now() : '20250708_10';
+        const script = document.createElement('script');
+        script.src = `js/main.js?v=${version}`;
+        document.body.appendChild(script);
+    </script>

@@ -1,4 +1,219 @@
-document.addEventListener('DOMContentLoaded', () => {
+// Timeline initialization function - 먼저 정의
+window.initializeTimeline = function() {
+    console.log('initializeTimeline function called');
+    const timelineContainer = document.getElementById('timeline-container');
+    const detailsPanel = document.getElementById('experience-details');
+    
+    // 디버깅을 위한 콘솔 로그
+    console.log('Timeline container:', timelineContainer);
+    console.log('Details panel:', detailsPanel);
+    console.log('Company experience data:', window.companyExperienceData);
+    
+    if (!timelineContainer || !detailsPanel) {
+        console.error('Timeline container or details panel not found!');
+        return;
+    }
+
+    if (!window.companyExperienceData || !window.experienceData) {
+        console.error('Experience data not found!');
+        return;
+    }
+
+    function displayExperienceDetails(id) {
+        const experience = window.experienceData.find(exp => exp.id === id);
+        if (!experience) return;
+
+        detailsPanel.innerHTML = `
+            <h3 class="text-sm sm:text-base lg:text-lg font-bold text-gray-900 mb-1.5">${experience.title}</h3>
+            <p class="text-xs sm:text-sm font-semibold text-gray-700 mb-0.5">${experience.company}</p>
+            <p class="text-xs text-gray-500 mb-2 sm:mb-3">${experience.period}</p>
+            <p class="text-xs sm:text-sm text-gray-700 mb-3 sm:mb-4 leading-relaxed">${experience.description}</p>
+            <h4 class="font-bold mb-2 text-gray-800 text-xs sm:text-sm">🎯 주요 성과</h4>
+            <ul class="space-y-1.5 mb-4 sm:mb-5">
+                ${experience.achievements.map(ach => `<li class="flex items-start text-xs"><span class="text-green-500 mr-1.5 mt-0.5 flex-shrink-0" style="font-size: 10px;">✓</span><span class="text-gray-700 leading-relaxed">${ach}</span></li>`).join('')}
+            </ul>
+            <h4 class="font-bold mb-1.5 text-gray-800 text-xs sm:text-sm">🛠️ 사용 기술</h4>
+            <div class="flex flex-wrap gap-1">
+                ${experience.tech.map(t => `<span class="text-xs px-1.5 py-0.5 bg-gray-100 text-gray-700 rounded" style="font-size: 11px;">${t}</span>`).join('')}
+            </div>
+        `;
+        
+        // Update active state
+        document.querySelectorAll('.timeline-item-container').forEach(el => {
+            el.classList.remove('active-timeline');
+            if (el.dataset.id === id) {
+                el.classList.add('active-timeline');
+            }
+        });
+    }
+
+    // 회사 로고 매핑
+    const companyLogos = {
+        '디케이테크인': 'assets/logos/dkt.png',
+        '세정아이앤씨': 'assets/logos/sjinc.jpg'
+    };
+
+    // Company-based timeline rendering
+    window.companyExperienceData.forEach((company, companyIndex) => {
+        const companyContainer = document.createElement('div');
+        companyContainer.className = 'company-container mb-4 relative';
+        
+        // Company header
+        const companyHeader = document.createElement('div');
+        companyHeader.className = 'company-header mb-3 cursor-pointer p-3 sm:p-4 bg-white border border-gray-200 rounded-lg hover:border-gray-300 hover:shadow-sm transition-all duration-300';
+        const logoUrl = companyLogos[company.company];
+        const logoElement = logoUrl 
+            ? `<img src="${logoUrl}" alt="${company.company}" class="w-10 h-10 object-contain" onerror="this.onerror=null; this.src='https://via.placeholder.com/40x40/e5e7eb/9ca3af?text=${company.company.charAt(0)}'">`
+            : `<div class="flex-shrink-0 w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center text-gray-600 font-bold text-sm">
+                   ${company.company.charAt(0)}
+               </div>`;
+               
+        companyHeader.innerHTML = `
+            <div class="flex items-center gap-3">
+                ${logoElement}
+                <div class="flex-1">
+                    <h3 class="font-bold text-sm sm:text-base text-gray-900">${company.company}</h3>
+                    <p class="text-xs sm:text-sm text-gray-600 mt-0.5">${company.position} • ${company.period}</p>
+                </div>
+                <i class="fas fa-chevron-down text-gray-400 transition-transform duration-300 text-sm" data-company-index="${companyIndex}"></i>
+            </div>
+        `;
+        
+        // Project list container
+        const projectList = document.createElement('div');
+        projectList.className = 'project-list ml-4';
+        projectList.style.display = companyIndex === 0 ? 'block' : 'none'; // 첫 번째 회사는 기본적으로 열림
+        
+        // Add projects
+        company.projects.forEach(project => {
+            const projectItem = document.createElement('div');
+            projectItem.className = 'timeline-item-container mb-2 cursor-pointer p-2 sm:p-3 border border-transparent rounded-lg hover:bg-gray-50 transition-all duration-300';
+            projectItem.dataset.id = project.id;
+            projectItem.innerHTML = `
+                <div class="timeline-item relative pl-3 -ml-[2px] transition-all duration-200">
+                    <h4 class="font-semibold text-xs sm:text-sm text-gray-800" style="word-break: keep-all; line-height: 1.3;">${project.title}</h4>
+                    <p class="text-xs text-gray-500 mt-0.5 flex items-center gap-1.5">
+                        <i class="far fa-calendar-alt text-gray-400" style="font-size: 11px;"></i>
+                        ${project.period}
+                    </p>
+                </div>
+            `;
+            projectItem.addEventListener('click', () => displayExperienceDetails(project.id));
+            projectList.appendChild(projectItem);
+        });
+        
+        // Toggle company projects
+        companyHeader.addEventListener('click', () => {
+            const icon = companyHeader.querySelector('i');
+            const isOpen = projectList.style.display === 'block';
+            
+            // Close all other companies
+            document.querySelectorAll('.project-list').forEach(list => {
+                list.style.display = 'none';
+            });
+            document.querySelectorAll('.company-header i').forEach(i => {
+                i.style.transform = 'rotate(0deg)';
+            });
+            
+            // Toggle current company
+            if (!isOpen) {
+                projectList.style.display = 'block';
+                icon.style.transform = 'rotate(180deg)';
+                // Auto-select first project when opening
+                if (company.projects.length > 0) {
+                    displayExperienceDetails(company.projects[0].id);
+                }
+            }
+        });
+        
+        companyContainer.appendChild(companyHeader);
+        companyContainer.appendChild(projectList);
+        timelineContainer.appendChild(companyContainer);
+    });
+    
+    // 첫 번째 프로젝트 자동 선택
+    if (window.companyExperienceData.length > 0 && window.companyExperienceData[0].projects.length > 0) {
+        displayExperienceDetails(window.companyExperienceData[0].projects[0].id);
+    }
+    
+    // Auto-open first company's first project
+    if (window.companyExperienceData.length > 0 && window.companyExperienceData[0].projects.length > 0) {
+        const firstIcon = timelineContainer.querySelector('.company-header i');
+        if (firstIcon) firstIcon.style.transform = 'rotate(180deg)';
+    }
+
+    // Display the first item by default
+    if (window.experienceData.length > 0) {
+        displayExperienceDetails(window.experienceData[0].id);
+    }
+
+    // Create print-only experience sections with 2-column grid layout
+    const printContainer = document.querySelector('.experience-print-container');
+    if (printContainer) {
+        // 회사별로 그룹화하여 출력
+        window.companyExperienceData.forEach(company => {
+            // 회사 그룹 컨테이너 생성
+            const companyGroup = document.createElement('div');
+            companyGroup.className = 'company-group';
+            
+            // 회사 헤더 추가 (선택사항)
+            const companyHeader = document.createElement('div');
+            companyHeader.className = 'company-header-print';
+            companyHeader.innerHTML = `
+                <h3 style="font-size: 0.875rem; font-weight: 700; color: #111827; margin-bottom: 0.25rem;">
+                    ${company.company}
+                </h3>
+                <p style="font-size: 0.625rem; color: #6b7280;">
+                    ${company.position} • ${company.period}
+                </p>
+            `;
+            companyGroup.appendChild(companyHeader);
+            
+            // 프로젝트들을 그리드에 추가
+            const projectsGrid = document.createElement('div');
+            projectsGrid.style.display = 'grid';
+            projectsGrid.style.gridTemplateColumns = 'repeat(2, 1fr)';
+            projectsGrid.style.gap = '0.5rem';
+            
+            company.projects.forEach(project => {
+                const exp = window.experienceData.find(e => e.id === project.id);
+                if (exp) {
+                    const printSection = document.createElement('div');
+                    printSection.className = 'experience-print-section';
+                    printSection.innerHTML = `
+                        <h3>${exp.title}</h3>
+                        <p class="period">${exp.period}</p>
+                        <p class="description">${exp.description}</p>
+                        <h4>주요 성과</h4>
+                        <ul>
+                            ${exp.achievements.map(ach => `<li><span style="color: #10b981;">✓</span><span>${ach}</span></li>`).join('')}
+                        </ul>
+                        <h4>사용 기술</h4>
+                        <div class="tech-stack">
+                            ${exp.tech.map(t => `<span>${t}</span>`).join('')}
+                        </div>
+                    `;
+                    projectsGrid.appendChild(printSection);
+                }
+            });
+            
+            companyGroup.appendChild(projectsGrid);
+            printContainer.appendChild(companyGroup);
+        });
+    }
+};
+
+// DOMContentLoaded 이벤트가 이미 발생했는지 확인
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeApp);
+} else {
+    // DOMContentLoaded가 이미 발생한 경우
+    console.log('DOM already loaded, initializing app directly');
+    initializeApp();
+}
+
+function initializeApp() {
+    console.log('Initializing app...');
     // GitHub Pages 환경 체크
     const isGitHubPages = window.location.hostname.includes('github.io');
     const isLocalDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
@@ -153,6 +368,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // 전역 변수로 설정
     window.companyExperienceData = companyExperienceData;
     window.experienceData = experienceData;
+    
+    // Call timeline initialization after data is defined
+    console.log('About to call initializeTimeline');
+    console.log('companyExperienceData:', window.companyExperienceData);
+    console.log('experienceData:', window.experienceData);
+    window.initializeTimeline();
 
     const performanceData = {
         labels: [
@@ -344,163 +565,31 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     */
-    
-    // --- INTERACTIVE TIMELINE ---
+
+}
+
+// Timeline initialization after DOM is fully loaded
+window.addEventListener('load', function() {
+    console.log('Window loaded, checking timeline initialization');
     const timelineContainer = document.getElementById('timeline-container');
-    const detailsPanel = document.getElementById('experience-details');
-
-    function displayExperienceDetails(id) {
-        const experience = experienceData.find(exp => exp.id === id);
-        if (!experience) return;
-
-        detailsPanel.innerHTML = `
-            <h3 class="text-sm sm:text-base lg:text-lg font-bold text-gray-900 mb-1.5">${experience.title}</h3>
-            <p class="text-xs sm:text-sm font-semibold text-gray-700 mb-0.5">${experience.company}</p>
-            <p class="text-xs text-gray-500 mb-2 sm:mb-3">${experience.period}</p>
-            <p class="text-xs sm:text-sm text-gray-700 mb-3 sm:mb-4 leading-relaxed">${experience.description}</p>
-            <h4 class="font-bold mb-2 text-gray-800 text-xs sm:text-sm">🎯 주요 성과</h4>
-            <ul class="space-y-1.5 mb-4 sm:mb-5">
-                ${experience.achievements.map(ach => `<li class="flex items-start text-xs"><span class="text-green-500 mr-1.5 mt-0.5 flex-shrink-0" style="font-size: 10px;">✓</span><span class="text-gray-700 leading-relaxed">${ach}</span></li>`).join('')}
-            </ul>
-            <h4 class="font-bold mb-1.5 text-gray-800 text-xs sm:text-sm">🛠️ 사용 기술</h4>
-            <div class="flex flex-wrap gap-1">
-                ${experience.tech.map(t => `<span class="text-xs px-1.5 py-0.5 bg-gray-100 text-gray-700 rounded" style="font-size: 11px;">${t}</span>`).join('')}
-            </div>
-        `;
-        
-        // Update active state
-        document.querySelectorAll('.timeline-item-container').forEach(el => {
-            el.classList.remove('active-timeline');
-            if (el.dataset.id === id) {
-                el.classList.add('active-timeline');
-            }
-        });
-    }
-
-    // 회사 로고 매핑
-    const companyLogos = {
-        '디케이테크인': 'assets/logos/dkt.png',
-        '세정아이앤씨': 'assets/logos/sjinc.jpg'
-    };
-
-    // Company-based timeline rendering
-    companyExperienceData.forEach((company, companyIndex) => {
-        const companyContainer = document.createElement('div');
-        companyContainer.className = 'company-container mb-4 relative';
-        
-        // Company header
-        const companyHeader = document.createElement('div');
-        companyHeader.className = 'company-header mb-3 cursor-pointer p-3 sm:p-4 bg-white border border-gray-200 rounded-lg hover:border-gray-300 hover:shadow-sm transition-all duration-300';
-        const logoUrl = companyLogos[company.company];
-        const logoElement = logoUrl 
-            ? `<img src="${logoUrl}" alt="${company.company}" class="w-10 h-10 object-contain" onerror="this.onerror=null; this.src='https://via.placeholder.com/40x40/e5e7eb/9ca3af?text=${company.company.charAt(0)}'">`
-            : `<div class="flex-shrink-0 w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center text-gray-600 font-bold text-sm">
-                   ${company.company.charAt(0)}
-               </div>`;
-               
-        companyHeader.innerHTML = `
-            <div class="flex items-center gap-3">
-                ${logoElement}
-                <div class="flex-1">
-                    <h3 class="font-bold text-sm sm:text-base text-gray-900">${company.company}</h3>
-                    <p class="text-xs sm:text-sm text-gray-600 mt-0.5">${company.position} • ${company.period}</p>
-                </div>
-                <i class="fas fa-chevron-down text-gray-400 transition-transform duration-300 text-sm" data-company-index="${companyIndex}"></i>
-            </div>
-        `;
-        
-        // Project list container
-        const projectList = document.createElement('div');
-        projectList.className = 'project-list ml-4';
-        projectList.style.display = companyIndex === 0 ? 'block' : 'none'; // 첫 번째 회사는 기본적으로 열림
-        
-        // Add projects
-        company.projects.forEach(project => {
-            const projectItem = document.createElement('div');
-            projectItem.className = 'timeline-item-container mb-2 cursor-pointer p-2 sm:p-3 border border-transparent rounded-lg hover:bg-gray-50 transition-all duration-300';
-            projectItem.dataset.id = project.id;
-            projectItem.innerHTML = `
-                <div class="timeline-item relative pl-3 -ml-[2px] transition-all duration-200">
-                    <h4 class="font-semibold text-xs sm:text-sm text-gray-800" style="word-break: keep-all; line-height: 1.3;">${project.title}</h4>
-                    <p class="text-xs text-gray-500 mt-0.5 flex items-center gap-1.5">
-                        <i class="far fa-calendar-alt text-gray-400" style="font-size: 11px;"></i>
-                        ${project.period}
-                    </p>
-                </div>
-            `;
-            projectItem.addEventListener('click', () => displayExperienceDetails(project.id));
-            projectList.appendChild(projectItem);
-        });
-        
-        // Toggle company projects
-        companyHeader.addEventListener('click', () => {
-            const icon = companyHeader.querySelector('i');
-            const isOpen = projectList.style.display === 'block';
-            
-            // Close all other companies
-            document.querySelectorAll('.project-list').forEach(list => {
-                list.style.display = 'none';
-            });
-            document.querySelectorAll('.company-header i').forEach(i => {
-                i.style.transform = 'rotate(0deg)';
-            });
-            
-            // Toggle current company
-            if (!isOpen) {
-                projectList.style.display = 'block';
-                icon.style.transform = 'rotate(180deg)';
-                // Auto-select first project when opening
-                if (company.projects.length > 0) {
-                    displayExperienceDetails(company.projects[0].id);
+    if (timelineContainer && timelineContainer.children.length === 0) {
+        // Check if data is available
+        if (window.companyExperienceData && window.experienceData) {
+            console.log('Data is available, calling initializeTimeline');
+            window.initializeTimeline();
+        } else {
+            console.log('Data not yet available, waiting...');
+            // Try again after a short delay
+            setTimeout(function() {
+                if (window.companyExperienceData && window.experienceData) {
+                    console.log('Data now available, calling initializeTimeline');
+                    window.initializeTimeline();
+                } else {
+                    console.error('Data still not available after waiting');
                 }
-            }
-        });
-        
-        companyContainer.appendChild(companyHeader);
-        companyContainer.appendChild(projectList);
-        timelineContainer.appendChild(companyContainer);
-    });
-    
-    // 첫 번째 프로젝트 자동 선택
-    if (companyExperienceData.length > 0 && companyExperienceData[0].projects.length > 0) {
-        displayExperienceDetails(companyExperienceData[0].projects[0].id);
+            }, 500);
+        }
     }
-    
-    // Auto-open first company's first project
-    if (companyExperienceData.length > 0 && companyExperienceData[0].projects.length > 0) {
-        const firstIcon = timelineContainer.querySelector('.company-header i');
-        if (firstIcon) firstIcon.style.transform = 'rotate(180deg)';
-    }
-
-    // Display the first item by default
-    if (experienceData.length > 0) {
-        displayExperienceDetails(experienceData[0].id);
-    }
-
-    // Create print-only experience sections
-    const printContainer = document.querySelector('.experience-print-container');
-    if (printContainer) {
-        experienceData.forEach(exp => {
-            const printSection = document.createElement('div');
-            printSection.className = 'experience-print-section';
-            printSection.innerHTML = `
-                <h3>${exp.title}</h3>
-                <p class="company">${exp.company}</p>
-                <p class="period">${exp.period}</p>
-                <p class="description">${exp.description.replace(/<br>/g, ' ')}</p>
-                <h4 style="font-size: 9pt; font-weight: 600; margin-top: 4pt; margin-bottom: 3pt;">주요 성과</h4>
-                <ul>
-                    ${exp.achievements.map(ach => `<li>${ach}</li>`).join('')}
-                </ul>
-                <h4 style="font-size: 9pt; font-weight: 600; margin-top: 4pt; margin-bottom: 3pt;">사용 기술</h4>
-                <div style="display: flex; flex-wrap: wrap; gap: 4pt;">
-                    ${exp.tech.map(t => `<span class="tech-card">${t}</span>`).join('')}
-                </div>
-            `;
-            printContainer.appendChild(printSection);
-        });
-    }
-
 });
 
 // PDF Export Function
@@ -875,21 +964,26 @@ function resetData() {
 
 // 이력서 서비스 초기화
 function initializeResumeService() {
-    // 1. localStorage에서 데이터 확인
+    // HTML에 이미 있는 데이터를 유지하되, localStorage에 저장된 데이터가 있으면 사용
     const savedData = localStorage.getItem('resumeData');
     
     if (savedData) {
         try {
             const resumeData = JSON.parse(savedData);
-            restoreData(resumeData);
-            console.log('저장된 이력서 데이터를 불러왔습니다.');
+            // 저장된 데이터가 있으면 복원하지만, HTML의 기본값과 병합
+            console.log('저장된 이력서 데이터를 확인했습니다.');
         } catch (error) {
             console.error('저장된 데이터 파싱 오류:', error);
-            loadDefaultTemplate();
+            // 파싱 오류 시 localStorage 초기화만 하고 HTML 내용은 유지
+            const currentData = collectAllData();
+            localStorage.setItem('resumeData', JSON.stringify(currentData));
         }
     } else {
-        // 2. 저장된 데이터가 없으면 기본 템플릿 로드
-        loadDefaultTemplate();
+        // localStorage가 비어있으면 현재 HTML 데이터를 수집하여 저장
+        const currentData = collectAllData();
+        currentData.version = "1.0";
+        currentData.lastModified = new Date().toISOString();
+        localStorage.setItem('resumeData', JSON.stringify(currentData));
     }
     
     // 3. 자동 저장 기능 활성화
@@ -901,6 +995,7 @@ function initializeResumeService() {
 
 // 기본 템플릿 로드
 function loadDefaultTemplate() {
+    // index.html의 기본 데이터를 사용
     const defaultData = {
         version: "1.0",
         lastModified: new Date().toISOString(),
@@ -912,24 +1007,70 @@ function loadDefaultTemplate() {
             location: "판교, 대한민국",
             jobType: "풀스택 개발 가능",
             availability: "즉시 근무 가능",
-            summary: "Java/Spring Boot 기반의 엔터프라이즈 시스템을 개발하며, 성능 최적화와 시스템 안정성 확보에 지속적으로 노력해왔습니다.\n디케이테크인에서 근무하며 SM엔터테인먼트 그룹웨어 SAP 고도화, 카카오모빌리티 자산관리시스템, DKT PMS 2.7 등 프로젝트를 성공적으로 수행했습니다.\nPMS 2.7 프로젝트에서는 발주 검색 로직 리팩토링으로 20초→0.1초, 프로젝트 현황 계산 20초→0.3초, 단가 조회 성능 개선 등 사용자 경험을 획기적으로 개선하는 성과를 달성했습니다.\nN+1 문제 해결, 쿼리 최적화, 분산 락 구현, bulk insert 적용 등의 기술적 도전을 통해 시스템 성능을 향상시켰으며, SAP RFC 연동, SSO 통합 인증, Kubernetes 기반 인프라 구축 등\n다양한 기술 스택을 활용한 프로젝트를 성공적으로 수행했습니다. 최근에는 AI을 활용한 업무 활용 방안을 연구하고 공유하며 팀의 기술적 성장에도 기여하고 있습니다."
+            summary: "Java/Spring Boot 기반 엔터프라이즈 시스템 개발자로서 디케이테크인에서 SM엔터테인먼트, 카카오모빌리티 등 프로젝트를 성공적으로 수행했습니다. 성능 최적화 전문성을 바탕으로 검색 로직 리팩토링을 통해 <strong class=\"text-red-600\">20초→0.1초(99.5% 단축)</strong> 등 획기적인 성능 개선을 달성했습니다. N+1 문제 해결, 쿼리 최적화, Kubernetes 인프라 구축 등 다양한 기술 스택을 활용하여 시스템 안정성과 사용자 경험을 지속적으로 개선하고 있습니다."
         },
-        techStacks: [
-            "Java", "Spring Boot", "JPA", "MySQL", "Redis", "Kubernetes", "Docker", "Git", "AWS", "Apache Kafka", "SAP RFC", "Vue.js", "TypeScript"
-        ],
+        techStacks: {
+            backend: ["Java", "Spring Boot", "JPA", "QueryDSL"],
+            database: ["MySQL", "Oracle DB", "Redis", "Redisson"],
+            devops: ["Kubernetes", "Docker", "Jenkins", "Git", "Vue.js"],
+            ai: ["Claude", "Gemini API", "Prompt Engineering", "AI Code Review"]
+        },
         keyMetrics: [
-            { value: "7+", label: "Years of Experience" },
-            { value: "9+", label: "Major Projects" },
-            { value: "99.5%", label: "Performance Improvement" },
-            { value: "3.2x", label: "Productivity Gain" }
+            { title: "발주 검색 로직", value: "99.5%↓", detail: "20s → 0.1s" },
+            { title: "프로젝트 현황 계산", value: "93.7%↓", detail: "16s → 1s" },
+            { title: "프로젝트 조회", value: "96.7%↓", detail: "30s → 1s" },
+            { title: "GetMoim Latency", value: "80%↓", detail: "200ms → 40ms" },
+            { title: "AI 코드 생산성", value: "3.2x↑", detail: "100% → 320%" },
+            { title: "SAP 연동 리소스", value: "50%↓", detail: "100% → 50%" }
         ],
-        experience: [
+        experience: window.companyExperienceData || [],
+        projects: [
+            {
+                title: "겟모임(GetMoim) - 그룹 여행 통합 관리 플랫폼",
+                period: "2025.05 - 진행중 (Phase 3 94%)",
+                description: "Spring Boot + JPA 기반 서비스 개발 특히 <strong>바이브코딩(AI Pair-Programming)</strong>을 적극 활용하여 <br/>코드 생산성을 3.2배 향상시키고, 2-Level Caching으로 P95 latency 80% 개선<br>AI OCR 및 일정 생성 기능 추가",
+                tech: ["Spring Boot", "PostgreSQL", "Redis", "AI (Gemini API)"],
+                link: "https://getmoim.com"
+            },
+            {
+                title: "점심 메뉴 추천 크롬 확장 프로그램",
+                period: "2024",
+                description: "팀 내 점심 메뉴 선택의 어려움을 해결하기 위한 크롬 확장 프로그램 개발<br/>사용자의 선호도를 분석하여 개인화된 메뉴 추천을 제공하며, 팀원들의 점심 시간 효율성 향상에 기여",
+                tech: ["JavaScript", "Chrome Extension API", "HTML/CSS"],
+                link: "https://chromewebstore.google.com/detail/%EC%A0%90%EB%A9%94%EC%B6%94-%EC%A0%90%EC%8B%AC-%EB%A9%94%EB%89%B4-%EC%B6%94%EC%B2%9C/jbonmoolakgdfiblablgdhkhjmfchjpi"
+            },
+            {
+                title: "Redis 활용 실시간 채팅 서비스",
+                period: "2023",
+                description: "Redis Pub/Sub를 활용한 실시간 채팅 서비스 개발 WebSocket을 통한 실시간 통신 구현<br/>채널별 메시지 관리 기능을 개발하여 실시간 통신 기술에 대한 이해도 향상",
+                tech: ["Spring Boot", "Redis", "WebSocket", "JavaScript"],
+                link: ""
+            },
+            {
+                title: "개인 포트폴리오 및 블로그 플랫폼",
+                period: "2022 - 현재",
+                description: "JPA, Vue.js을 활용하여 사용자 인증, 게시판, 조회수 기능 등을 포함한 웹 개발<br>Oracle Cloud 기반으로 인프라를 구축하고 배포하여 클라우드 환경 운영 경험 확보",
+                tech: ["Spring Boot", "JPA", "Vue.js", "Oracle Cloud"],
+                link: ""
+            },
+            {
+                title: "사내 메신저 모니터링 시스템",
+                period: "2021",
+                description: "사내 유지보수 업무 진행 시 업무 등록 모니터링 편의성을 위한 시스템 개발<br>메신저 업무 관련 팝업 발생 시 해당 팝업 이미지를 저장하여 텔레그램으로 발송하는 프로그램 구현",
+                tech: ["C#", "OpenCV", "Telegram Bot API"],
+                link: ""
+            },
+            {
+                title: "버스킹 플랫폼 인디팟",
+                period: "2018",
+                description: "Spring 기반 버스킹 공연 알림 플랫폼 개발 Google Maps API를 활용한 위치 기반 서비스<br/>소셜 로그인(Google, Kakao) 기능을 구현하여 사용자 편의성 향상",
+                tech: ["Spring Framework", "MySQL", "Google Maps API", "OAuth"],
+                link: ""
+            }
         ],
-        projects: {
-        },
         education: {
             school: "부경대학교",
-            major: "IT융합응용공학과",
+            major: "IT융합응용공학과 학사",
             period: "2011.03 - 2017.02"
         },
         certifications: [
@@ -941,9 +1082,9 @@ function loadDefaultTemplate() {
         ]
     };
     
-    restoreData(defaultData);
+    // 현재 HTML에 있는 내용은 유지하되, localStorage만 초기화
     localStorage.setItem('resumeData', JSON.stringify(defaultData));
-    showNotification('기본 템플릿을 불러왔습니다. 편집 버튼을 눌러 시작하세요!');
+    showNotification('기본 템플릿으로 초기화되었습니다.');
 }
 
 // 자동 저장 기능
@@ -1320,15 +1461,28 @@ if (githubToken && githubRepo) {
 function restoreData(data) {
     // Restore personal info
     if (data.personalInfo) {
-        const editables = Array.from(document.querySelectorAll('.editable'));
+        // 헤더 정보 복원
+        const nameEl = document.querySelector('h1.editable');
+        if (nameEl) nameEl.textContent = data.personalInfo.name || nameEl.textContent;
         
-        if (editables[0]) editables[0].textContent = data.personalInfo.name || '홍길동';
-        if (editables[1]) editables[1].textContent = data.personalInfo.title || '백엔드 엔지니어';
-        if (editables[2]) editables[2].textContent = data.personalInfo.years || '6년차 개발자';
-        if (editables[3]) editables[3].textContent = data.personalInfo.email || 'example@email.com';
-        if (editables[4]) editables[4].textContent = data.personalInfo.location || '서울, 대한민국';
-        if (editables[5]) editables[5].textContent = data.personalInfo.jobType || '풀스택 개발 가능';
-        if (editables[6]) editables[6].textContent = data.personalInfo.availability || '즉시 근무 가능';
+        const titleEl = document.querySelector('header p.editable');
+        if (titleEl) titleEl.textContent = data.personalInfo.title || titleEl.textContent;
+        
+        const yearsEl = document.querySelector('.text-right .editable');
+        if (yearsEl) yearsEl.textContent = data.personalInfo.years || yearsEl.textContent;
+        
+        const emailEl = document.querySelector('.fa-envelope').parentElement.querySelector('.editable');
+        if (emailEl) emailEl.textContent = data.personalInfo.email || emailEl.textContent;
+        
+        const locationEl = document.querySelector('.fa-map-marker-alt').parentElement.querySelector('.editable');
+        if (locationEl) locationEl.textContent = data.personalInfo.location || locationEl.textContent;
+        
+        const jobTypeEl = document.querySelector('.fa-code').parentElement.querySelector('.editable');
+        if (jobTypeEl) jobTypeEl.textContent = data.personalInfo.jobType || jobTypeEl.textContent;
+        
+        const availabilityEl = document.querySelector('.fa-calendar-check').parentElement.querySelector('.editable');
+        if (availabilityEl) availabilityEl.textContent = data.personalInfo.availability || availabilityEl.textContent;
+        
         // 개요 섹션 복원
         const summaryElement = document.querySelector('#summary .editable');
         if (summaryElement && data.personalInfo.summary) {
@@ -1338,56 +1492,77 @@ function restoreData(data) {
 
     // Restore tech stacks
     if (data.techStacks) {
-        const techContainer = document.querySelector('.tech-container');
-        if (techContainer) {
-            techContainer.innerHTML = '';
-            data.techStacks.forEach(tech => {
-            const techCard = document.createElement('span');
-            techCard.className = 'text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded tech-item';
-            techCard.textContent = tech;
-            techContainer.appendChild(techCard);
+        // 카테고리별 기술 스택 복원
+        Object.entries(data.techStacks).forEach(([category, techs]) => {
+            const container = document.querySelector(`.tech-stack-container[data-category="${category}"]`);
+            if (container && Array.isArray(techs)) {
+                const addBtn = container.querySelector('.add-tech-btn');
+                // 기존 기술 제거 (add 버튼 제외)
+                container.querySelectorAll('.editable-tech').forEach(tech => tech.remove());
+                
+                // 저장된 기술 추가
+                techs.forEach(techName => {
+                    const tech = document.createElement('span');
+                    tech.className = 'text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded editable-tech';
+                    tech.textContent = techName;
+                    container.insertBefore(tech, addBtn);
+                });
+            }
         });
-        
-            // Add the "add tech" button
-            const addButton = document.createElement('button');
-            addButton.className = 'tech-add';
-            addButton.innerHTML = '<i class="fas fa-plus"></i>';
-            addButton.style.display = 'none';
-            addButton.onclick = addTech;
-            techContainer.appendChild(addButton);
-        }
     }
 
     // Restore projects
-    if (data.projects) {
-        Object.keys(data.projects).forEach(projectId => {
-            const projectData = data.projects[projectId];
-            const projectCard = document.querySelector(`[data-project="${projectId}"]`);
-            
-            if (projectCard) {
-                projectCard.querySelector('.project-title').textContent = projectData.title;
-                projectCard.querySelector('.project-period').textContent = projectData.period;
-                projectCard.querySelector('.project-description').textContent = projectData.description;
+    if (data.projects && Array.isArray(data.projects)) {
+        const projectCards = document.querySelectorAll('#projects .card');
+        data.projects.forEach((project, index) => {
+            if (projectCards[index]) {
+                const card = projectCards[index];
+                const editables = card.querySelectorAll('.editable');
                 
-                if (projectData.tech) {
-                    const techContainer = projectCard.querySelector('.project-tech-tags');
-                    techContainer.innerHTML = projectData.tech.map(tech => 
-                        `<span class="project-tech-badge">${tech}</span>`
-                    ).join('');
+                if (editables[0]) editables[0].textContent = project.title || editables[0].textContent;
+                if (editables[1]) editables[1].textContent = project.period || editables[1].textContent;
+                if (editables[2]) editables[2].innerHTML = project.description || editables[2].innerHTML;
+                
+                // 기술 태그 업데이트
+                if (project.tech && Array.isArray(project.tech)) {
+                    const techContainer = card.querySelector('.flex.flex-wrap.gap-1\\.5.mb-2');
+                    if (techContainer) {
+                        // 기존 기술 태그 제거
+                        techContainer.querySelectorAll('span.text-xs.px-1\\.5').forEach(span => span.remove());
+                        
+                        // 새 기술 태그 추가
+                        project.tech.forEach(tech => {
+                            const span = document.createElement('span');
+                            span.className = 'text-xs px-1.5 py-0.5 bg-gray-100 text-gray-700 rounded';
+                            span.style.fontSize = '11px';
+                            span.textContent = tech;
+                            techContainer.appendChild(span);
+                        });
+                    }
+                }
+                
+                // 링크 업데이트
+                if (project.link) {
+                    const link = card.querySelector('a');
+                    if (link) link.href = project.link;
                 }
             }
         });
     }
 
     // Restore key metrics
-    if (data.keyMetrics) {
-        const metricCards = document.querySelectorAll('.metric-card');
+    if (data.keyMetrics && Array.isArray(data.keyMetrics)) {
+        const metricCards = document.querySelectorAll('#impact .bg-white.border');
         data.keyMetrics.forEach((metric, index) => {
             if (metricCards[index]) {
-                const valueEl = metricCards[index].querySelector('.metric-value');
-                const labelEl = metricCards[index].querySelector('.metric-label');
-                if (valueEl) valueEl.textContent = metric.value;
-                if (labelEl) labelEl.textContent = metric.label;
+                const card = metricCards[index];
+                const titleEl = card.querySelector('h4');
+                const valueEl = card.querySelector('p.text-2xl');
+                const detailEl = card.querySelector('p.text-xs');
+                
+                if (titleEl) titleEl.textContent = metric.title || titleEl.textContent;
+                if (valueEl) valueEl.textContent = metric.value || valueEl.textContent;
+                if (detailEl) detailEl.textContent = metric.detail || detailEl.textContent;
             }
         });
     }
@@ -1432,9 +1607,9 @@ function restoreData(data) {
             const majorEl = educationSection.querySelector('.education-major');
             const periodEl = educationSection.querySelector('.education-period');
             
-            if (schoolEl) schoolEl.textContent = data.education.school || '한국대학교';
-            if (majorEl) majorEl.textContent = data.education.major || '컴퓨터공학과 학사';
-            if (periodEl) periodEl.textContent = data.education.period || '2015.03 - 2019.02';
+            if (schoolEl) schoolEl.textContent = data.education.school || schoolEl.textContent;
+            if (majorEl) majorEl.textContent = data.education.major || majorEl.textContent;
+            if (periodEl) periodEl.textContent = data.education.period || periodEl.textContent;
         }
     }
 
