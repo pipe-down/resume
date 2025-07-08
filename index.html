@@ -60,6 +60,11 @@
             <i class="fas fa-undo text-red-600"></i>
             <span>초기화</span>
         </button>
+        <div style="height: 1px; background: #e5e7eb; margin: 0.5rem 0;"></div>
+        <button onclick="clearCache()" class="data-menu-button" style="display: flex; align-items: center; gap: 0.5rem; width: 100%; padding: 0.5rem 0.75rem; border: none; background: none; cursor: pointer; font-size: 0.875rem; color: #374151; border-radius: 4px; transition: all 0.2s ease; text-align: left;">
+            <i class="fas fa-broom text-purple-600"></i>
+            <span>캐시 비우기</span>
+        </button>
     </div>
 
     <div class="container mx-auto p-4 sm:p-8 max-w-6xl">
@@ -104,31 +109,26 @@
         <!-- Summary Section - 실무적 개요 -->
         <section id="summary" class="mb-12 scroll-mt-20">
             <h2 class="section-title">개요</h2>
-            <div class="bg-gray-50 p-4 sm:p-6 rounded-lg border border-gray-200">
-                <div class="text-sm sm:text-base text-gray-700 leading-relaxed mb-4 editable" style="white-space: pre-line;">Java/Spring Boot 기반 엔터프라이즈 시스템 개발자로 <strong>성능 최적화</strong>와 <strong>시스템 안정성</strong>에 전문성을 보유하고 있습니다.
-
-디케이테크인에서 카카오 계열사 및 대기업의 핵심 시스템을 구축하며, 특히 <strong class="text-red-600">응답 속도 99.5% 개선</strong>, <strong class="text-red-600">처리 성능 93.7% 향상</strong> 등 가시적인 성과를 달성했습니다.
-
-<strong>기술적 강점:</strong> N+1 문제 해결, 쿼리 최적화, 분산 락 구현, Kubernetes 기반 인프라 구축
-<strong>최근 관심사:</strong> AI Pair-Programming을 통한 개발 생산성 향상 (3.2배 개선)</div>
+            <div class="bg-gray-50 p-3 sm:p-5 rounded-lg border border-gray-200">
+                <div class="text-xs sm:text-sm text-gray-700 leading-relaxed mb-3 editable" style="white-space: pre-line;">Java/Spring Boot 기반 엔터프라이즈 시스템 개발자로서 디케이테크인에서 SM엔터테인먼트, 카카오모빌리티 등 프로젝트를 성공적으로 수행했습니다. 성능 최적화 전문성을 바탕으로 검색 로직 리팩토링을 통해 <strong class="text-red-600">20초→0.1초(99.5% 단축)</strong> 등 획기적인 성능 개선을 달성했습니다. N+1 문제 해결, 쿼리 최적화, Kubernetes 인프라 구축 등 다양한 기술 스택을 활용하여 시스템 안정성과 사용자 경험을 지속적으로 개선하고 있습니다.</div>
                 
                 <!-- 핵심 성과 지표 -->
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 pt-4 border-t border-gray-200">
-                    <div class="text-center">
-                        <p class="text-xl sm:text-2xl font-bold text-gray-900">7+</p>
-                        <p class="text-xs text-gray-600">Years Experience</p>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 pt-3 border-t border-gray-200">
+                    <div class="bg-white border border-gray-200 rounded-lg p-2.5 text-center">
+                        <p class="text-lg sm:text-xl font-bold text-gray-900">7+</p>
+                        <p class="text-xs text-gray-600" style="font-size: 11px;">Years Experience</p>
                     </div>
-                    <div class="text-center">
-                        <p class="text-xl sm:text-2xl font-bold text-gray-900">15+</p>
-                        <p class="text-xs text-gray-600">Major Projects</p>
+                    <div class="bg-white border border-gray-200 rounded-lg p-2.5 text-center">
+                        <p class="text-lg sm:text-xl font-bold text-gray-900">15+</p>
+                        <p class="text-xs text-gray-600" style="font-size: 11px;">Major Projects</p>
                     </div>
-                    <div class="text-center">
-                        <p class="text-xl sm:text-2xl font-bold text-gray-900">99.5%</p>
-                        <p class="text-xs text-gray-600">Performance Improvement</p>
+                    <div class="bg-white border border-gray-200 rounded-lg p-2.5 text-center">
+                        <p class="text-lg sm:text-xl font-bold text-gray-900">99.5%</p>
+                        <p class="text-xs text-gray-600" style="font-size: 11px;">Performance Improvement</p>
                     </div>
-                    <div class="text-center">
-                        <p class="text-xl sm:text-2xl font-bold text-gray-900">3.2x</p>
-                        <p class="text-xs text-gray-600">AI Productivity Boost</p>
+                    <div class="bg-white border border-gray-200 rounded-lg p-2.5 text-center">
+                        <p class="text-lg sm:text-xl font-bold text-gray-900">3.2x</p>
+                        <p class="text-xs text-gray-600" style="font-size: 11px;">AI Productivity Boost</p>
                     </div>
                 </div>
             </div>
@@ -230,17 +230,16 @@
         <!-- Experience Section - 실무적 경력 사항 -->
         <section id="experience" class="mb-12 scroll-mt-20">
             <h2 class="section-title">경력 사항</h2>
-            <div class="flex flex-col lg:flex-row gap-4 sm:gap-6">
+            <div class="flex flex-col lg:flex-row gap-4 sm:gap-4 items-start">
                 <!-- Timeline -->
-                <div class="w-full lg:w-1/3 relative pl-8">
-                    <div class="absolute left-4 top-0 bottom-0 w-0.5 bg-gray-300"></div>
-                    <div id="timeline-container" class="max-h-[400px] sm:max-h-[600px] overflow-y-auto overflow-x-visible">
+                <div class="w-full lg:w-1/3">
+                    <div id="timeline-container" class="h-[300px] sm:h-[400px] lg:h-[560px] overflow-y-auto overflow-x-visible">
                         <!-- Timeline items will be injected here by JS -->
                     </div>
                 </div>
                 <!-- Details Panel -->
-                <div class="w-full lg:w-2/3">
-                    <div id="experience-details" class="card p-4 sm:p-6 lg:p-8 min-h-[300px] sm:min-h-[400px] transition-all duration-300">
+                <div class="w-full lg:w-2/3" style="padding-left: 0;">
+                    <div id="experience-details" class="card p-4 sm:p-6 lg:p-8 h-[300px] sm:h-[400px] lg:h-[560px] transition-all duration-300">
                         <!-- Details will be injected here by JS -->
                     </div>
                 </div>
@@ -290,10 +289,63 @@
                 </div>
             </div>
             
+            <!-- 주요 성과 하이라이트 -->
             <div class="bg-gray-50 border border-gray-200 rounded-lg p-6">
-                <h3 class="text-sm font-semibold text-gray-900 mb-4">성능 개선 비교</h3>
-                <div class="chart-container" style="height: 300px;">
-                    <canvas id="performanceChart"></canvas>
+                <h3 class="text-sm font-semibold text-gray-900 mb-4">주요 성과 하이라이트</h3>
+                <div class="space-y-4">
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="text-sm font-semibold text-gray-800">🎉 성능 개선</h4>
+                            <span class="text-xs text-gray-500">PMS 2.7</span>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-3">발주 검색 로직 최적화로 <strong class="text-blue-600">20초 → 0.1초</strong> 단축</p>
+                        <div class="flex items-center gap-4 text-xs text-gray-500">
+                            <span class="flex items-center gap-1">
+                                <i class="fas fa-code text-gray-400"></i>
+                                쿼리 최적화
+                            </span>
+                            <span class="flex items-center gap-1">
+                                <i class="fas fa-database text-gray-400"></i>
+                                인덱스 설계
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="text-sm font-semibold text-gray-800">🚀 생산성 혁신</h4>
+                            <span class="text-xs text-gray-500">GetMoim</span>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-3">AI Pair-Programming 도입으로 <strong class="text-green-600">코드 생산성 3.2배</strong> 향상</p>
+                        <div class="flex items-center gap-4 text-xs text-gray-500">
+                            <span class="flex items-center gap-1">
+                                <i class="fas fa-robot text-gray-400"></i>
+                                Claude 활용
+                            </span>
+                            <span class="flex items-center gap-1">
+                                <i class="fas fa-chart-line text-gray-400"></i>
+                                70% AI 활용률
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="text-sm font-semibold text-gray-800">⚡ 동시성 이슈 해결</h4>
+                            <span class="text-xs text-gray-500">카카오 캠퍼스</span>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-3">예약 시스템 <strong class="text-sky-600">동시성 제어</strong> 및 배치 처리 최적화</p>
+                        <div class="flex items-center gap-4 text-xs text-gray-500">
+                            <span class="flex items-center gap-1">
+                                <i class="fas fa-lock text-gray-400"></i>
+                                분산 락
+                            </span>
+                            <span class="flex items-center gap-1">
+                                <i class="fas fa-layer-group text-gray-400"></i>
+                                BatchUpdate
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -302,74 +354,95 @@
         <section id="projects" class="scroll-mt-20">
             <h2 class="section-title">사이드 프로젝트</h2>
             <div class="grid md:grid-cols-2 gap-4">
-                <div class="card p-5">
-                    <h3 class="text-base font-semibold text-gray-900 mb-2 editable">겟모임(GetMoim) - 그룹 여행 통합 관리 플랫폼</h3>
-                    <p class="text-sm text-gray-500 mb-4 editable">2025.05 - 진행중 (Phase 3 94%)</p>
-                    <p class="mb-4 editable">Spring Boot 3.4.5 + Java 17 기반 MSA 준비형 아키텍처로 12개 도메인을 설계하고 개발. 특히 <strong>바이브코딩(AI Pair-Programming)</strong>을 적극 활용하여 코드 생산성을 3.2배 향상시키고, 2-Level Caching으로 P95 latency 80% 개선. AI OCR 및 일정 생성 기능 추가</p>
-                    <div class="flex flex-wrap gap-2 mb-3">
-                        <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded">Spring Boot</span>
-                        <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded">PostgreSQL</span>
-                        <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded">Redis</span>
-                        <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded">AI (Gemini API)</span>
+                <style>
+                    #projects .card {
+                        display: flex;
+                        flex-direction: column;
+                    }
+                    #projects .card > div:last-child {
+                        margin-top: auto;
+                    }
+                </style>
+                <div class="card p-4">
+                    <h3 class="text-sm font-semibold text-gray-900 mb-1.5 editable">겟모임(GetMoim) - 그룹 여행 통합 관리 플랫폼</h3>
+                    <p class="text-xs text-gray-500 mb-2 editable">2025.05 - 진행중 (Phase 3 94%)</p>
+                    <p class="text-xs mb-3 editable leading-relaxed">Spring Boot + JPA 기반 서비스 개발 특히 <strong>바이브코딩(AI Pair-Programming)</strong>을 적극 활용하여 <br/>코드 생산성을 3.2배 향상시키고, 2-Level Caching으로 P95 latency 80% 개선<br>AI OCR 및 일정 생성 기능 추가</p>
+                    <div>
+                        <div class="flex flex-wrap gap-1.5 mb-2">
+                            <span class="text-xs px-1.5 py-0.5 bg-gray-100 text-gray-700 rounded" style="font-size: 11px;">Spring Boot</span>
+                            <span class="text-xs px-1.5 py-0.5 bg-gray-100 text-gray-700 rounded" style="font-size: 11px;">PostgreSQL</span>
+                            <span class="text-xs px-1.5 py-0.5 bg-gray-100 text-gray-700 rounded" style="font-size: 11px;">Redis</span>
+                            <span class="text-xs px-1.5 py-0.5 bg-gray-100 text-gray-700 rounded" style="font-size: 11px;">AI (Gemini API)</span>
+                        </div>
+                        <a href="https://getmoim.com" target="_blank" class="text-xs text-gray-600 hover:text-gray-900"><i class="fas fa-globe mr-1.5" style="font-size: 10px;"></i>프로젝트 방문 →</a>
                     </div>
-                    <a href="https://getmoim.com" target="_blank" class="text-sm text-gray-600 hover:text-gray-900"><i class="fas fa-globe mr-2"></i>프로젝트 방문 →</a>
                 </div>
-                <div class="card p-5">
-                    <h3 class="text-base font-semibold text-gray-900 mb-2 editable">개인 포트폴리오 및 블로그 플랫폼</h3>
-                    <p class="text-sm text-gray-500 mb-4 editable">2022 - 현재</p>
-                    <p class="mb-4 editable">Spring Boot, JPA, Vue.js 기술 스택을 활용하여 사용자 인증, 게시판, 조회수 기능 등을 포함한 풀스택 웹 애플리케이션을 직접 설계 및 개발. Oracle Cloud 기반으로 인프라를 구축하고 배포하여 클라우드 환경 운영 경험 확보</p>
-                    <div class="flex flex-wrap gap-2 mb-3">
-                        <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded">Spring Boot</span>
-                        <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded">JPA</span>
-                        <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded">Vue.js</span>
-                        <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded">Oracle Cloud</span>
+                <div class="card p-4">
+                    <h3 class="text-sm font-semibold text-gray-900 mb-1.5 editable">점심 메뉴 추천 크롬 확장 프로그램</h3>
+                    <p class="text-xs text-gray-500 mb-2 editable">2024</p>
+                    <p class="text-xs mb-3 editable leading-relaxed">팀 내 점심 메뉴 선택의 어려움을 해결하기 위한 크롬 확장 프로그램 개발<br/>사용자의 선호도를 분석하여 개인화된 메뉴 추천을 제공하며, 팀원들의 점심 시간 효율성 향상에 기여</p>
+                    <div>
+                        <div class="flex flex-wrap gap-1.5 mb-2">
+                            <span class="text-xs px-1.5 py-0.5 bg-gray-100 text-gray-700 rounded" style="font-size: 11px;">JavaScript</span>
+                            <span class="text-xs px-1.5 py-0.5 bg-gray-100 text-gray-700 rounded" style="font-size: 11px;">Chrome Extension API</span>
+                            <span class="text-xs px-1.5 py-0.5 bg-gray-100 text-gray-700 rounded" style="font-size: 11px;">HTML/CSS</span>
+                        </div>
+                        <a href="https://chromewebstore.google.com/detail/%EC%A0%90%EB%A9%94%EC%B6%94-%EC%A0%90%EC%8B%AC-%EB%A9%94%EB%89%B4-%EC%B6%94%EC%B2%9C/jbonmoolakgdfiblablgdhkhjmfchjpi" target="_blank" class="text-xs text-gray-600 hover:text-gray-900"><i class="fas fa-globe mr-1.5" style="font-size: 10px;"></i>프로젝트 방문 →</a>
                     </div>
                 </div>
             </div>
             <div class="grid md:grid-cols-2 gap-4 mt-4">
-                <div class="card p-5">
-                    <h3 class="text-base font-semibold text-gray-900 mb-2 editable">Redis 활용 실시간 채팅 서비스</h3>
-                    <p class="text-sm text-gray-500 mb-4 editable">2023</p>
-                    <p class="mb-4 editable">Redis Pub/Sub를 활용한 실시간 채팅 서비스 개발. WebSocket을 통한 실시간 통신 구현 및 채널별 메시지 관리 기능을 개발하여 실시간 통신 기술에 대한 이해도 향상</p>
-                    <div class="flex flex-wrap gap-2 mb-3">
-                        <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded">Spring Boot</span>
-                        <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded">Redis</span>
-                        <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded">WebSocket</span>
-                        <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded">JavaScript</span>
+                <div class="card p-4">
+                    <h3 class="text-sm font-semibold text-gray-900 mb-1.5 editable">Redis 활용 실시간 채팅 서비스</h3>
+                    <p class="text-xs text-gray-500 mb-2 editable">2023</p>
+                    <p class="text-xs mb-3 editable leading-relaxed">Redis Pub/Sub를 활용한 실시간 채팅 서비스 개발 WebSocket을 통한 실시간 통신 구현<br/>채널별 메시지 관리 기능을 개발하여 실시간 통신 기술에 대한 이해도 향상</p>
+                    <div>
+                        <div class="flex flex-wrap gap-1.5 mb-2">
+                            <span class="text-xs px-1.5 py-0.5 bg-gray-100 text-gray-700 rounded" style="font-size: 11px;">Spring Boot</span>
+                            <span class="text-xs px-1.5 py-0.5 bg-gray-100 text-gray-700 rounded" style="font-size: 11px;">Redis</span>
+                            <span class="text-xs px-1.5 py-0.5 bg-gray-100 text-gray-700 rounded" style="font-size: 11px;">WebSocket</span>
+                            <span class="text-xs px-1.5 py-0.5 bg-gray-100 text-gray-700 rounded" style="font-size: 11px;">JavaScript</span>
+                        </div>
                     </div>
                 </div>
-                <div class="card p-5">
-                    <h3 class="text-base font-semibold text-gray-900 mb-2 editable">점심 메뉴 추천 크롬 확장 프로그램</h3>
-                    <p class="text-sm text-gray-500 mb-4 editable">2024</p>
-                    <p class="mb-4 editable">팀 내 점심 메뉴 선택의 어려움을 해결하기 위한 크롬 확장 프로그램 개발. 사용자의 선호도를 분석하여 개인화된 메뉴 추천을 제공하며, 팀원들의 점심 시간 효율성 향상에 기여</p>
-                     <div class="flex flex-wrap gap-2 mb-3">
-                        <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded">JavaScript</span>
-                        <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded">Chrome Extension API</span>
-                        <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded">HTML/CSS</span>
+                <div class="card p-4">
+                    <h3 class="text-sm font-semibold text-gray-900 mb-1.5 editable">개인 포트폴리오 및 블로그 플랫폼</h3>
+                    <p class="text-xs text-gray-500 mb-2 editable">2022 - 현재</p>
+                    <p class="text-xs mb-3 editable leading-relaxed">JPA, Vue.js을 활용하여 사용자 인증, 게시판, 조회수 기능 등을 포함한 웹 개발<br>Oracle Cloud 기반으로 인프라를 구축하고 배포하여 클라우드 환경 운영 경험 확보</p>
+                    <div>
+                        <div class="flex flex-wrap gap-1.5 mb-2">
+                            <span class="text-xs px-1.5 py-0.5 bg-gray-100 text-gray-700 rounded" style="font-size: 11px;">Spring Boot</span>
+                            <span class="text-xs px-1.5 py-0.5 bg-gray-100 text-gray-700 rounded" style="font-size: 11px;">JPA</span>
+                            <span class="text-xs px-1.5 py-0.5 bg-gray-100 text-gray-700 rounded" style="font-size: 11px;">Vue.js</span>
+                            <span class="text-xs px-1.5 py-0.5 bg-gray-100 text-gray-700 rounded" style="font-size: 11px;">Oracle Cloud</span>
+                        </div>
                     </div>
-                    <a href="https://chromewebstore.google.com/detail/%EC%A0%90%EB%A9%94%EC%B6%94-%EC%A0%90%EC%8B%AC-%EB%A9%94%EB%89%B4-%EC%B6%94%EC%B2%9C/jbonmoolakgdfiblablgdhkhjmfchjpi" target="_blank" class="text-sm text-gray-600 hover:text-gray-900"><i class="fas fa-globe mr-2"></i>프로젝트 방문 →</a>
                 </div>
             </div>
             <div class="grid md:grid-cols-2 gap-4 mt-4">
-                <div class="card p-5">
-                    <h3 class="text-base font-semibold text-gray-900 mb-2 editable">사내 메신저 모니터링 시스템</h3>
-                    <p class="text-sm text-gray-500 mb-4 editable">2021</p>
-                    <p class="mb-4 editable">사내 유지보수 업무 진행 시 업무 등록 모니터링 편의성을 위한 시스템 개발. 메신저 업무 관련 팝업 발생 시 해당 팝업 이미지를 저장하여 텔레그램으로 발송하는 프로그램 구현</p>
-                    <div class="flex flex-wrap gap-2 mb-3">
-                        <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded">C#</span>
-                        <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded">OpenCV</span>
-                        <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded">Telegram Bot API</span>
+                <div class="card p-4">
+                    <h3 class="text-sm font-semibold text-gray-900 mb-1.5 editable">사내 메신저 모니터링 시스템</h3>
+                    <p class="text-xs text-gray-500 mb-2 editable">2021</p>
+                    <p class="text-xs mb-3 editable leading-relaxed">사내 유지보수 업무 진행 시 업무 등록 모니터링 편의성을 위한 시스템 개발<br>메신저 업무 관련 팝업 발생 시 해당 팝업 이미지를 저장하여 텔레그램으로 발송하는 프로그램 구현</p>
+                    <div>
+                        <div class="flex flex-wrap gap-1.5 mb-2">
+                            <span class="text-xs px-1.5 py-0.5 bg-gray-100 text-gray-700 rounded" style="font-size: 11px;">C#</span>
+                            <span class="text-xs px-1.5 py-0.5 bg-gray-100 text-gray-700 rounded" style="font-size: 11px;">OpenCV</span>
+                            <span class="text-xs px-1.5 py-0.5 bg-gray-100 text-gray-700 rounded" style="font-size: 11px;">Telegram Bot API</span>
+                        </div>
                     </div>
                 </div>
-                <div class="card p-5">
-                    <h3 class="text-base font-semibold text-gray-900 mb-2 editable">버스킹 플랫폼 인디팟</h3>
-                    <p class="text-sm text-gray-500 mb-4 editable">2018</p>
-                    <p class="mb-4 editable">스프링 스터디 팀원들과 함께 버스킹 공연 알림 플랫폼 개발. Google Maps API를 활용한 위치 기반 서비스와 소셜 로그인(Google, Kakao) 기능을 구현하여 사용자 편의성 향상</p>
-                    <div class="flex flex-wrap gap-2 mb-3">
-                        <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded">Spring Framework</span>
-                        <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded">MySQL</span>
-                        <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded">Google Maps API</span>
-                        <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded">OAuth</span>
+                <div class="card p-4">
+                    <h3 class="text-sm font-semibold text-gray-900 mb-1.5 editable">버스킹 플랫폼 인디팟</h3>
+                    <p class="text-xs text-gray-500 mb-2 editable">2018</p>
+                    <p class="text-xs mb-3 editable leading-relaxed">Spring 기반 버스킹 공연 알림 플랫폼 개발 Google Maps API를 활용한 위치 기반 서비스<br/>소셜 로그인(Google, Kakao) 기능을 구현하여 사용자 편의성 향상</p>
+                    <div>
+                        <div class="flex flex-wrap gap-1.5 mb-2">
+                            <span class="text-xs px-1.5 py-0.5 bg-gray-100 text-gray-700 rounded" style="font-size: 11px;">Spring Framework</span>
+                            <span class="text-xs px-1.5 py-0.5 bg-gray-100 text-gray-700 rounded" style="font-size: 11px;">MySQL</span>
+                            <span class="text-xs px-1.5 py-0.5 bg-gray-100 text-gray-700 rounded" style="font-size: 11px;">Google Maps API</span>
+                            <span class="text-xs px-1.5 py-0.5 bg-gray-100 text-gray-700 rounded" style="font-size: 11px;">OAuth</span>
+                        </div>
                     </div>
                 </div>
             </div>

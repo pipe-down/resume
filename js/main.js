@@ -120,18 +120,13 @@ document.addEventListener('DOMContentLoaded', () => {
             company: '디케이테크인',
             period: '2022.05 - 현재',
             position: '백엔드 엔지니어',
-            description: '카카오 계열사 IT 서비스 전문 기업에서<br>다양한 대규모 프로젝트의 백엔드 개발을 담당하고 있습니다.',
+            description: '카카오 계열사 IT 서비스 전문 기업에서<br>다양한 프로젝트의 백엔드 개발을 담당하고 있습니다.',
             projects: [
                 { id: 'sm_gw', period: '2025.01 - 2025.06', title: 'SM엔터테인먼트 그룹웨어 SAP 고도화', description: 'SM Ent 그룹웨어 전자결재 시스템과 SAP 연동 고도화 프로젝트<br>공통 모듈 개발 및 연동 프로세스 개선을 담당했습니다.', achievements: ['CO, SA, MM 모듈 SAP RFC 연동 개발<br>• 결재 비동기 처리로 시스템 성능 및 안정성 확보', 'Jxls 활용 공통 엑셀 다운로드 유틸 개발<br>• 코드 재사용성 향상 및 유지보수 효율 개선', 'SAP 연동 공통 모듈 개발<br>• 연동 개발 리소스 <span class="font-semibold text-red-600">50% 이상 단축</span>', 'LLM을 활용한 테스트 코드 작성 방안 연구<br>• 팀의 기술적 성장 도모'], tech: ['Java', 'Spring Boot', 'JPA', 'SAP RFC', 'MySQL', 'Kubernetes', 'Vue.js'] },
-                { id: 'dkt_pms_ops', period: '2025.01 - 2025.04', title: 'DKT PMS 2.7 및 워크솔루션 운영', description: 'PMS 2.7 시스템의 안정화 및 워크솔루션 운영을 담당하며<br>성능 최적화와 기능 고도화를 수행했습니다.', achievements: ['프로젝트 히스토리 기능 개발<br>• 변경 이력 관리 및 추적성 강화', '프로젝트 현황 조회 성능 개선<br>• <span class="font-semibold text-red-600">20초 → 0.3초</span> (사용자 대기 시간 단축)', 'N+1 문제 해결 및 매핑 로직 개선<br>• 문서 조회 성능 최적화', '체계적인 데이터 마이그레이션 계획 수립<br>• 안정적인 서비스 오픈 기여', 'bulk insert 적용<br>• 대량 데이터 처리 성능 및 안정성 향상'], tech: ['Java', 'Spring Boot', 'JPA', 'QueryDSL', 'MySQL', 'Kubernetes'] },
-                { id: 'kakao_am_sso', period: '2025.04', title: '카카오모빌리티 자산관리시스템 SSO 적용', description: '카카오모빌리티 자산관리시스템에 SSO 로그인을 도입하여<br>보안 및 사용자 편의성을 강화했습니다.', achievements: ['BE/FE 로그인 로직 수정 및 SSO 필터 적용<br>• 안정적인 통합 인증 시스템 구축', '개발/CBT/운영 환경 배포 주도<br>• 리다이렉트 이슈 신속 해결로 서비스 안정성 확보', '로그 추적을 통한 예외 케이스 처리<br>• 고객사 테스트 원활 진행'], tech: ['Java', 'Spring Boot', 'SSO', 'OAuth 2.0', 'Vue.js'] },
-                { id: 'dkt_pms', period: '2024.06 - 2024.12', title: 'DKT 프로젝트 매니징 시스템(PMS) 2.7 구축', description: '사내 프로젝트 관리 시스템(PMS) 2.7 버전 구축 참여<br>핵심 기능 개발 및 성능 최적화를 담당했습니다.', achievements: ['발주 검색 로직 리팩토링<br>• 응답 시간 <span class="font-semibold text-red-600">20초 → 0.1초</span> (99.5% 단축)', '병렬 처리 도입<br>• 프로젝트 현황 계산 <span class="font-semibold text-red-600">16초 → 1초</span> (93.7% 감소)', 'N+1 문제 해결 및 쿼리 최적화<br>• 프로젝트 조회 성능 <span class="font-semibold text-red-600">30초 → 1초</span> (96.7% 개선)', '프로젝트 히스토리 기능 개발<br>• 공통 모듈화로 유지보수성 및 확장성 확보', '일정 단축 달성<br>• <span class="font-semibold text-green-600">50MD → 43MD</span> 및 FT 작업 동시 진행'], tech: ['Java', 'Spring Boot', 'JPA', 'QueryDSL', 'MySQL', 'Kubernetes', 'Vue.js'] },
-                { id: 'kakao_work_am', period: '2024.08 - 2024.10', title: '카카오워크 1.5 자산관리 시스템 개발', description: '카카오워크 1.5 자산관리 시스템 버전 업그레이드 및<br>개발/운영 환경 구축을 담당했습니다.', achievements: ['Spring Boot 3.3.3, JDK 17 버전 업그레이드로 시스템 최신성 유지 및 보안 강화.', '개발/테스트/운영 환경 구축 및 D2HUB 배포 환경 셋팅으로 안정적인 서비스 제공.', 'deprecated 코드 수정 및 공통 유효성 검사 로직 리팩토링으로 코드 품질 향상.', 'PC/모바일 환경의 공통 화면 및 메뉴 재정의로 사용자 경험 개선.'], tech: ['Java', 'Spring Boot', 'JPA', 'MySQL', 'Docker', 'D2hub'] },
-                { id: 'kakao_am', period: '2023.09 - 2024.05', title: '카카오모빌리티 자산관리시스템 구축', description: '카카오모빌리티 사내 자산관리 시스템을 신규 구축하며<br>DevOps, DB 마이그레이션 등을 담당했습니다.', achievements: ['Kubernetes 기반 인프라 환경 설계 및 Helm Chart 구성을 통한 배포 자동화 및 운영 효율성 증대.', 'Spring Boot 3.3.3, JDK 17 버전 업그레이드로 시스템 최신성 유지 및 보안 강화.', 'SSO 로그인 도입 및 통합 인증 시스템 구축으로 보안성 및 사용자 편의성 동시 달성.', 'Zebra 프린터 연동 개발을 통해 자산 라벨링 및 관리 프로세스 자동화.', '대용량 수기 관리 데이터를 Temp Table 및 Join Update 방식으로 안정적으로 마이그레이션.'], tech: ['Java', 'Spring Boot', 'JPA', 'MySQL', 'Kubernetes', 'D2hub', 'Vue.js'] },
-                { id: 'dkt_resource', period: '2024.01 - 2024.04', title: 'DKT 자원예약 시스템 개선', description: '사내 자원예약 시스템의<br>권한 체계 개선 및 기능 고도화를 담당했습니다.', achievements: ['부서별 권한 테이블 설계 및 권한 관리 로직 개선으로 관리 편의성 확대.', 'QueryDSL을 활용한 복잡한 검색 조건 처리 및 API 성능 최적화.', '슈퍼 관리자 권한 추가 및 운영자 결재 토글 기능으로 사용자 편의성 향상.', '단위 테스트 작성 및 에러 수정으로 시스템 안정성 강화.'], tech: ['Java', 'Spring Boot', 'JPA', 'QueryDSL', 'MySQL'] },
-                { id: 'dkt_friday', period: '2023.04 - 2023.09', title: '프라이데이-하루 시스템 연동', description: '프로젝트 관리 시스템과 근태 관리 시스템 간의<br>데이터 연동 프로젝트를 수행했습니다.', achievements: ['하루 카테고리 관리 API 및 업무 데이터 동기화 API 개발로 시스템 간 원활한 연동 구현.', '월 10만건 이상 누적 데이터 동기화 처리 방안 설계 및 성능 최적화.', 'N+1 이슈 해결 및 단건 조회 최적화로 API 성능 향상.', '직무 세분화 작업 및 통계 화면 매핑 로직 개선으로 데이터 정확성 향상.'], tech: ['Java', 'Spring Boot', 'JPA', 'MySQL', 'REST API'] },
-                { id: 'kakao_cr', period: '2022.05 - 2023.12', title: '카카오 캠퍼스 예약 코어시스템 개발', description: '카카오 신규 사옥의 예약 시스템 코어 개발에 참여하여<br>대용량 트랜잭션 처리 및 동시성 제어를 담당했습니다.', achievements: ['JdbcTemplate BatchUpdate 적용으로 재고 데이터 생성 성능 획기적 개선.', 'Entity 관계 설계 최적화 및 QueryDSL Projections 활용으로 N+1 문제를 원천적으로 해결.', 'Redisson 분산 락(Distributed Lock) 구현을 통해 예약 채번 프로세스의 동시성 이슈 해결 및 데이터 정합성 확보.', '사용자 테이블 이원화 대응 및 Subselect 활용으로 기존 코드 영향도 최소화.'], tech: ['Java', 'Spring Boot', 'JPA', 'Redisson', 'MySQL', 'GitLab'] },
-                { id: 'dkt_systems', period: '2022.07 - 2024.06', title: 'DKT 사내시스템 개발 및 운영', description: '하루, 휴가, IDC캘린더 등 다양한 사내 시스템의 개발 및 운영을 담당했습니다.', achievements: ['휴가 신청 성능 15초에서 1-3초로 개선, 하루 동기화 N+1 문제 해결로 서버 부하 감소.', '월 근무 내역 조회 성능 6초에서 1초로 개선, 인덱스 추가 및 쿼리 최적화 수행.', 'EOL 보안 검수 대응 및 개인정보영향평가 수행으로 시스템 보안성 강화.', '연차 초과 사용 동시성 이슈 해결 및 낙관적 락 적용으로 데이터 정합성 확보.'], tech: ['Java', 'Spring Boot', 'JPA', 'MySQL', 'QueryDSL'] },
+                { id: 'dkt_pms_all', period: '2024.06 - 2024.12', title: 'DKT 프로젝트 매니징 시스템(PMS) 2.7 구축', description: '사내 프로젝트 관리 시스템(PMS) 2.7 버전 구축 프로젝트에서<br>핵심 성능 최적화를 담당했습니다.', achievements: ['발주 검색 로직 리팩토링<br>• 응답 시간 <span class="font-semibold text-red-600">20초 → 0.1초</span> (99.5% 단축)', '병렬 처리 도입<br>• 프로젝트 현황 계산 <span class="font-semibold text-red-600">16초 → 1초</span> (93.7% 감소)', 'N+1 문제 해결 및 쿼리 최적화<br>• 프로젝트 조회 성능 <span class="font-semibold text-red-600">30초 → 1초</span> (96.7% 개선)', '프로젝트 히스토리 기능 개발<br>• 변경 이력 관리 및 추적성 강화', '체계적인 데이터 마이그레이션 및 bulk insert 적용<br>• 대량 데이터 처리 성능 향상', '일정 단축 달성<br>• <span class="font-semibold text-green-600">50MD → 43MD</span> 및 FT 작업 동시 진행'], tech: ['Java', 'Spring Boot', 'JPA', 'QueryDSL', 'MySQL', 'Kubernetes', 'Vue.js'] },
+                { id: 'kakao_am', period: '2024.02 - 2024.06', title: '카카오모빌리티 자산관리시스템 구축', description: '카카오모빌리티 사내 자산관리 시스템을 신규 구축하며<br>DevOps, DB 마이그레이션 등을 담당했습니다.', achievements: ['Kubernetes 기반 인프라 환경 설계 및 Helm Chart 구성<br>• 배포 자동화 및 운영 효율성 증대', 'Spring Boot 3.3.3, JDK 17 버전 업그레이드<br>• 시스템 최신성 유지 및 보안 강화', 'SSO 로그인 도입 및 통합 인증 시스템 구축<br>• 보안성 및 사용자 편의성 동시 달성', 'Zebra 프린터 연동 개발<br>• 자산 라벨링 및 관리 프로세스 자동화', '대용량 수기 관리 데이터 마이그레이션<br>• Temp Table 및 Join Update 방식으로 안정적 이관'], tech: ['Java', 'Spring Boot', 'JPA', 'MySQL', 'Kubernetes', 'D2hub', 'Vue.js'] },
+                { id: 'kakao_cr', period: '2023.09 - 2024.03', title: '카카오 캠퍼스 예약 코어시스템 개발', description: '카카오 신규 사옥의 예약 시스템 코어 개발에 참여하여<br>대용량 트랜잭션 처리 및 동시성 제어를 담당했습니다.', achievements: ['JdbcTemplate BatchUpdate 적용으로 재고 데이터 생성 성능 획기적 개선.', 'Entity 관계 설계 최적화 및 QueryDSL Projections 활용으로 N+1 문제를 원천적으로 해결.', 'Redisson 분산 락(Distributed Lock) 구현을 통해 예약 채번 프로세스의 동시성 이슈 해결 및 데이터 정합성 확보.', '사용자 테이블 이원화 대응 및 Subselect 활용으로 기존 코드 영향도 최소화.'], tech: ['Java', 'Spring Boot', 'JPA', 'Redisson', 'MySQL', 'GitLab'] },
+                { id: 'dkt_internal_all', period: '2022.05 - 현재', title: 'DKT 사내시스템 통합 개발 및 운영', description: '하루, 휴가, IDC캘린더, 자원예약, 프라이데이 연동 등<br>다양한 사내 시스템의 개발 및 운영을 통합 관리하고 있습니다.', achievements: ['휴가 신청 성능 최적화<br>• <span class="font-semibold text-red-600">15초 → 1-3초</span> (80% 이상 개선)', '월 근무 내역 조회 성능 개선<br>• <span class="font-semibold text-red-600">6초 → 1초</span> (인덱스 최적화)', '프라이데이-하루 시스템 연동<br>• 월 10만건 이상 데이터 동기화 안정화', '부서별 권한 체계 개선<br>• 자원예약 시스템 권한 관리 고도화', 'N+1 문제 체계적 해결<br>• 전체 시스템 API 성능 향상', '보안 강화<br>• EOL 대응 및 개인정보영향평가 수행'], tech: ['Java', 'Spring Boot', 'JPA', 'QueryDSL', 'MySQL', 'REST API'] },
             ]
         },
         {
@@ -142,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
             projects: [
                 { id: 'sejung_ep', period: '2020.05 - 2021.06', title: 'EP 통합 인사 시스템 개발 및 유지보수', description: '세정그룹 통합 인사, 회계 시스템 개발 및 유지보수를 담당했습니다.', achievements: ['영업지원 업무 관리 시스템 구현으로 POS-EP 연동을 통해 매장과 담당자간 업무 프로세스 간소화.', '계열사 간 퇴직금 이관 관리 시스템 구현으로 관계사 전출시 퇴직금 이관 및 정산 프로세스 자동화.', '당직 근무 자동화 시스템 구현으로 수기 작성하던 당직 근무 관리를 시스템화.', '사내 결재 시스템과 연동된 휴가, 출장, 연장근로 등 근태관리 시스템 구현.', 'IPT 전화기 재고관리 시스템 구현 및 2020년도 연말정산 시스템 작업 수행.', '삼성SDS ACUBE 기반 EP 시스템 관리 및 성과 관리 시스템 개발/유지보수.'], tech: ['Java', 'JSP', 'Oracle DB', 'JavaScript', 'Spring Framework', 'Git'] },
                 { id: 'sejung_jewelry', period: '2019.01 - 2019.07', title: '주얼리 브랜드 ERP/POS 시스템 개편', description: '주얼리 브랜드의 ERP, POS 시스템 개편 프로젝트 개발 및 오픈 지원을 담당했습니다.', achievements: ['C# 클라이언트와 Spring Framework 서버 기반의 차세대 시스템 구축에 참여.', '수출업무 단위 화면 개발로 해외 거래 프로세스 효율화.', '고객관리 업무 화면 개발로 CRM 기능 강화.', '레거시 시스템의 문자 인증 기능을 신규 시스템에 안정적으로 마이그레이션.'], tech: ['Java', 'JSP', 'Oracle DB', 'JavaScript', 'Spring Framework', 'C#', 'DevExpress', 'WinForm', '.NET', 'SVN'] },
-                { id: 'sejung_erp_pos', period: '2018.09 - 2020.05', title: 'ERP 및 POS 시스템 개발 및 유지보수', description: '그룹사 ERP 및 의류매장 POS 시스템 개발 및 운영을 담당했습니다.', achievements: ['매장간 사이즈이동 프로그램 신규개발로 일평균 800건의 매장간 교환 프로세스를 효율화하여 물량회전 강화에 기여.', 'GC 관련 객체 생성 최소화로 메모리 사용량 개선 (String → StringBuilder/StringBuffer 전환).', 'POS 판매 프로세스 개선을 위해 분산된 프로시저를 통합하여 트랜잭션 처리 속도 향상.', '영업, 채권 관련 ERP 시스템 관리 및 Oracle DB 기반 매장간 제품 로테이션 프로시저 개발.', '성능 향상을 위한 쿼리 튜닝으로 대용량 데이터 처리 속도 개선.'], tech: ['Java', 'JSP', 'Oracle DB', 'JavaScript', 'Spring Framework', 'Delphi', 'Adobe AIR', 'C#', 'DevExpress', 'WinForm', '.NET', 'SVN'] },
+                { id: 'sejung_erp_pos', period: '2018.09 - 2020.05', title: 'ERP 및 POS 시스템 개발 및 유지보수', description: '그룹사 ERP 및 의류매장 POS 시스템 개발 및 운영을 담당했습니다.', achievements: ['매장간 사이즈이동 프로그램 신규개발로 일평균 800건의 매장간 교환 프로세스를 효율화하여 물량회전 강화에 기여.', 'GC 관련 객체 생성 최소화로 메모리 사용량 개선 (String → StringBuilder/StringBuffer 전환).', 'POS 판매 프로세스 개선을 위해 분산된 프로시저를 통합하여 트랜잭션 처리 속도 향상.', '영업, 채권 관련 ERP 시스템 관리 및 Oracle DB 기반 매장간 제품 로테이션 프로시저 개발.', '성능 향상을 위한 쿼리 튜닝으로 대용량 데이터 처리 속도 개선.'], tech: ['Java', 'JSP', 'Oracle DB', 'JavaScript', 'Spring Framework', 'C#', 'DevExpress', 'WinForm', '.NET', 'SVN'] },
             ]
         }
     ];
@@ -187,6 +182,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- CHARTS ---
 
+    // 성능 차트 제거됨
+    /*
     const performanceCtx = document.getElementById('performanceChart').getContext('2d');
     new Chart(performanceCtx, {
         type: 'bar',
@@ -281,9 +278,18 @@ document.addEventListener('DOMContentLoaded', () => {
                             }
                             
                             // 개선율 표시
-                            if (context.datasetIndex === 1 && performanceData.datasets[0].data[index] > 0) {
-                                let improvement = ((performanceData.datasets[0].data[index] - value) / performanceData.datasets[0].data[index] * 100).toFixed(1);
-                                label += ' (-' + improvement + '%)';
+                            if (context.datasetIndex === 1) {
+                                let beforeValue = context.chart.data.datasets[0].data[index];
+                                if (beforeValue > 0) {
+                                    let improvement;
+                                    if (index === 4) { // AI 코드 생산성
+                                        improvement = ((value / beforeValue - 1) * 100).toFixed(0);
+                                        label += ' (+' + improvement + '%)';
+                                    } else {
+                                        improvement = ((beforeValue - value) / beforeValue * 100).toFixed(1);
+                                        label += ' (-' + improvement + '%)';
+                                    }
+                                }
                             }
                             
                             return label;
@@ -325,22 +331,15 @@ document.addEventListener('DOMContentLoaded', () => {
                             size: 10
                         },
                         callback: function(value, index) {
-                            const label = this.getLabelForValue(value);
-                            const projectMap = {
-                                '발주 검색': 'PMS 2.7',
-                                '프로젝트 현황': 'PMS 2.7',
-                                '월 마감 관리': 'Knw',
-                                '휴가 신청': '휴가시스템',
-                                '월 근무 내역': 'Knw',
-                                '단가 조회': 'PMS 2.7'
-                            };
-                            return [label, `(${projectMap[label]})`];
+                            // 이미 라벨에 개선 전후 값이 포함되어 있으므로 그대로 반환
+                            return this.getLabelForValue(value);
                         }
                     }
                 }
             }
         }
     });
+    */
     
     // --- INTERACTIVE TIMELINE ---
     const timelineContainer = document.getElementById('timeline-container');
@@ -351,17 +350,17 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!experience) return;
 
         detailsPanel.innerHTML = `
-            <h3 class="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 mb-2">${experience.title}</h3>
-            <p class="text-sm sm:text-md font-semibold text-gray-700 mb-1">${experience.company}</p>
-            <p class="text-xs sm:text-sm text-gray-500 mb-4 sm:mb-6">${experience.period}</p>
-            <p class="text-sm sm:text-base text-gray-700 mb-4 sm:mb-6 leading-relaxed">${experience.description}</p>
-            <h4 class="font-bold mb-3 sm:mb-4 text-gray-800 text-base sm:text-lg">🎯 주요 성과</h4>
-            <ul class="space-y-2 sm:space-y-3 mb-6 sm:mb-8">
-                ${experience.achievements.map(ach => `<li class="flex items-start text-sm sm:text-base"><span class="text-green-500 mr-2 mt-0.5 sm:mt-1 flex-shrink-0">✓</span><span class="text-gray-700">${ach}</span></li>`).join('')}
+            <h3 class="text-sm sm:text-base lg:text-lg font-bold text-gray-900 mb-1.5">${experience.title}</h3>
+            <p class="text-xs sm:text-sm font-semibold text-gray-700 mb-0.5">${experience.company}</p>
+            <p class="text-xs text-gray-500 mb-2 sm:mb-3">${experience.period}</p>
+            <p class="text-xs sm:text-sm text-gray-700 mb-3 sm:mb-4 leading-relaxed">${experience.description}</p>
+            <h4 class="font-bold mb-2 text-gray-800 text-xs sm:text-sm">🎯 주요 성과</h4>
+            <ul class="space-y-1.5 mb-4 sm:mb-5">
+                ${experience.achievements.map(ach => `<li class="flex items-start text-xs"><span class="text-green-500 mr-1.5 mt-0.5 flex-shrink-0" style="font-size: 10px;">✓</span><span class="text-gray-700 leading-relaxed">${ach}</span></li>`).join('')}
             </ul>
-            <h4 class="font-bold mb-2 sm:mb-3 text-gray-800 text-sm sm:text-base">🛠️ 사용 기술</h4>
-            <div class="flex flex-wrap gap-1 sm:gap-1.5">
-                ${experience.tech.map(t => `<span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded">${t}</span>`).join('')}
+            <h4 class="font-bold mb-1.5 text-gray-800 text-xs sm:text-sm">🛠️ 사용 기술</h4>
+            <div class="flex flex-wrap gap-1">
+                ${experience.tech.map(t => `<span class="text-xs px-1.5 py-0.5 bg-gray-100 text-gray-700 rounded" style="font-size: 11px;">${t}</span>`).join('')}
             </div>
         `;
         
@@ -387,7 +386,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Company header
         const companyHeader = document.createElement('div');
-        companyHeader.className = 'company-header mb-3 cursor-pointer p-3 sm:p-4 bg-white border border-gray-200 rounded-lg hover:border-blue-300 hover:shadow-md transition-all duration-300';
+        companyHeader.className = 'company-header mb-3 cursor-pointer p-3 sm:p-4 bg-white border border-gray-200 rounded-lg hover:border-gray-300 hover:shadow-sm transition-all duration-300';
         const logoUrl = companyLogos[company.company];
         const logoElement = logoUrl 
             ? `<img src="${logoUrl}" alt="${company.company}" class="w-10 h-10 object-contain" onerror="this.onerror=null; this.src='https://via.placeholder.com/40x40/e5e7eb/9ca3af?text=${company.company.charAt(0)}'">`
@@ -414,10 +413,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // Add projects
         company.projects.forEach(project => {
             const projectItem = document.createElement('div');
-            projectItem.className = 'timeline-item-container mb-2 cursor-pointer p-2 sm:p-3 border-2 border-transparent rounded-lg hover:bg-gradient-to-r hover:from-blue-50 hover:to-blue-100 transition-all duration-300';
+            projectItem.className = 'timeline-item-container mb-2 cursor-pointer p-2 sm:p-3 border border-transparent rounded-lg hover:bg-gray-50 transition-all duration-300';
             projectItem.dataset.id = project.id;
             projectItem.innerHTML = `
-                <div class="timeline-item relative border-l-4 border-transparent hover:border-blue-500 pl-3 -ml-[2px] transition-all duration-200">
+                <div class="timeline-item relative pl-3 -ml-[2px] transition-all duration-200">
                     <h4 class="font-semibold text-xs sm:text-sm text-gray-800" style="word-break: keep-all; line-height: 1.3;">${project.title}</h4>
                     <p class="text-xs text-gray-500 mt-0.5 flex items-center gap-1.5">
                         <i class="far fa-calendar-alt text-gray-400" style="font-size: 11px;"></i>
@@ -484,12 +483,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 <h3>${exp.title}</h3>
                 <p class="company">${exp.company}</p>
                 <p class="period">${exp.period}</p>
-                <p class="description">${exp.description}</p>
-                <h4 style="font-size: 11pt; font-weight: 600; margin-top: 8pt; margin-bottom: 6pt;">주요 성과</h4>
+                <p class="description">${exp.description.replace(/<br>/g, ' ')}</p>
+                <h4 style="font-size: 9pt; font-weight: 600; margin-top: 4pt; margin-bottom: 3pt;">주요 성과</h4>
                 <ul>
                     ${exp.achievements.map(ach => `<li>${ach}</li>`).join('')}
                 </ul>
-                <h4 style="font-size: 11pt; font-weight: 600; margin-top: 8pt; margin-bottom: 6pt;">사용 기술</h4>
+                <h4 style="font-size: 9pt; font-weight: 600; margin-top: 4pt; margin-bottom: 3pt;">사용 기술</h4>
                 <div style="display: flex; flex-wrap: wrap; gap: 4pt;">
                     ${exp.tech.map(t => `<span class="tech-card">${t}</span>`).join('')}
                 </div>
@@ -893,7 +892,7 @@ function loadDefaultTemplate() {
             location: "판교, 대한민국",
             jobType: "풀스택 개발 가능",
             availability: "즉시 근무 가능",
-            summary: "Java/Spring Boot 기반의 엔터프라이즈 시스템을 개발하며, 성능 최적화와 시스템 안정성 확보에 지속적으로 노력해왔습니다.\n\n디케이테크인에서 근무하며 SM엔터테인먼트 그룹웨어 SAP 고도화, 카카오모빌리티 자산관리시스템, DKT PMS 2.7 등 대규모 프로젝트를 성공적으로 수행했습니다. 특히 PMS 2.7 프로젝트에서 발주 검색 로직 리팩토링으로 20초→0.1초(99.5% 단축), 프로젝트 현황 계산 20초→0.3초(98.5% 개선), 단가 조회 성능 개선 등 사용자 경험을 획기적으로 개선하는 성과를 달성했습니다.\n\nN+1 문제 해결, 쿼리 최적화, 분산 락 구현, bulk insert 적용 등의 기술적 도전을 통해 시스템 성능을 향상시켰으며, SAP RFC 연동, SSO 통합 인증, Kubernetes 기반 인프라 구축 등 다양한 기술 스택을 활용한 프로젝트를 성공적으로 수행했습니다. 최근에는 AI을 활용한 업무 활용 방안을 연구하고 공유하며 팀의 기술적 성장에도 기여하고 있습니다."
+            summary: "Java/Spring Boot 기반의 엔터프라이즈 시스템을 개발하며, 성능 최적화와 시스템 안정성 확보에 지속적으로 노력해왔습니다.\n디케이테크인에서 근무하며 SM엔터테인먼트 그룹웨어 SAP 고도화, 카카오모빌리티 자산관리시스템, DKT PMS 2.7 등 프로젝트를 성공적으로 수행했습니다.\nPMS 2.7 프로젝트에서는 발주 검색 로직 리팩토링으로 20초→0.1초, 프로젝트 현황 계산 20초→0.3초, 단가 조회 성능 개선 등 사용자 경험을 획기적으로 개선하는 성과를 달성했습니다.\nN+1 문제 해결, 쿼리 최적화, 분산 락 구현, bulk insert 적용 등의 기술적 도전을 통해 시스템 성능을 향상시켰으며, SAP RFC 연동, SSO 통합 인증, Kubernetes 기반 인프라 구축 등\n다양한 기술 스택을 활용한 프로젝트를 성공적으로 수행했습니다. 최근에는 AI을 활용한 업무 활용 방안을 연구하고 공유하며 팀의 기술적 성장에도 기여하고 있습니다."
         },
         techStacks: [
             "Java", "Spring Boot", "JPA", "MySQL", "Redis", "Kubernetes", "Docker", "Git", "AWS", "Apache Kafka", "SAP RFC", "Vue.js", "TypeScript"
@@ -1382,7 +1381,7 @@ function restoreData(data) {
             timelineContainer.innerHTML = '';
             experienceData.forEach(exp => {
                 const item = document.createElement('div');
-                item.className = 'timeline-item-container mb-8 cursor-pointer p-4 border-2 border-transparent rounded-xl hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 transition-all duration-300';
+                item.className = 'timeline-item-container mb-8 cursor-pointer p-4 border border-transparent rounded-xl hover:bg-gray-50 transition-all duration-300';
                 item.dataset.id = exp.id;
                 item.innerHTML = `
                     <div class="timeline-item">
@@ -1643,6 +1642,34 @@ function loadTemplateData() {
     if (confirm('현재 작성한 내용이 모두 초기화됩니다. 계속하시겠습니까?')) {
         loadDefaultTemplate();
         showNotification('템플릿 데이터로 초기화되었습니다.');
+    }
+}
+
+// 캐시 비우기
+function clearCache() {
+    if (confirm('브라우저 캐시를 비우고 페이지를 새로고침합니다. 계속하시겠습니까?')) {
+        // 모든 캐시 데이터 삭제
+        if ('caches' in window) {
+            caches.keys().then(names => {
+                names.forEach(name => {
+                    caches.delete(name);
+                });
+            });
+        }
+        
+        // localStorage와 sessionStorage 클리어 (선택사항)
+        // localStorage.clear();
+        // sessionStorage.clear();
+        
+        // 캐시를 무시하고 강제 새로고침
+        showNotification('캐시를 비우고 새로고침합니다...');
+        
+        setTimeout(() => {
+            // 캐시 무효화를 위해 타임스탬프 파라미터 추가
+            const timestamp = new Date().getTime();
+            const url = window.location.href.split('?')[0] + '?v=' + timestamp;
+            window.location.href = url;
+        }, 500);
     }
 }
 
