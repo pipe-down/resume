@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             company: '세정아이앤씨',
             period: '2018.09 - 2021.06',
-            position: '주니어 백엔드 개발자',
+            position: '풀스택 개발자',
             description: '그룹사 통합 인사 시스템 및 주얼리 브랜드의 차세대 ERP/POS 시스템 개발과 운영을 담당했습니다.',
             projects: [
                 { id: 'sejung_ep', period: '2020.05 - 2021.06', title: 'EP 통합 인사 시스템 개발 및 유지보수', description: '세정그룹 통합 인사, 회계 시스템 개발 및 유지보수를 담당했습니다.', achievements: ['영업지원 업무 관리 시스템 구현으로 POS-EP 연동을 통해 매장과 담당자간 업무 프로세스 간소화.', '계열사 간 퇴직금 이관 관리 시스템 구현으로 관계사 전출시 퇴직금 이관 및 정산 프로세스 자동화.', '당직 근무 자동화 시스템 구현으로 수기 작성하던 당직 근무 관리를 시스템화.', '사내 결재 시스템과 연동된 휴가, 출장, 연장근로 등 근태관리 시스템 구현.', 'IPT 전화기 재고관리 시스템 구현 및 2020년도 연말정산 시스템 작업 수행.', '삼성SDS ACUBE 기반 EP 시스템 관리 및 성과 관리 시스템 개발/유지보수.'], tech: ['Java', 'JSP', 'Oracle DB', 'JavaScript', 'Spring Framework', 'Git'] },
@@ -157,26 +157,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const performanceData = {
         labels: [
-            '발주 검색', 
-            '프로젝트 현황', 
-            '월 마감 관리', 
-            '휴가 신청',
-            '월 근무 내역', 
-            '단가 조회'
+            '발주 검색\n(20s → 0.1s)', 
+            '프로젝트 현황\n(16s → 1s)', 
+            '프로젝트 조회\n(30s → 1s)', 
+            'GetMoim Latency\n(200ms → 40ms)',
+            'AI 코드 생산성\n(100% → 320%)', 
+            'SAP 연동\n(100% → 50%)'
         ],
         datasets: [
             {
                 label: '개선 전',
-                data: [20, 20, 20, 15, 30, 20],
-                backgroundColor: 'rgba(239, 68, 68, 0.8)',
+                data: [20, 16, 30, 0.2, 100, 100],
+                backgroundColor: 'rgba(239, 68, 68, 0.6)',
                 borderColor: 'rgba(239, 68, 68, 1)',
                 borderWidth: 2,
                 borderRadius: 8
             },
             {
                 label: '개선 후',
-                data: [0.1, 0.3, 1, 2, 3, 0.3],
-                backgroundColor: 'rgba(34, 197, 94, 0.8)',
+                data: [0.1, 1, 1, 0.04, 320, 50],
+                backgroundColor: 'rgba(34, 197, 94, 0.6)',
                 borderColor: 'rgba(34, 197, 94, 1)',
                 borderWidth: 2,
                 borderRadius: 8
@@ -207,15 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 },
                 title: {
-                    display: true,
-                    text: '각 프로젝트별 주요 성능 개선 지표',
-                    font: {
-                        size: 16,
-                        weight: 'bold'
-                    },
-                    padding: {
-                        bottom: 20
-                    }
+                    display: false
                 },
                 datalabels: {
                     display: function(context) {
@@ -230,7 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         let improvement;
                         
                         if (index === 4) { // AI 코드 생산성
-                            improvement = ((value / beforeValue) * 100).toFixed(0) + '%';
+                            improvement = ((value / beforeValue - 1) * 100).toFixed(0) + '%';
                             return '↑' + improvement;
                         } else {
                             improvement = ((beforeValue - value) / beforeValue * 100).toFixed(1) + '%';
@@ -303,33 +295,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 y: {
                     type: 'logarithmic',
                     title: {
-                        display: true,
-                        text: '성능 지표 (로그 스케일)',
-                        font: {
-                            size: 12
-                        }
+                        display: false
                     },
                     ticks: {
                         callback: function(value, index) {
                             // 로그 스케일 눈금 표시 개선
+                            if (value === 0.01) return '0.01';
                             if (value === 0.1) return '0.1';
                             if (value === 1) return '1';
                             if (value === 10) return '10';
-                            if (value === 20) return '20';
-                            if (value === 30) return '30';
-                            if (value === 40) return '40';
-                            if (value === 50) return '50';
                             if (value === 100) return '100';
-                            if (value === 200) return '200';
-                            if (value === 320) return '320';
-                            return value;
+                            if (value === 1000) return '1000';
+                            return null;
                         },
                         font: {
                             size: 11
                         }
                     },
-                    min: 0.1,
-                    max: 400
+                    min: 0.01,
+                    max: 1000
                 },
                 x: {
                     ticks: {
@@ -390,39 +374,55 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // 회사 로고 매핑
+    const companyLogos = {
+        '디케이테크인': 'assets/logos/dkt.png',
+        '세정아이앤씨': 'assets/logos/sjinc.jpg'
+    };
+
     // Company-based timeline rendering
     companyExperienceData.forEach((company, companyIndex) => {
         const companyContainer = document.createElement('div');
-        companyContainer.className = 'company-container mb-4';
+        companyContainer.className = 'company-container mb-4 relative';
         
         // Company header
         const companyHeader = document.createElement('div');
-        companyHeader.className = 'company-header mb-2 cursor-pointer p-2 sm:p-3 bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg hover:from-blue-50 hover:to-blue-100 transition-all duration-300';
+        companyHeader.className = 'company-header mb-3 cursor-pointer p-3 sm:p-4 bg-white border border-gray-200 rounded-lg hover:border-blue-300 hover:shadow-md transition-all duration-300';
+        const logoUrl = companyLogos[company.company];
+        const logoElement = logoUrl 
+            ? `<img src="${logoUrl}" alt="${company.company}" class="w-10 h-10 object-contain" onerror="this.onerror=null; this.src='https://via.placeholder.com/40x40/e5e7eb/9ca3af?text=${company.company.charAt(0)}'">`
+            : `<div class="flex-shrink-0 w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center text-gray-600 font-bold text-sm">
+                   ${company.company.charAt(0)}
+               </div>`;
+               
         companyHeader.innerHTML = `
-            <div class="flex items-center justify-between gap-2">
-                <div class="min-w-0 flex-1">
+            <div class="flex items-center gap-3">
+                ${logoElement}
+                <div class="flex-1">
                     <h3 class="font-bold text-sm sm:text-base text-gray-900">${company.company}</h3>
-                    <p class="text-xs sm:text-sm text-gray-600 mt-0.5 sm:mt-1">${company.position} • ${company.period}</p>
+                    <p class="text-xs sm:text-sm text-gray-600 mt-0.5">${company.position} • ${company.period}</p>
                 </div>
-                <i class="fas fa-chevron-down text-gray-400 transition-transform duration-300 text-sm flex-shrink-0" data-company-index="${companyIndex}"></i>
+                <i class="fas fa-chevron-down text-gray-400 transition-transform duration-300 text-sm" data-company-index="${companyIndex}"></i>
             </div>
         `;
         
         // Project list container
         const projectList = document.createElement('div');
-        projectList.className = 'project-list ml-2 sm:ml-4 border-l-2 border-gray-200';
+        projectList.className = 'project-list ml-4';
         projectList.style.display = companyIndex === 0 ? 'block' : 'none'; // 첫 번째 회사는 기본적으로 열림
         
         // Add projects
         company.projects.forEach(project => {
             const projectItem = document.createElement('div');
-            projectItem.className = 'timeline-item-container mb-2 ml-2 sm:ml-4 cursor-pointer p-2 sm:p-3 border-2 border-transparent rounded-lg hover:bg-gradient-to-r hover:from-blue-50 hover:to-blue-100 transition-all duration-300';
+            projectItem.className = 'timeline-item-container mb-2 cursor-pointer p-2 sm:p-3 border-2 border-transparent rounded-lg hover:bg-gradient-to-r hover:from-blue-50 hover:to-blue-100 transition-all duration-300';
             projectItem.dataset.id = project.id;
             projectItem.innerHTML = `
-                <div class="timeline-item relative">
-                    <div class="absolute -left-5 sm:-left-7 top-2 sm:top-3 w-2 sm:w-3 h-2 sm:h-3 bg-blue-400 rounded-full"></div>
+                <div class="timeline-item relative border-l-4 border-transparent hover:border-blue-500 pl-3 -ml-[2px] transition-all duration-200">
                     <h4 class="font-semibold text-xs sm:text-sm text-gray-800" style="word-break: keep-all; line-height: 1.3;">${project.title}</h4>
-                    <p class="text-xs text-gray-400 mt-0.5 sm:mt-1">${project.period}</p>
+                    <p class="text-xs text-gray-500 mt-0.5 flex items-center gap-1.5">
+                        <i class="far fa-calendar-alt text-gray-400" style="font-size: 11px;"></i>
+                        ${project.period}
+                    </p>
                 </div>
             `;
             projectItem.addEventListener('click', () => displayExperienceDetails(project.id));
@@ -457,6 +457,11 @@ document.addEventListener('DOMContentLoaded', () => {
         companyContainer.appendChild(projectList);
         timelineContainer.appendChild(companyContainer);
     });
+    
+    // 첫 번째 프로젝트 자동 선택
+    if (companyExperienceData.length > 0 && companyExperienceData[0].projects.length > 0) {
+        displayExperienceDetails(companyExperienceData[0].projects[0].id);
+    }
     
     // Auto-open first company's first project
     if (companyExperienceData.length > 0 && companyExperienceData[0].projects.length > 0) {

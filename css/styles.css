@@ -149,21 +149,8 @@ body {
 .timeline-item-container {
     position: relative;
     margin-bottom: 1rem;
-}
-
-.timeline-item-container::before {
-    content: '';
-    position: absolute;
-    left: -2.25rem;
-    top: 0.75rem;
-    transform: translateY(-50%);
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: #2563eb;
-    border: 2px solid #ffffff;
-    z-index: 10;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    z-index: 1;
+    overflow: visible !important;
 }
 
 .active-timeline {
@@ -171,6 +158,91 @@ body {
     border-color: #3b82f6;
     box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.2);
 }
+
+/* 프로젝트 동그라미가 활성화됐을 때 */
+.active-timeline .timeline-dot {
+    background: #2563eb !important;
+    border-color: #2563eb !important;
+    transform: scale(1.3);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2);
+}
+
+/* 동그라미 기본 스타일 */
+.timeline-dot {
+    z-index: 10;
+    transition: all 0.2s ease;
+}
+
+/* 스크롤바 숨기기 */
+#timeline-container {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+#timeline-container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+
+.company-header:hover::before {
+    border-color: #4b5563;
+    transform: translateY(-50%) scale(1.1);
+}
+
+
+.company-header {
+    position: relative;
+}
+
+/* 회사 카드 호버 효과 */
+.company-header:hover {
+    transform: translateX(2px);
+}
+
+.company-header::before {
+    content: '';
+    position: absolute;
+    left: -1.625rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 3px solid #6b7280;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 640px) {
+    .company-header::before {
+        left: -2.125rem;
+        width: 1.25rem;
+        height: 1.25rem;
+    }
+}
+
+/* 타임라인 컨테이너 스타일 */
+.company-container {
+    position: relative;
+    z-index: 10;
+}
+
+.project-list {
+    position: relative;
+    z-index: 10;
+}
+
+.project-list::before {
+    content: '';
+    position: absolute;
+    left: -2px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: #e5e7eb;
+    z-index: -1;
+}
+
 
 /* Navigation styles - 심플한 네비게이션 */
 .nav-item {
