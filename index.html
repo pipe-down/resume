@@ -428,6 +428,168 @@
             display: none;
         }
         
+        /* Mobile Responsive Styles */
+        @media screen and (max-width: 768px) {
+            /* Navigation mobile fixes */
+            nav {
+                padding: 0;
+                background: #ffffff;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+            }
+            
+            nav::-webkit-scrollbar {
+                display: none;
+            }
+            
+            nav .nav-wrapper {
+                padding: 0.75rem 1rem;
+                min-width: max-content;
+            }
+            
+            nav ul {
+                display: flex;
+                gap: 1.5rem;
+                padding: 0;
+                margin: 0;
+                min-width: max-content;
+            }
+            
+            .nav-item {
+                font-size: 0.875rem;
+                padding: 0.5rem 0;
+                white-space: nowrap;
+                position: relative;
+                color: #6b7280;
+            }
+            
+            .nav-item:hover {
+                color: #111827;
+            }
+            
+            .nav-item.active {
+                color: #2563eb;
+                font-weight: 600;
+            }
+            
+            .nav-item.active::after {
+                content: '';
+                position: absolute;
+                bottom: -0.75rem;
+                left: 0;
+                right: 0;
+                height: 2px;
+                background: #2563eb;
+            }
+            
+            /* Hide name on mobile */
+            .nav-wrapper > div {
+                display: none;
+            }
+            
+            /* Scroll indicator */
+            nav::after {
+                content: '';
+                position: absolute;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                width: 20px;
+                background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.9));
+                pointer-events: none;
+            }
+            
+            /* Fixed buttons adjustment */
+            .pdf-button,
+            .edit-button {
+                font-size: 0.5rem;
+                padding: 0.25rem 0.5rem;
+            }
+            
+            .settings-button {
+                font-size: 0.5rem;
+                padding: 0.25rem 0.5rem;
+            }
+            
+            /* Container adjustments */
+            .container {
+                padding: 0 1rem;
+            }
+            
+            /* Header adjustments */
+            header h1 {
+                font-size: 1.5rem;
+            }
+            
+            header p {
+                font-size: 0.875rem;
+            }
+            
+            /* Section title adjustments */
+            .section-title {
+                font-size: 1.25rem;
+            }
+            
+            /* Card spacing */
+            .card {
+                padding: 1rem;
+            }
+            
+            /* Chart containers */
+            .chart-container {
+                height: 300px;
+                max-height: 40vh;
+            }
+            
+            /* Grid adjustments */
+            .grid-cols-2,
+            .grid-cols-3 {
+                grid-template-columns: 1fr;
+            }
+            
+            /* Tech badges */
+            .skill-badge {
+                font-size: 0.75rem;
+                padding: 0.25rem 0.625rem;
+            }
+            
+            .tech-card {
+                font-size: 0.625rem;
+                padding: 0.125rem 0.5rem;
+            }
+            
+            /* Settings menu position */
+            #settingsMenu {
+                left: 0.5rem;
+                right: 0.5rem;
+                bottom: 3rem;
+                width: auto;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            /* Extra small screens */
+            .nav-item {
+                font-size: 0.625rem;
+                padding: 0.25rem 0.5rem;
+            }
+            
+            header h1 {
+                font-size: 1.25rem;
+            }
+            
+            .section-title {
+                font-size: 1rem;
+            }
+            
+            /* Hide less important navigation items on very small screens */
+            .nav-item:nth-child(n+5) {
+                display: none;
+            }
+        }
+
         /* Print Styles */
         @media print {
             body {
@@ -859,14 +1021,16 @@
 
         <!-- Navigation - 실무적 네비게이션 -->
         <nav class="sticky top-0 bg-white border-b border-gray-200 z-20 mb-8 -mx-8 px-8">
-            <ul class="flex gap-8 py-4 text-sm font-medium text-gray-600">
-                <li><a href="#summary" class="nav-item">개요</a></li>
-                <li><a href="#skills" class="nav-item">기술 스택</a></li>
-                <li><a href="#experience" class="nav-item">경력 사항</a></li>
-                <li><a href="#impact" class="nav-item">성과 지표</a></li>
-                <li><a href="#projects" class="nav-item">사이드 프로젝트</a></li>
-                <li><a href="#education-cert" class="nav-item">학력/자격증</a></li>
-            </ul>
+            <div class="nav-wrapper">
+                <ul id="navMenu" class="flex gap-8 py-4 text-sm font-medium text-gray-600">
+                    <li><a href="#summary" class="nav-item">개요</a></li>
+                    <li><a href="#skills" class="nav-item">기술 스택</a></li>
+                    <li><a href="#experience" class="nav-item">경력 사항</a></li>
+                    <li><a href="#impact" class="nav-item">성과 지표</a></li>
+                    <li><a href="#projects" class="nav-item">사이드 프로젝트</a></li>
+                    <li><a href="#education-cert" class="nav-item">학력/자격증</a></li>
+                </ul>
+            </div>
         </nav>
         
         <!-- Summary Section - 실무적 개요 -->
@@ -1668,6 +1832,51 @@
             }
         });
         
+        // Smooth scroll to center active navigation item on mobile
+        function centerActiveNavItem() {
+            if (window.innerWidth <= 768) {
+                const activeItem = document.querySelector('.nav-item.active');
+                const nav = document.querySelector('nav');
+                
+                if (activeItem && nav) {
+                    const activeItemRect = activeItem.getBoundingClientRect();
+                    const navRect = nav.getBoundingClientRect();
+                    const scrollLeft = nav.scrollLeft;
+                    const activeItemCenter = activeItemRect.left + activeItemRect.width / 2 - navRect.left;
+                    const navCenter = navRect.width / 2;
+                    
+                    nav.scrollTo({
+                        left: scrollLeft + activeItemCenter - navCenter,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        }
+        
+        // Update active nav item on scroll
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section[id]');
+            const navItems = document.querySelectorAll('.nav-item');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 100)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href').substring(1) === current) {
+                    item.classList.add('active');
+                }
+            });
+            
+            centerActiveNavItem();
+        });
+        
         // Edit Mode Functionality
         let isEditMode = false;
         
@@ -2392,21 +2601,23 @@
             // Restore tech stacks
             if (data.techStacks) {
                 const techContainer = document.querySelector('.tech-container');
-                techContainer.innerHTML = '';
-                data.techStacks.forEach(tech => {
+                if (techContainer) {
+                    techContainer.innerHTML = '';
+                    data.techStacks.forEach(tech => {
                     const techCard = document.createElement('span');
                     techCard.className = 'text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded tech-item';
                     techCard.textContent = tech;
                     techContainer.appendChild(techCard);
                 });
                 
-                // Add the "add tech" button
-                const addButton = document.createElement('button');
-                addButton.className = 'tech-add';
-                addButton.innerHTML = '<i class="fas fa-plus"></i>';
-                addButton.style.display = 'none';
-                addButton.onclick = addTech;
-                techContainer.appendChild(addButton);
+                    // Add the "add tech" button
+                    const addButton = document.createElement('button');
+                    addButton.className = 'tech-add';
+                    addButton.innerHTML = '<i class="fas fa-plus"></i>';
+                    addButton.style.display = 'none';
+                    addButton.onclick = addTech;
+                    techContainer.appendChild(addButton);
+                }
             }
 
             // Restore projects
