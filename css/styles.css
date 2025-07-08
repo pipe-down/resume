@@ -1,0 +1,1043 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+/* Professional background */
+body {
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+    scroll-behavior: smooth;
+    min-height: 100vh;
+}
+
+/* Card styles - 실무적 디자인 */
+.card {
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    transition: all 0.2s ease;
+}
+
+.card:hover {
+    border-color: #d1d5db;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Section title styles - 깔끔한 스타일 */
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #111827;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid #e5e7eb;
+    margin-bottom: 1.5rem;
+}
+
+/* Skill badge styles - 미니멀 디자인 */
+.skill-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.375rem 0.875rem;
+    background: #f3f4f6;
+    color: #374151;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border: 1px solid #e5e7eb;
+    transition: all 0.2s ease;
+}
+
+.skill-badge:hover {
+    background: #e5e7eb;
+    border-color: #d1d5db;
+}
+
+/* Tech stack card styles - 실무적 태그 스타일 */
+.tech-card {
+    background: #f3f4f6;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    font-weight: 400;
+    font-size: 0.75rem;
+    color: #4b5563;
+    border: none;
+    transition: all 0.15s ease;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.tech-card:hover {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+/* Company timeline styles */
+.company-header {
+    position: relative;
+    background: linear-gradient(to right, #f9fafb, #f3f4f6);
+    border: 1px solid #e5e7eb;
+}
+
+.company-header:hover {
+    background: linear-gradient(to right, #eff6ff, #dbeafe);
+    border-color: #93c5fd;
+}
+
+.project-list {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+.project-list[style*="block"] {
+    max-height: 2000px;
+}
+
+.timeline-item-container.active-timeline {
+    background: linear-gradient(to right, #f0f9ff, #e0f2fe);
+    border-color: #3b82f6 !important;
+}
+
+.tech-remove {
+    display: none;
+    background: #ef4444;
+    color: white;
+    border: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    font-size: 12px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    margin-left: 4px;
+    line-height: 1;
+}
+
+.tech-remove:hover {
+    background: #dc2626;
+}
+
+.tech-add {
+    display: none;
+    background: #3b82f6;
+    color: white;
+    border: none;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.tech-add:hover {
+    background: #2563eb;
+    transform: translateY(-1px);
+}
+
+.chart-container {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 400px;
+    max-height: 50vh;
+}
+
+.timeline-item-container {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.timeline-item-container::before {
+    content: '';
+    position: absolute;
+    left: -2.25rem;
+    top: 0.75rem;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #2563eb;
+    border: 2px solid #ffffff;
+    z-index: 10;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.active-timeline {
+    background: #eff6ff;
+    border-color: #3b82f6;
+    box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.2);
+}
+
+/* Navigation styles - 심플한 네비게이션 */
+.nav-item {
+    position: relative;
+    padding: 0.5rem 1rem;
+    transition: all 0.2s ease;
+    color: #4b5563;
+    font-weight: 500;
+}
+
+.nav-item:hover {
+    color: #111827;
+}
+
+.nav-item.active {
+    color: #111827;
+    font-weight: 600;
+}
+
+/* PDF Export Button - 작은 크기 */
+.pdf-button {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    background: #1f2937;
+    color: white;
+    padding: 0.375rem 0.75rem;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    font-weight: 500;
+    font-size: 0.625rem;
+    transition: all 0.2s ease;
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    cursor: pointer;
+    border: none;
+    opacity: 0.8;
+}
+
+.pdf-button:hover {
+    background: #111827;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    opacity: 1;
+}
+
+/* Edit Mode Button - 작은 크기 */
+.edit-button {
+    position: fixed;
+    bottom: 1rem;
+    right: 4.5rem;
+    background: #059669;
+    color: white;
+    padding: 0.375rem 0.75rem;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    font-weight: 500;
+    font-size: 0.625rem;
+    transition: all 0.2s ease;
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    cursor: pointer;
+    border: none;
+    opacity: 0.8;
+}
+
+.edit-button:hover {
+    background: #047857;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    opacity: 1;
+}
+
+.edit-button.active {
+    background: #dc2626;
+}
+
+.edit-button.active:hover {
+    background: #b91c1c;
+}
+
+/* Settings Button - 작은 크기 */
+.settings-button {
+    position: fixed;
+    bottom: 1rem;
+    left: 1rem;
+    background: #3b82f6;
+    color: white;
+    padding: 0.375rem 0.75rem;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    font-weight: 500;
+    font-size: 0.625rem;
+    transition: all 0.2s ease;
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    cursor: pointer;
+    border: none;
+    opacity: 0.8;
+}
+
+.settings-button:hover {
+    background: #2563eb;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    opacity: 1;
+}
+
+.data-menu-button:hover {
+    background: #f3f4f6;
+    color: #111827;
+}
+
+/* Editable styles */
+[contenteditable="true"] {
+    outline: 2px dashed #3b82f6;
+    outline-offset: 2px;
+    background-color: rgba(59, 130, 246, 0.05);
+    cursor: text;
+}
+
+[contenteditable="true"]:focus {
+    outline: 2px solid #2563eb;
+    background-color: rgba(59, 130, 246, 0.1);
+}
+
+/* Edit notification */
+.edit-notification {
+    position: fixed;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fbbf24;
+    color: #78350f;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+    z-index: 100;
+    display: none;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.edit-notification.active {
+    display: flex;
+}
+
+/* Tech stack edit styles */
+.add-tech-btn {
+    background: #3b82f6;
+    color: white;
+    border: none;
+    padding: 0.5rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.add-tech-btn:hover {
+    background: #2563eb;
+    transform: translateY(-2px);
+}
+
+.editable-tech {
+    cursor: pointer;
+    position: relative;
+}
+
+.editable-tech.editing {
+    background: white;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.delete-tech {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #ef4444;
+    color: white;
+    border: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    font-size: 12px;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.tech-card:hover .delete-tech {
+    display: flex;
+}
+
+/* JSON export/import buttons */
+.data-buttons {
+    position: fixed;
+    bottom: 2rem;
+    left: 2rem;
+    display: flex;
+    gap: 0.5rem;
+    z-index: 50;
+}
+
+.data-button {
+    background: #6b7280;
+    color: white;
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.data-button:hover {
+    background: #4b5563;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.file-input {
+    display: none;
+}
+
+/* Mobile Responsive Styles */
+@media screen and (max-width: 768px) {
+    /* Navigation mobile fixes */
+    nav {
+        padding: 0;
+        background: #ffffff;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    
+    nav::-webkit-scrollbar {
+        display: none;
+    }
+    
+    nav .nav-wrapper {
+        padding: 0.75rem 1rem;
+        min-width: max-content;
+    }
+    
+    nav ul {
+        display: flex;
+        gap: 1.5rem;
+        padding: 0;
+        margin: 0;
+        min-width: max-content;
+    }
+    
+    .nav-item {
+        font-size: 0.875rem;
+        padding: 0.5rem 0;
+        white-space: nowrap;
+        position: relative;
+        color: #6b7280;
+    }
+    
+    .nav-item:hover {
+        color: #111827;
+    }
+    
+    .nav-item.active {
+        color: #2563eb;
+        font-weight: 600;
+    }
+    
+    .nav-item.active::after {
+        content: '';
+        position: absolute;
+        bottom: -0.75rem;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: #2563eb;
+    }
+    
+    /* Hide name on mobile */
+    .nav-wrapper > div {
+        display: none;
+    }
+    
+    /* Scroll indicator */
+    nav::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 20px;
+        background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.9));
+        pointer-events: none;
+    }
+    
+    /* Fixed buttons adjustment */
+    .pdf-button,
+    .edit-button {
+        font-size: 0.5rem;
+        padding: 0.25rem 0.5rem;
+    }
+    
+    .settings-button {
+        font-size: 0.5rem;
+        padding: 0.25rem 0.5rem;
+    }
+    
+    /* Container adjustments */
+    .container {
+        padding: 0 1rem;
+    }
+    
+    /* Header adjustments */
+    header h1 {
+        font-size: 1.5rem;
+    }
+    
+    header p {
+        font-size: 0.875rem;
+    }
+    
+    /* Section title adjustments */
+    .section-title {
+        font-size: 1.25rem;
+    }
+    
+    /* Card spacing */
+    .card {
+        padding: 1rem;
+    }
+    
+    /* Chart containers */
+    .chart-container {
+        height: 300px;
+        max-height: 40vh;
+    }
+    
+    /* Grid adjustments */
+    .grid-cols-2,
+    .grid-cols-3 {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Tech badges */
+    .skill-badge {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.625rem;
+    }
+    
+    .tech-card {
+        font-size: 0.625rem;
+        padding: 0.125rem 0.5rem;
+    }
+    
+    /* Settings menu position */
+    #settingsMenu {
+        left: 0.5rem;
+        right: 0.5rem;
+        bottom: 3rem;
+        width: auto;
+    }
+    
+    /* Side Projects Mobile Optimizations */
+    #projects .card {
+        padding: 1rem;
+    }
+    
+    #projects .card h3 {
+        font-size: 0.875rem;
+        line-height: 1.4;
+        margin-bottom: 0.5rem;
+    }
+    
+    #projects .card p {
+        font-size: 0.75rem;
+        line-height: 1.5;
+        margin-bottom: 0.75rem;
+    }
+    
+    #projects .card .text-sm {
+        font-size: 0.625rem;
+    }
+    
+    #projects .card .text-xs {
+        font-size: 0.625rem;
+        padding: 0.125rem 0.5rem;
+    }
+    
+    /* Project links */
+    #projects .card a {
+        font-size: 0.75rem;
+        display: inline-flex;
+        align-items: center;
+        margin-top: 0.5rem;
+    }
+    
+    #projects .card a i {
+        font-size: 0.625rem;
+        margin-right: 0.375rem;
+    }
+    
+    /* Tech stack spacing */
+    #projects .flex-wrap {
+        gap: 0.375rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    /* Projects grid */
+    #projects .grid {
+        gap: 0.75rem;
+    }
+    
+    #projects .grid.md\\:grid-cols-2 {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    /* Smartphone landscape and small tablets */
+    #projects .card h3 {
+        font-size: 0.8125rem;
+        line-height: 1.3;
+    }
+    
+    #projects .card p {
+        font-size: 0.6875rem;
+        line-height: 1.45;
+    }
+    
+    #projects .card .text-sm {
+        font-size: 0.625rem;
+    }
+    
+    #projects .card a {
+        font-size: 0.6875rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    /* Extra small screens */
+    .nav-item {
+        font-size: 0.625rem;
+        padding: 0.25rem 0.5rem;
+    }
+    
+    header h1 {
+        font-size: 1.25rem;
+    }
+    
+    .section-title {
+        font-size: 1rem;
+    }
+    
+    /* Hide less important navigation items on very small screens */
+    .nav-item:nth-child(n+5) {
+        display: none;
+    }
+    
+    /* Side Projects Extra Small Screen Optimizations */
+    #projects .card {
+        padding: 0.75rem;
+    }
+    
+    #projects .card h3 {
+        font-size: 0.75rem;
+        margin-bottom: 0.375rem;
+    }
+    
+    #projects .card p {
+        font-size: 0.625rem;
+        line-height: 1.4;
+        margin-bottom: 0.5rem;
+    }
+    
+    #projects .card .text-sm {
+        font-size: 0.5625rem;
+    }
+    
+    #projects .card .text-xs {
+        font-size: 0.5rem;
+        padding: 0.125rem 0.375rem;
+    }
+    
+    /* Even smaller links */
+    #projects .card a {
+        font-size: 0.625rem;
+    }
+    
+    #projects .card a i {
+        font-size: 0.5rem;
+    }
+    
+    /* Minimal tech stack spacing */
+    #projects .flex-wrap {
+        gap: 0.25rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    /* Tighter grid spacing */
+    #projects .grid {
+        gap: 0.5rem;
+    }
+}
+
+/* Print Styles */
+@media print {
+    body {
+        background: white !important;
+        color: black !important;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .container {
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    
+    .pdf-button,
+    .edit-button,
+    .settings-button,
+    #settingsMenu,
+    .edit-notification,
+    .data-buttons,
+    .add-tech-btn,
+    .tech-remove,
+    .tech-add {
+        display: none !important;
+    }
+    
+    nav {
+        display: none !important;
+    }
+    
+    /* 헤더 섹션 조정 */
+    header.py-12 {
+        padding: 20pt 0 !important;
+    }
+    
+    /* 카드 스타일 */
+    .card {
+        box-shadow: none !important;
+        border: 1px solid #e5e7eb !important;
+        page-break-inside: avoid;
+        margin-bottom: 12pt !important;
+        padding: 12pt !important;
+    }
+    
+    /* 차트 컨테이너 */
+    .chart-container {
+        page-break-inside: avoid;
+        height: 250px !important;
+        max-height: 250px !important;
+        margin-bottom: 20pt !important;
+    }
+    
+    /* 성과 지표 차트 박스 */
+    #impact .bg-gray-50 {
+        padding: 16pt !important;
+        page-break-inside: avoid;
+    }
+    
+    /* 차트 캔버스 크기 조정 */
+    #performanceChart {
+        max-height: 220px !important;
+        height: 220px !important;
+    }
+    
+    /* 섹션 여백 조정 */
+    section {
+        page-break-inside: avoid;
+        margin-bottom: 16pt !important;
+    }
+    
+    /* 그리드 레이아웃 PDF 최적화 */
+    .grid {
+        display: grid !important;
+    }
+    
+    /* 성과 지표 그리드 */
+    #impact .grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 8pt !important;
+    }
+    
+    /* 개요 섹션의 성과 지표 */
+    #summary .grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 8pt !important;
+    }
+    
+    /* 기술 스택 그리드 */
+    #skills .grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 8pt !important;
+    }
+    
+    /* 학력/자격증 그리드 */
+    #education-cert .grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12pt !important;
+    }
+    
+    /* 테이블 셀 정렬 */
+    .text-center {
+        text-align: center !important;
+    }
+    
+    /* 성과 지표 카드 */
+    #impact .bg-white {
+        padding: 8pt !important;
+        text-align: center !important;
+    }
+    
+    /* 사이드 프로젝트 그리드 */
+    #projects .grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12pt !important;
+    }
+    
+    .mb-12 {
+        margin-bottom: 16pt !important;
+    }
+    
+    .mb-8 {
+        margin-bottom: 12pt !important;
+    }
+    
+    .mb-6 {
+        margin-bottom: 8pt !important;
+    }
+    
+    h1, h2, h3 {
+        page-break-after: avoid;
+    }
+    
+    h2 {
+        font-size: 16pt !important;
+        margin-top: 16pt !important;
+        margin-bottom: 12pt !important;
+    }
+    
+    h3 {
+        font-size: 14pt !important;
+        margin-bottom: 8pt !important;
+    }
+    
+    /* 경력 사항 전체 표시 */
+    #experience {
+        display: block !important;
+    }
+    
+    #experience .flex {
+        display: block !important;
+    }
+    
+    #timeline-container {
+        display: none !important;
+    }
+    
+    #experience-details {
+        display: none !important;
+    }
+    
+    /* 경력 사항 print 컨테이너 표시 */
+    .experience-print-container {
+        display: block !important;
+        margin-top: 12pt !important;
+    }
+    
+    /* 모든 경력 사항을 순차적으로 표시 */
+    .experience-print-section {
+        display: block !important;
+        margin-bottom: 20pt !important;
+        page-break-inside: avoid;
+        border: 1px solid #e5e7eb !important;
+        padding: 16pt !important;
+        background: #fafafa !important;
+    }
+    
+    /* 회사별 그룹핑 스타일 */
+    .company-container {
+        margin-bottom: 16pt !important;
+        page-break-inside: avoid;
+    }
+    
+    .company-header {
+        background: #f3f4f6 !important;
+        padding: 8pt !important;
+        margin-bottom: 8pt !important;
+    }
+    
+    .project-list {
+        display: block !important;
+        max-height: none !important;
+        overflow: visible !important;
+    }
+    
+    .timeline-item-container {
+        background: white !important;
+        border: 1px solid #e5e7eb !important;
+        padding: 8pt !important;
+        margin-bottom: 4pt !important;
+    }
+    
+    .experience-print-section h3 {
+        font-size: 14pt !important;
+        font-weight: bold !important;
+        color: #1f2937 !important;
+        margin-bottom: 4pt !important;
+    }
+    
+    .experience-print-section .company {
+        font-size: 11pt !important;
+        color: #4b5563 !important;
+        margin-bottom: 2pt !important;
+    }
+    
+    .experience-print-section .period {
+        font-size: 10pt !important;
+        color: #6b7280 !important;
+        margin-bottom: 8pt !important;
+    }
+    
+    .experience-print-section .description {
+        font-size: 10pt !important;
+        line-height: 1.5 !important;
+        margin-bottom: 8pt !important;
+    }
+    
+    .experience-print-section ul {
+        margin-left: 16pt !important;
+        margin-bottom: 8pt !important;
+    }
+    
+    .experience-print-section li {
+        font-size: 10pt !important;
+        line-height: 1.4 !important;
+        margin-bottom: 4pt !important;
+    }
+    
+    /* 기술 스택 태그 */
+    .tech-card {
+        display: inline-block !important;
+        padding: 2pt 6pt !important;
+        font-size: 9pt !important;
+        margin: 2pt !important;
+        background: #f3f4f6 !important;
+        border: 1px solid #d1d5db !important;
+    }
+    
+    /* 프로젝트 기술 뱃지 */
+    .project-tech-badge {
+        font-size: 8pt !important;
+        padding: 1pt 4pt !important;
+    }
+    
+    /* 그라디언트 제거 */
+    .bg-gradient-to-r {
+        background: white !important;
+        color: black !important;
+        border: 1px solid #d1d5db !important;
+    }
+    
+    .text-transparent {
+        -webkit-text-fill-color: black !important;
+        color: black !important;
+    }
+    
+    /* 메트릭 카드 조정 */
+    .metric-card {
+        padding: 8pt !important;
+        margin-bottom: 8pt !important;
+    }
+    
+    .metric-value {
+        font-size: 18pt !important;
+    }
+    
+    .metric-label {
+        font-size: 9pt !important;
+    }
+    
+    /* AI section adjustments for print */
+    #skills > div:last-child {
+        background: #f9fafb !important;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
+    
+    /* 사이드 프로젝트 그리드 조정 */
+    #projects .grid {
+        grid-template-columns: 1fr !important;
+        gap: 12pt !important;
+    }
+    
+    /* 학력 및 자격증 섹션 */
+    #education .grid {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 16pt !important;
+    }
+    
+    /* Keep background colors for performance metrics */
+    @page {
+        margin: 15mm 20mm;
+        size: A4;
+    }
+    
+    /* Reduce overall spacing for A4 fit */
+    .container {
+        padding: 0 10pt !important;
+    }
+    
+    /* Ensure all content fits on page */
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+    
+    /* Hide interactive elements */
+    .hover\:transform:hover {
+        transform: none !important;
+    }
+    
+    .transition-all {
+        transition: none !important;
+    }
+    
+    /* Timeline adjustments */
+    .timeline-item-container {
+        border: 1px solid #e5e7eb !important;
+        margin-bottom: 0.5rem !important;
+    }
+    
+    #experience .flex-col {
+        display: block !important;
+    }
+    
+    #experience-details {
+        margin-top: 1rem !important;
+        border: 1px solid #e5e7eb !important;
+    }
+    
+    .container {
+        max-width: 100% !important;
+    }
+    
+    /* Performance metrics grid - ensure visibility */
+    .bg-gradient-to-r[class*="from-"][class*="to-"] {
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
+}
