@@ -88,6 +88,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // 관리자 모드 확인
     const isAdminMode = adminAuth.isAuthenticated();
     
+    // adminAuth를 전역으로 사용할 수 있도록 설정
+    window.adminAuth = adminAuth;
+    
     // GitHub Pages 환경에서는 편집 및 설정 버튼 숨기기 (관리자 모드가 아닌 경우)
     if (isGitHubPages && !isLocalDev && !isAdminMode) {
         // 편집 버튼 숨기기
@@ -117,17 +120,17 @@ document.addEventListener('DOMContentLoaded', () => {
             company: '디케이테크인',
             period: '2022.05 - 현재',
             position: '백엔드 엔지니어',
-            description: '카카오 계열사 IT 서비스 전문 기업에서 다양한 대규모 프로젝트의 백엔드 개발을 담당하고 있습니다.',
+            description: '카카오 계열사 IT 서비스 전문 기업에서<br>다양한 대규모 프로젝트의 백엔드 개발을 담당하고 있습니다.',
             projects: [
-                { id: 'sm_gw', period: '2025.01 - 2025.06', title: 'SM엔터테인먼트 그룹웨어 SAP 고도화', description: 'SM 엔터테인먼트 그룹웨어 전자결재 시스템과 SAP 연동 고도화 프로젝트를 주도하여 공통 모듈 개발 및 연동 프로세스 개선을 담당했습니다.', achievements: ['CO, SA, MM 모듈 SAP RFC 연동 개발을 주도하고 비동기 처리 적용으로 시스템 성능 및 안정성 확보.', 'Jxls 활용 공통 엑셀 다운로드 유틸 개발 및 리팩토링으로 코드 재사용성 향상 및 유지보수 효율 개선.', 'SAP 연동 공통 모듈 개발로 연동 개발 리소스 50% 이상 단축 및 개발 생산성 증대.', 'LLM을 활용한 테스트 코드 작성 방안 연구 및 공유로 팀의 기술적 성장 도모.'], tech: ['Java', 'Spring Boot', 'JPA', 'SAP RFC', 'MySQL', 'Kubernetes', 'Vue.js'] },
-                { id: 'dkt_pms_ops', period: '2025.01 - 2025.04', title: 'DKT PMS 2.7 및 워크솔루션 운영', description: 'PMS 2.7 시스템의 안정화 및 워크솔루션 운영을 담당하며 성능 최적화와 기능 고도화를 수행했습니다.', achievements: ['프로젝트 히스토리 기능 개발로 변경 이력 관리 및 추적성 강화, 데이터 검증 편의성 확대.', '프로젝트 현황 조회 성능을 20초에서 0.3초로 개선하여 사용자 대기 시간 단축.', 'N+1 문제 해결 및 매핑 로직 개선으로 문서 조회 성능 최적화.', '체계적인 데이터 마이그레이션 계획 수립 및 실행으로 안정적인 서비스 오픈 기여.', 'bulk insert 적용으로 대량 데이터 처리 성능 및 안정성 향상.'], tech: ['Java', 'Spring Boot', 'JPA', 'QueryDSL', 'MySQL', 'Kubernetes'] },
-                { id: 'kakao_am_sso', period: '2025.04', title: '카카오모빌리티 자산관리시스템 SSO 적용', description: '카카오모빌리티 자산관리시스템에 SSO 로그인을 도입하여 보안 및 사용자 편의성을 강화했습니다.', achievements: ['BE/FE 로그인 로직 수정 및 SSO 필터 적용으로 안정적인 통합 인증 시스템 구축.', '개발/CBT/운영 환경 배포 주도 및 리다이렉트 이슈 신속 해결로 서비스 안정성 확보.', '로그 추적을 통한 예외 케이스 처리 및 고객사 테스트 원활 진행.'], tech: ['Java', 'Spring Boot', 'SSO', 'OAuth 2.0', 'Vue.js'] },
-                { id: 'dkt_pms', period: '2024.06 - 2024.12', title: 'DKT 프로젝트 매니징 시스템(PMS) 2.7 구축', description: '사내 프로젝트 관리 시스템(PMS) 2.7 버전 구축을 리드하며 핵심 기능 개발 및 성능 최적화를 담당했습니다.', achievements: ['발주 검색 로직 리팩토링으로 응답 시간을 20초에서 0.1초로 99.5% 단축하여 사용자 경험 획기적 개선.', '병렬 처리 도입으로 프로젝트 현황 계산 시간을 16초에서 1초로 93.7% 감소시켜 생산성 극대화.', 'N+1 문제 해결 및 쿼리 최적화로 프로젝트 조회 성능 30초에서 1초로 96.7% 개선.', '프로젝트 히스토리 기능 개발 및 공통 모듈화를 통해 시스템 유지보수성 및 확장성 확보.', '일정 단축(50MD → 43MD) 달성 및 FT 작업 동시 진행으로 리소스 효율성 증대.'], tech: ['Java', 'Spring Boot', 'JPA', 'QueryDSL', 'MySQL', 'Kubernetes', 'Vue.js'] },
-                { id: 'kakao_work_am', period: '2024.08 - 2024.10', title: '카카오워크 1.5 자산관리 시스템 개발', description: '카카오워크 1.5 자산관리 시스템 버전 업그레이드 및 개발/운영 환경 구축을 담당했습니다.', achievements: ['Spring Boot 3.3.3, JDK 17 버전 업그레이드로 시스템 최신성 유지 및 보안 강화.', '개발/테스트/운영 환경 구축 및 D2HUB 배포 환경 셋팅으로 안정적인 서비스 제공.', 'deprecated 코드 수정 및 공통 유효성 검사 로직 리팩토링으로 코드 품질 향상.', 'PC/모바일 환경의 공통 화면 및 메뉴 재정의로 사용자 경험 개선.'], tech: ['Java', 'Spring Boot', 'JPA', 'MySQL', 'Docker', 'D2hub'] },
-                { id: 'kakao_am', period: '2023.09 - 2024.05', title: '카카오모빌리티 자산관리시스템 구축', description: '카카오모빌리티 사내 자산관리 시스템을 신규 구축하며 DevOps, DB 마이그레이션 등을 담당했습니다.', achievements: ['Kubernetes 기반 인프라 환경 설계 및 Helm Chart 구성을 통한 배포 자동화 및 운영 효율성 증대.', 'Spring Boot 3.3.3, JDK 17 버전 업그레이드로 시스템 최신성 유지 및 보안 강화.', 'SSO 로그인 도입 및 통합 인증 시스템 구축으로 보안성 및 사용자 편의성 동시 달성.', 'Zebra 프린터 연동 개발을 통해 자산 라벨링 및 관리 프로세스 자동화.', '대용량 수기 관리 데이터를 Temp Table 및 Join Update 방식으로 안정적으로 마이그레이션.'], tech: ['Java', 'Spring Boot', 'JPA', 'MySQL', 'Kubernetes', 'D2hub', 'Vue.js'] },
-                { id: 'dkt_resource', period: '2024.01 - 2024.04', title: 'DKT 자원예약 시스템 개선', description: '사내 자원예약 시스템의 권한 체계 개선 및 기능 고도화를 담당했습니다.', achievements: ['부서별 권한 테이블 설계 및 권한 관리 로직 개선으로 관리 편의성 확대.', 'QueryDSL을 활용한 복잡한 검색 조건 처리 및 API 성능 최적화.', '슈퍼 관리자 권한 추가 및 운영자 결재 토글 기능으로 사용자 편의성 향상.', '단위 테스트 작성 및 에러 수정으로 시스템 안정성 강화.'], tech: ['Java', 'Spring Boot', 'JPA', 'QueryDSL', 'MySQL'] },
-                { id: 'dkt_friday', period: '2023.04 - 2023.09', title: '프라이데이-하루 시스템 연동', description: '프로젝트 관리 시스템과 근태 관리 시스템 간의 데이터 연동 프로젝트를 수행했습니다.', achievements: ['하루 카테고리 관리 API 및 업무 데이터 동기화 API 개발로 시스템 간 원활한 연동 구현.', '월 10만건 이상 누적 데이터 동기화 처리 방안 설계 및 성능 최적화.', 'N+1 이슈 해결 및 단건 조회 최적화로 API 성능 향상.', '직무 세분화 작업 및 통계 화면 매핑 로직 개선으로 데이터 정확성 향상.'], tech: ['Java', 'Spring Boot', 'JPA', 'MySQL', 'REST API'] },
-                { id: 'kakao_cr', period: '2022.05 - 2023.12', title: '카카오 캠퍼스 예약 코어시스템 개발', description: '카카오 신규 사옥의 예약 시스템 코어 개발에 참여하여 대용량 트랜잭션 처리 및 동시성 제어를 담당했습니다.', achievements: ['JdbcTemplate BatchUpdate 적용으로 재고 데이터 생성 성능 획기적 개선.', 'Entity 관계 설계 최적화 및 QueryDSL Projections 활용으로 N+1 문제를 원천적으로 해결.', 'Redisson 분산 락(Distributed Lock) 구현을 통해 예약 채번 프로세스의 동시성 이슈 해결 및 데이터 정합성 확보.', '사용자 테이블 이원화 대응 및 Subselect 활용으로 기존 코드 영향도 최소화.'], tech: ['Java', 'Spring Boot', 'JPA', 'Redisson', 'MySQL', 'GitLab'] },
+                { id: 'sm_gw', period: '2025.01 - 2025.06', title: 'SM엔터테인먼트 그룹웨어 SAP 고도화', description: 'SM Ent 그룹웨어 전자결재 시스템과 SAP 연동 고도화 프로젝트<br>공통 모듈 개발 및 연동 프로세스 개선을 담당했습니다.', achievements: ['CO, SA, MM 모듈 SAP RFC 연동 개발<br>• 결재 비동기 처리로 시스템 성능 및 안정성 확보', 'Jxls 활용 공통 엑셀 다운로드 유틸 개발<br>• 코드 재사용성 향상 및 유지보수 효율 개선', 'SAP 연동 공통 모듈 개발<br>• 연동 개발 리소스 <span class="font-semibold text-red-600">50% 이상 단축</span>', 'LLM을 활용한 테스트 코드 작성 방안 연구<br>• 팀의 기술적 성장 도모'], tech: ['Java', 'Spring Boot', 'JPA', 'SAP RFC', 'MySQL', 'Kubernetes', 'Vue.js'] },
+                { id: 'dkt_pms_ops', period: '2025.01 - 2025.04', title: 'DKT PMS 2.7 및 워크솔루션 운영', description: 'PMS 2.7 시스템의 안정화 및 워크솔루션 운영을 담당하며<br>성능 최적화와 기능 고도화를 수행했습니다.', achievements: ['프로젝트 히스토리 기능 개발<br>• 변경 이력 관리 및 추적성 강화', '프로젝트 현황 조회 성능 개선<br>• <span class="font-semibold text-red-600">20초 → 0.3초</span> (사용자 대기 시간 단축)', 'N+1 문제 해결 및 매핑 로직 개선<br>• 문서 조회 성능 최적화', '체계적인 데이터 마이그레이션 계획 수립<br>• 안정적인 서비스 오픈 기여', 'bulk insert 적용<br>• 대량 데이터 처리 성능 및 안정성 향상'], tech: ['Java', 'Spring Boot', 'JPA', 'QueryDSL', 'MySQL', 'Kubernetes'] },
+                { id: 'kakao_am_sso', period: '2025.04', title: '카카오모빌리티 자산관리시스템 SSO 적용', description: '카카오모빌리티 자산관리시스템에 SSO 로그인을 도입하여<br>보안 및 사용자 편의성을 강화했습니다.', achievements: ['BE/FE 로그인 로직 수정 및 SSO 필터 적용<br>• 안정적인 통합 인증 시스템 구축', '개발/CBT/운영 환경 배포 주도<br>• 리다이렉트 이슈 신속 해결로 서비스 안정성 확보', '로그 추적을 통한 예외 케이스 처리<br>• 고객사 테스트 원활 진행'], tech: ['Java', 'Spring Boot', 'SSO', 'OAuth 2.0', 'Vue.js'] },
+                { id: 'dkt_pms', period: '2024.06 - 2024.12', title: 'DKT 프로젝트 매니징 시스템(PMS) 2.7 구축', description: '사내 프로젝트 관리 시스템(PMS) 2.7 버전 구축 참여<br>핵심 기능 개발 및 성능 최적화를 담당했습니다.', achievements: ['발주 검색 로직 리팩토링<br>• 응답 시간 <span class="font-semibold text-red-600">20초 → 0.1초</span> (99.5% 단축)', '병렬 처리 도입<br>• 프로젝트 현황 계산 <span class="font-semibold text-red-600">16초 → 1초</span> (93.7% 감소)', 'N+1 문제 해결 및 쿼리 최적화<br>• 프로젝트 조회 성능 <span class="font-semibold text-red-600">30초 → 1초</span> (96.7% 개선)', '프로젝트 히스토리 기능 개발<br>• 공통 모듈화로 유지보수성 및 확장성 확보', '일정 단축 달성<br>• <span class="font-semibold text-green-600">50MD → 43MD</span> 및 FT 작업 동시 진행'], tech: ['Java', 'Spring Boot', 'JPA', 'QueryDSL', 'MySQL', 'Kubernetes', 'Vue.js'] },
+                { id: 'kakao_work_am', period: '2024.08 - 2024.10', title: '카카오워크 1.5 자산관리 시스템 개발', description: '카카오워크 1.5 자산관리 시스템 버전 업그레이드 및<br>개발/운영 환경 구축을 담당했습니다.', achievements: ['Spring Boot 3.3.3, JDK 17 버전 업그레이드로 시스템 최신성 유지 및 보안 강화.', '개발/테스트/운영 환경 구축 및 D2HUB 배포 환경 셋팅으로 안정적인 서비스 제공.', 'deprecated 코드 수정 및 공통 유효성 검사 로직 리팩토링으로 코드 품질 향상.', 'PC/모바일 환경의 공통 화면 및 메뉴 재정의로 사용자 경험 개선.'], tech: ['Java', 'Spring Boot', 'JPA', 'MySQL', 'Docker', 'D2hub'] },
+                { id: 'kakao_am', period: '2023.09 - 2024.05', title: '카카오모빌리티 자산관리시스템 구축', description: '카카오모빌리티 사내 자산관리 시스템을 신규 구축하며<br>DevOps, DB 마이그레이션 등을 담당했습니다.', achievements: ['Kubernetes 기반 인프라 환경 설계 및 Helm Chart 구성을 통한 배포 자동화 및 운영 효율성 증대.', 'Spring Boot 3.3.3, JDK 17 버전 업그레이드로 시스템 최신성 유지 및 보안 강화.', 'SSO 로그인 도입 및 통합 인증 시스템 구축으로 보안성 및 사용자 편의성 동시 달성.', 'Zebra 프린터 연동 개발을 통해 자산 라벨링 및 관리 프로세스 자동화.', '대용량 수기 관리 데이터를 Temp Table 및 Join Update 방식으로 안정적으로 마이그레이션.'], tech: ['Java', 'Spring Boot', 'JPA', 'MySQL', 'Kubernetes', 'D2hub', 'Vue.js'] },
+                { id: 'dkt_resource', period: '2024.01 - 2024.04', title: 'DKT 자원예약 시스템 개선', description: '사내 자원예약 시스템의<br>권한 체계 개선 및 기능 고도화를 담당했습니다.', achievements: ['부서별 권한 테이블 설계 및 권한 관리 로직 개선으로 관리 편의성 확대.', 'QueryDSL을 활용한 복잡한 검색 조건 처리 및 API 성능 최적화.', '슈퍼 관리자 권한 추가 및 운영자 결재 토글 기능으로 사용자 편의성 향상.', '단위 테스트 작성 및 에러 수정으로 시스템 안정성 강화.'], tech: ['Java', 'Spring Boot', 'JPA', 'QueryDSL', 'MySQL'] },
+                { id: 'dkt_friday', period: '2023.04 - 2023.09', title: '프라이데이-하루 시스템 연동', description: '프로젝트 관리 시스템과 근태 관리 시스템 간의<br>데이터 연동 프로젝트를 수행했습니다.', achievements: ['하루 카테고리 관리 API 및 업무 데이터 동기화 API 개발로 시스템 간 원활한 연동 구현.', '월 10만건 이상 누적 데이터 동기화 처리 방안 설계 및 성능 최적화.', 'N+1 이슈 해결 및 단건 조회 최적화로 API 성능 향상.', '직무 세분화 작업 및 통계 화면 매핑 로직 개선으로 데이터 정확성 향상.'], tech: ['Java', 'Spring Boot', 'JPA', 'MySQL', 'REST API'] },
+                { id: 'kakao_cr', period: '2022.05 - 2023.12', title: '카카오 캠퍼스 예약 코어시스템 개발', description: '카카오 신규 사옥의 예약 시스템 코어 개발에 참여하여<br>대용량 트랜잭션 처리 및 동시성 제어를 담당했습니다.', achievements: ['JdbcTemplate BatchUpdate 적용으로 재고 데이터 생성 성능 획기적 개선.', 'Entity 관계 설계 최적화 및 QueryDSL Projections 활용으로 N+1 문제를 원천적으로 해결.', 'Redisson 분산 락(Distributed Lock) 구현을 통해 예약 채번 프로세스의 동시성 이슈 해결 및 데이터 정합성 확보.', '사용자 테이블 이원화 대응 및 Subselect 활용으로 기존 코드 영향도 최소화.'], tech: ['Java', 'Spring Boot', 'JPA', 'Redisson', 'MySQL', 'GitLab'] },
                 { id: 'dkt_systems', period: '2022.07 - 2024.06', title: 'DKT 사내시스템 개발 및 운영', description: '하루, 휴가, IDC캘린더 등 다양한 사내 시스템의 개발 및 운영을 담당했습니다.', achievements: ['휴가 신청 성능 15초에서 1-3초로 개선, 하루 동기화 N+1 문제 해결로 서버 부하 감소.', '월 근무 내역 조회 성능 6초에서 1초로 개선, 인덱스 추가 및 쿼리 최적화 수행.', 'EOL 보안 검수 대응 및 개인정보영향평가 수행으로 시스템 보안성 강화.', '연차 초과 사용 동시성 이슈 해결 및 낙관적 락 적용으로 데이터 정합성 확보.'], tech: ['Java', 'Spring Boot', 'JPA', 'MySQL', 'QueryDSL'] },
             ]
         },
@@ -613,9 +616,10 @@ let isEditMode = false;
 function toggleEditMode() {
     // GitHub Pages에서 관리자 모드가 아닌 경우 편집 차단
     const isGitHubPages = window.location.hostname.includes('github.io');
-    const isAdminMode = adminAuth.isAuthenticated();
+    const isLocalDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
+    const isAdminMode = window.adminAuth ? window.adminAuth.isAuthenticated() : false;
     
-    if (isGitHubPages && !isAdminMode) {
+    if (isGitHubPages && !isLocalDev && !isAdminMode) {
         alert('편집 권한이 없습니다.');
         return;
     }
@@ -632,7 +636,9 @@ function toggleEditMode() {
         // 편집 모드 활성화
         editButton.classList.add('active');
         editButtonText.textContent = '저장하기';
-        editNotification.classList.add('active');
+        if (editNotification) {
+            editNotification.classList.add('active');
+        }
         
         // 모든 편집 가능한 요소에 contenteditable 속성 추가
         editables.forEach(element => {
@@ -675,7 +681,9 @@ function toggleEditMode() {
         // 편집 모드 비활성화
         editButton.classList.remove('active');
         editButtonText.textContent = '편집하기';
-        editNotification.classList.remove('active');
+        if (editNotification) {
+            editNotification.classList.remove('active');
+        }
         
         // 모든 편집 가능한 요소에서 contenteditable 속성 제거
         editables.forEach(element => {
@@ -760,7 +768,7 @@ function collectAllData() {
             location: editables[4]?.textContent || '서울, 대한민국',
             jobType: editables[5]?.textContent || '풀스택 개발 가능',
             availability: editables[6]?.textContent || '즉시 근무 가능',
-            summary: editables[7]?.textContent || '경력 요약'
+            summary: document.querySelector('#summary .editable')?.innerHTML || '경력 요약'
         },
         techStacks: Array.from(document.querySelectorAll('.tech-item span')).map(tech => tech.textContent),
         projects: {},
@@ -880,7 +888,7 @@ function loadDefaultTemplate() {
             location: "판교, 대한민국",
             jobType: "풀스택 개발 가능",
             availability: "즉시 근무 가능",
-            summary: "Java/Spring Boot 기반의 엔터프라이즈 시스템을 개발하며, 성능 최적화와 시스템 안정성 확보에 지속적으로 노력해왔습니다.\n\n디케이테크인에서 근무하며 SM엔터테인먼트 그룹웨어 SAP 고도화, 카카오모빌리티 자산관리시스템, DKT PMS 2.7 등 대규모 프로젝트를 성공적으로 수행했습니다. 특히 PMS 2.7 프로젝트에서 발주 검색 로직 리팩토링으로 20초→0.1초(99.5% 단축), 프로젝트 현황 계산 20초→0.3초(98.5% 개선), 단가 조회 성능 개선 등 사용자 경험을 획기적으로 개선하는 성과를 달성했습니다.\n\nN+1 문제 해결, 쿼리 최적화, 분산 락 구현, bulk insert 적용 등의 기술적 도전을 통해 시스템 성능을 향상시켰으며, SAP RFC 연동, SSO 통합 인증, Kubernetes 기반 인프라 구축 등 다양한 기술 스택을 활용한 프로젝트를 성공적으로 수행했습니다. 최근에는 LLM을 활용한 테스트 코드 작성 방안을 연구하고 공유하며 팀의 기술적 성장에도 기여하고 있습니다."
+            summary: "Java/Spring Boot 기반의 엔터프라이즈 시스템을 개발하며, 성능 최적화와 시스템 안정성 확보에 지속적으로 노력해왔습니다.\n\n디케이테크인에서 근무하며 SM엔터테인먼트 그룹웨어 SAP 고도화, 카카오모빌리티 자산관리시스템, DKT PMS 2.7 등 대규모 프로젝트를 성공적으로 수행했습니다. 특히 PMS 2.7 프로젝트에서 발주 검색 로직 리팩토링으로 20초→0.1초(99.5% 단축), 프로젝트 현황 계산 20초→0.3초(98.5% 개선), 단가 조회 성능 개선 등 사용자 경험을 획기적으로 개선하는 성과를 달성했습니다.\n\nN+1 문제 해결, 쿼리 최적화, 분산 락 구현, bulk insert 적용 등의 기술적 도전을 통해 시스템 성능을 향상시켰으며, SAP RFC 연동, SSO 통합 인증, Kubernetes 기반 인프라 구축 등 다양한 기술 스택을 활용한 프로젝트를 성공적으로 수행했습니다. 최근에는 AI을 활용한 업무 활용 방안을 연구하고 공유하며 팀의 기술적 성장에도 기여하고 있습니다."
         },
         techStacks: [
             "Java", "Spring Boot", "JPA", "MySQL", "Redis", "Kubernetes", "Docker", "Git", "AWS", "Apache Kafka", "SAP RFC", "Vue.js", "TypeScript"
@@ -937,9 +945,10 @@ function enableAutoSave() {
 function toggleSettingsMenu() {
     // GitHub Pages에서 관리자 모드가 아닌 경우 설정 메뉴 차단
     const isGitHubPages = window.location.hostname.includes('github.io');
-    const isAdminMode = adminAuth.isAuthenticated();
+    const isLocalDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
+    const isAdminMode = window.adminAuth ? window.adminAuth.isAuthenticated() : false;
     
-    if (isGitHubPages && !isAdminMode) {
+    if (isGitHubPages && !isLocalDev && !isAdminMode) {
         alert('설정 권한이 없습니다.');
         return;
     }
@@ -1296,16 +1305,10 @@ function restoreData(data) {
         if (editables[4]) editables[4].textContent = data.personalInfo.location || '서울, 대한민국';
         if (editables[5]) editables[5].textContent = data.personalInfo.jobType || '풀스택 개발 가능';
         if (editables[6]) editables[6].textContent = data.personalInfo.availability || '즉시 근무 가능';
-        if (editables[7]) {
-            const summaryElement = document.querySelector('#summary .editable');
-            if (summaryElement && summaryElement.classList.contains('space-y-3')) {
-                // 줄바꿈이 있는 summary 처리
-                const summaryText = data.personalInfo.summary || '경력 요약';
-                const paragraphs = summaryText.split('\n\n');
-                summaryElement.innerHTML = paragraphs.map(p => `<p>${p}</p>`).join('\n');
-            } else if (editables[7]) {
-                editables[7].textContent = data.personalInfo.summary || '경력 요약';
-            }
+        // 개요 섹션 복원
+        const summaryElement = document.querySelector('#summary .editable');
+        if (summaryElement && data.personalInfo.summary) {
+            summaryElement.innerHTML = data.personalInfo.summary;
         }
     }
 
