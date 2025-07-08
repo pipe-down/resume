@@ -3,9 +3,90 @@ document.addEventListener('DOMContentLoaded', () => {
     const isGitHubPages = window.location.hostname.includes('github.io');
     const isLocalDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
     
-    // URL 파라미터에서 관리자 모드 체크
+    // 향상된 관리자 인증 시스템
+    class AdminAuth {
+        constructor() {
+            this.sessionKey = 'adminSession';
+            this.accessKey = 'a7B9x2mN4pQ8rT6uY3wZ5vC1kL0'; // 복잡한 액세스 키
+            this.sessionTimeout = 30 * 60 * 1000; // 30분
+        }
+
+        authenticate(key) {
+            if (key === this.accessKey) {
+                const session = {
+                    authenticated: true,
+                    timestamp: Date.now(),
+                    fingerprint: this.generateFingerprint()
+                };
+                
+                sessionStorage.setItem(this.sessionKey, btoa(JSON.stringify(session)));
+                return true;
+            }
+            return false;
+        }
+
+        isAuthenticated() {
+            try {
+                const encrypted = sessionStorage.getItem(this.sessionKey);
+                if (!encrypted) return false;
+
+                const session = JSON.parse(atob(encrypted));
+                const now = Date.now();
+
+                // 타임아웃 체크
+                if (now - session.timestamp > this.sessionTimeout) {
+                    this.logout();
+                    return false;
+                }
+
+                // 핑거프린트 검증
+                if (session.fingerprint !== this.generateFingerprint()) {
+                    this.logout();
+                    return false;
+                }
+
+                return session.authenticated === true;
+            } catch {
+                return false;
+            }
+        }
+
+        generateFingerprint() {
+            const data = [
+                navigator.userAgent,
+                navigator.language,
+                screen.width + 'x' + screen.height,
+                new Date().getTimezoneOffset()
+            ].join('|');
+            
+            return btoa(data);
+        }
+
+        logout() {
+            sessionStorage.removeItem(this.sessionKey);
+        }
+    }
+
+    // 관리자 인증 인스턴스 생성
+    const adminAuth = new AdminAuth();
+    
+    // URL 파라미터 확인
     const urlParams = new URLSearchParams(window.location.search);
-    const isAdminMode = urlParams.get('admin') === 'true';
+    const accessKey = urlParams.get('key');
+    
+    // 액세스 키가 있으면 인증 시도
+    if (accessKey) {
+        if (adminAuth.authenticate(accessKey)) {
+            // 인증 성공 후 URL에서 키 제거
+            window.history.replaceState({}, document.title, window.location.pathname);
+            console.log('관리자 인증 성공');
+        } else {
+            console.warn('잘못된 액세스 키');
+        }
+    }
+    
+    // 관리자 모드 확인
+    const isAdminMode = adminAuth.isAuthenticated();
     
     // GitHub Pages 환경에서는 편집 및 설정 버튼 숨기기 (관리자 모드가 아닌 경우)
     if (isGitHubPages && !isLocalDev && !isAdminMode) {
@@ -532,8 +613,7 @@ let isEditMode = false;
 function toggleEditMode() {
     // GitHub Pages에서 관리자 모드가 아닌 경우 편집 차단
     const isGitHubPages = window.location.hostname.includes('github.io');
-    const urlParams = new URLSearchParams(window.location.search);
-    const isAdminMode = urlParams.get('admin') === 'true';
+    const isAdminMode = adminAuth.isAuthenticated();
     
     if (isGitHubPages && !isAdminMode) {
         alert('편집 권한이 없습니다.');
@@ -857,8 +937,7 @@ function enableAutoSave() {
 function toggleSettingsMenu() {
     // GitHub Pages에서 관리자 모드가 아닌 경우 설정 메뉴 차단
     const isGitHubPages = window.location.hostname.includes('github.io');
-    const urlParams = new URLSearchParams(window.location.search);
-    const isAdminMode = urlParams.get('admin') === 'true';
+    const isAdminMode = adminAuth.isAuthenticated();
     
     if (isGitHubPages && !isAdminMode) {
         alert('설정 권한이 없습니다.');

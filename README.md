@@ -11,7 +11,7 @@ Java/Spring Boot 백엔드 개발자의 온라인 이력서입니다. GitHub Pag
 
 ### 🛡️ 보안 및 접근 제어
 - **공개 모드**: 일반 방문자는 PDF 다운로드만 가능
-- **관리자 모드**: URL 파라미터(`?admin=true`)로 편집 기능 활성화
+- **관리자 모드**: 액세스 키 기반 인증으로 편집 기능 활성화 (보안 강화)
 - **로컬 개발**: localhost에서는 모든 기능 자동 활성화
 
 ### 💾 데이터 관리
@@ -57,7 +57,8 @@ npx serve
 - 편집 및 설정 기능 비활성화
 
 ### 관리자 모드 (본인만 사용)
-- `https://pipe-down.github.io/resume/?admin=true`
+- `https://pipe-down.github.io/resume/?key=a7B9x2mN4pQ8rT6uY3wZ5vC1kL0`
+- ~~`?admin=true`~~ 방식은 보안상 더 이상 사용하지 않음
 - 모든 편집 및 설정 기능 활성화
 - 실시간 편집 가능
 
