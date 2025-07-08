@@ -149,6 +149,10 @@ document.addEventListener('DOMContentLoaded', () => {
             company: company.company
         }))
     );
+    
+    // 전역 변수로 설정
+    window.companyExperienceData = companyExperienceData;
+    window.experienceData = experienceData;
 
     const performanceData = {
         labels: [
@@ -629,8 +633,7 @@ function toggleEditMode() {
     }
     
     isEditMode = !isEditMode;
-    const editButton = document.getElementById('editButton');
-    const editButtonText = document.getElementById('editButtonText');
+    const editMenuText = document.getElementById('editMenuText');
     const editNotification = document.getElementById('editNotification');
     const editables = document.querySelectorAll('.editable');
     const techCards = document.querySelectorAll('.editable-tech');
@@ -638,8 +641,9 @@ function toggleEditMode() {
     
     if (isEditMode) {
         // 편집 모드 활성화
-        editButton.classList.add('active');
-        editButtonText.textContent = '저장하기';
+        if (editMenuText) {
+            editMenuText.textContent = '편집 종료';
+        }
         if (editNotification) {
             editNotification.classList.add('active');
         }
@@ -683,8 +687,9 @@ function toggleEditMode() {
         showNotification('편집 모드가 활성화되었습니다. 텍스트를 클릭하여 수정하세요.');
     } else {
         // 편집 모드 비활성화
-        editButton.classList.remove('active');
-        editButtonText.textContent = '편집하기';
+        if (editMenuText) {
+            editMenuText.textContent = '편집 모드';
+        }
         if (editNotification) {
             editNotification.classList.remove('active');
         }
@@ -765,46 +770,61 @@ function collectAllData() {
     
     const resumeData = {
         personalInfo: {
-            name: editables[0]?.textContent || '박정호',
-            title: editables[1]?.textContent || '백엔드 엔지니어',
-            years: editables[2]?.textContent || '6년차 개발자',
-            email: editables[3]?.textContent || 'pjhsk00@naver.com',
-            location: editables[4]?.textContent || '서울, 대한민국',
-            jobType: editables[5]?.textContent || '풀스택 개발 가능',
-            availability: editables[6]?.textContent || '즉시 근무 가능',
+            name: document.querySelector('h1.editable')?.textContent || '박정호',
+            title: document.querySelector('header p.editable')?.textContent || '백엔드 엔지니어',
+            years: document.querySelector('.text-right .editable')?.textContent || '7년차 개발자',
+            email: document.querySelector('.fa-envelope').parentElement.querySelector('.editable')?.textContent || 'pjhsk00@naver.com',
+            location: document.querySelector('.fa-map-marker-alt').parentElement.querySelector('.editable')?.textContent || '판교, 대한민국',
+            jobType: document.querySelector('.fa-code').parentElement.querySelector('.editable')?.textContent || '풀스택 개발 가능',
+            availability: document.querySelector('.fa-calendar-check').parentElement.querySelector('.editable')?.textContent || '즉시 근무 가능',
             summary: document.querySelector('#summary .editable')?.innerHTML || '경력 요약'
         },
-        techStacks: Array.from(document.querySelectorAll('.tech-item span')).map(tech => tech.textContent),
-        projects: {},
+        techStacks: {},
+        projects: [],
         keyMetrics: [],
-        experience: [],
+        experience: window.companyExperienceData || [],
         education: {},
         certifications: []
     };
     
+    // 기술 스택 수집 (카테고리별로)
+    document.querySelectorAll('.tech-stack-container').forEach(container => {
+        const category = container.dataset.category;
+        resumeData.techStacks[category] = Array.from(container.querySelectorAll('.editable-tech')).map(tech => tech.textContent);
+    });
+    
     // 프로젝트 데이터 수집
-    document.querySelectorAll('[data-project]').forEach(projectCard => {
-        const projectId = projectCard.dataset.project;
-        const techTags = Array.from(projectCard.querySelectorAll('.project-tech-badge')).map(badge => badge.textContent);
-        
-        resumeData.projects[projectId] = {
-            title: projectCard.querySelector('.project-title').textContent,
-            period: projectCard.querySelector('.project-period').textContent,
-            description: projectCard.querySelector('.project-description').textContent,
-            tech: techTags
-        };
+    document.querySelectorAll('#projects .card').forEach(projectCard => {
+        const titleEl = projectCard.querySelector('.editable');
+        if (titleEl) {
+            const techTags = Array.from(projectCard.querySelectorAll('span.text-xs.px-1\\.5')).map(badge => badge.textContent);
+            
+            resumeData.projects.push({
+                title: titleEl.textContent,
+                period: projectCard.querySelectorAll('.editable')[1]?.textContent || '',
+                description: projectCard.querySelectorAll('.editable')[2]?.textContent || '',
+                tech: techTags,
+                link: projectCard.querySelector('a')?.href || ''
+            });
+        }
     });
     
     // 핵심 성과 데이터 수집
-    document.querySelectorAll('.metric-card').forEach((card, index) => {
-        resumeData.keyMetrics.push({
-            value: card.querySelector('.metric-value').textContent,
-            label: card.querySelector('.metric-label').textContent
-        });
+    document.querySelectorAll('#impact .bg-white.border').forEach((card) => {
+        const titleEl = card.querySelector('h4');
+        const valueEl = card.querySelector('p.text-2xl');
+        const detailEl = card.querySelector('p.text-xs');
+        
+        if (titleEl && valueEl) {
+            resumeData.keyMetrics.push({
+                title: titleEl.textContent,
+                value: valueEl.textContent,
+                detail: detailEl?.textContent || ''
+            });
+        }
     });
     
-    // 경력 데이터 수집 (experienceData 배열 사용)
-    resumeData.experience = experienceData;
+    // 경력 데이터는 이미 window.companyExperienceData에서 가져옴
     
     // 학력 정보 수집
     const educationSection = document.querySelector('#education-cert');

@@ -20,21 +20,12 @@
     
     <!-- Button Container - 버튼들을 하나의 컨테이너에 배치 -->
     <div style="position: fixed; bottom: 1rem; right: 1rem; display: flex; gap: 0.5rem; z-index: 40;">
-        <!-- Edit Mode Button -->
-        <button onclick="toggleEditMode()" class="edit-button" id="editButton" title="편집 모드" style="position: static; margin: 0;">
-            <i class="fas fa-edit"></i>
-            <span id="editButtonText">편집</span>
-        </button>
-        
         <!-- PDF Export Button -->
         <button onclick="exportToPDF()" class="pdf-button" title="PDF로 내보내기" style="position: static; margin: 0;">
             <i class="fas fa-file-pdf"></i>
             <span>PDF</span>
         </button>
-    </div>
-    
-    <!-- Settings Button Container - 왼쪽 하단 설정 버튼 -->
-    <div style="position: fixed; bottom: 1rem; left: 1rem; display: flex; gap: 0.5rem; z-index: 40;">
+        
         <!-- Settings Button -->
         <button onclick="toggleSettingsMenu()" class="settings-button" id="settingsButton" title="설정" style="position: static; margin: 0;">
             <i class="fas fa-cog"></i>
@@ -43,7 +34,7 @@
     </div>
     
     <!-- Settings Menu - 설정 메뉴 -->
-    <div id="settingsMenu" class="settings-menu" style="position: fixed; bottom: 4rem; left: 1rem; background: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); padding: 0.5rem; opacity: 0; visibility: hidden; transform: translateY(10px); transition: all 0.3s ease; min-width: 200px; z-index: 50;">
+    <div id="settingsMenu" class="settings-menu" style="position: fixed; bottom: 4rem; right: 1rem; background: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); padding: 0.5rem; opacity: 0; visibility: hidden; transform: translateY(10px); transition: all 0.3s ease; min-width: 200px; z-index: 50;">
         <button onclick="exportData()" class="data-menu-button" style="display: flex; align-items: center; gap: 0.5rem; width: 100%; padding: 0.5rem 0.75rem; border: none; background: none; cursor: pointer; font-size: 0.875rem; color: #374151; border-radius: 4px; transition: all 0.2s ease; text-align: left;">
             <i class="fas fa-download text-gray-600"></i>
             <span>JSON 내보내기</span>
@@ -55,6 +46,10 @@
         <button onclick="setupGitHubSync()" class="data-menu-button" style="display: flex; align-items: center; gap: 0.5rem; width: 100%; padding: 0.5rem 0.75rem; border: none; background: none; cursor: pointer; font-size: 0.875rem; color: #374151; border-radius: 4px; transition: all 0.2s ease; text-align: left;">
             <i class="fab fa-github text-blue-600"></i>
             <span>GitHub 연동</span>
+        </button>
+        <button onclick="toggleEditMode()" class="data-menu-button" style="display: flex; align-items: center; gap: 0.5rem; width: 100%; padding: 0.5rem 0.75rem; border: none; background: none; cursor: pointer; font-size: 0.875rem; color: #374151; border-radius: 4px; transition: all 0.2s ease; text-align: left;">
+            <i class="fas fa-edit text-blue-600"></i>
+            <span id="editMenuText">편집 모드</span>
         </button>
         <button onclick="loadTemplateData()" class="data-menu-button" style="display: flex; align-items: center; gap: 0.5rem; width: 100%; padding: 0.5rem 0.75rem; border: none; background: none; cursor: pointer; font-size: 0.875rem; color: #374151; border-radius: 4px; transition: all 0.2s ease; text-align: left;">
             <i class="fas fa-undo text-red-600"></i>
