@@ -3,12 +3,12 @@ window.initializeTimeline = function() {
     console.log('initializeTimeline function called');
     const timelineContainer = document.getElementById('timeline-container');
     const detailsPanel = document.getElementById('experience-details');
-    
+
     // 디버깅을 위한 콘솔 로그
     console.log('Timeline container:', timelineContainer);
     console.log('Details panel:', detailsPanel);
     console.log('Company experience data:', window.companyExperienceData);
-    
+
     if (!timelineContainer || !detailsPanel) {
         console.error('Timeline container or details panel not found!');
         return;
@@ -37,7 +37,7 @@ window.initializeTimeline = function() {
                 ${experience.tech.map(t => `<span class="text-xs px-1.5 py-0.5 bg-gray-100 text-gray-700 rounded" style="font-size: 11px;">${t}</span>`).join('')}
             </div>
         `;
-        
+
         // Update active state
         document.querySelectorAll('.timeline-item-container').forEach(el => {
             el.classList.remove('active-timeline');
@@ -57,17 +57,17 @@ window.initializeTimeline = function() {
     window.companyExperienceData.forEach((company, companyIndex) => {
         const companyContainer = document.createElement('div');
         companyContainer.className = 'company-container mb-4 relative';
-        
+
         // Company header
         const companyHeader = document.createElement('div');
         companyHeader.className = 'company-header mb-3 cursor-pointer p-3 sm:p-4 bg-white border border-gray-200 rounded-lg hover:border-gray-300 hover:shadow-sm transition-all duration-300';
         const logoUrl = companyLogos[company.company];
-        const logoElement = logoUrl 
+        const logoElement = logoUrl
             ? `<img src="${logoUrl}" alt="${company.company}" class="w-10 h-10 object-contain" onerror="this.onerror=null; this.src='https://via.placeholder.com/40x40/e5e7eb/9ca3af?text=${company.company.charAt(0)}'">`
             : `<div class="flex-shrink-0 w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center text-gray-600 font-bold text-sm">
                    ${company.company.charAt(0)}
                </div>`;
-               
+
         companyHeader.innerHTML = `
             <div class="flex items-center gap-3">
                 ${logoElement}
@@ -78,12 +78,12 @@ window.initializeTimeline = function() {
                 <i class="fas fa-chevron-down text-gray-400 transition-transform duration-300 text-sm" data-company-index="${companyIndex}"></i>
             </div>
         `;
-        
+
         // Project list container
         const projectList = document.createElement('div');
         projectList.className = 'project-list ml-4';
         projectList.style.display = companyIndex === 0 ? 'block' : 'none'; // 첫 번째 회사는 기본적으로 열림
-        
+
         // Add projects
         company.projects.forEach(project => {
             const projectItem = document.createElement('div');
@@ -101,12 +101,12 @@ window.initializeTimeline = function() {
             projectItem.addEventListener('click', () => displayExperienceDetails(project.id));
             projectList.appendChild(projectItem);
         });
-        
+
         // Toggle company projects
         companyHeader.addEventListener('click', () => {
             const icon = companyHeader.querySelector('i');
             const isOpen = projectList.style.display === 'block';
-            
+
             // Close all other companies
             document.querySelectorAll('.project-list').forEach(list => {
                 list.style.display = 'none';
@@ -114,7 +114,7 @@ window.initializeTimeline = function() {
             document.querySelectorAll('.company-header i').forEach(i => {
                 i.style.transform = 'rotate(0deg)';
             });
-            
+
             // Toggle current company
             if (!isOpen) {
                 projectList.style.display = 'block';
@@ -125,17 +125,17 @@ window.initializeTimeline = function() {
                 }
             }
         });
-        
+
         companyContainer.appendChild(companyHeader);
         companyContainer.appendChild(projectList);
         timelineContainer.appendChild(companyContainer);
     });
-    
+
     // 첫 번째 프로젝트 자동 선택
     if (window.companyExperienceData.length > 0 && window.companyExperienceData[0].projects.length > 0) {
         displayExperienceDetails(window.companyExperienceData[0].projects[0].id);
     }
-    
+
     // Auto-open first company's first project
     if (window.companyExperienceData.length > 0 && window.companyExperienceData[0].projects.length > 0) {
         const firstIcon = timelineContainer.querySelector('.company-header i');
@@ -155,7 +155,7 @@ window.initializeTimeline = function() {
             // 회사 그룹 컨테이너 생성
             const companyGroup = document.createElement('div');
             companyGroup.className = 'company-group';
-            
+
             // 회사 헤더 추가 (선택사항)
             const companyHeader = document.createElement('div');
             companyHeader.className = 'company-header-print';
@@ -168,13 +168,13 @@ window.initializeTimeline = function() {
                 </p>
             `;
             companyGroup.appendChild(companyHeader);
-            
+
             // 프로젝트들을 그리드에 추가
             const projectsGrid = document.createElement('div');
             projectsGrid.style.display = 'grid';
             projectsGrid.style.gridTemplateColumns = 'repeat(2, 1fr)';
             projectsGrid.style.gap = '0.5rem';
-            
+
             company.projects.forEach(project => {
                 const exp = window.experienceData.find(e => e.id === project.id);
                 if (exp) {
@@ -196,7 +196,7 @@ window.initializeTimeline = function() {
                     projectsGrid.appendChild(printSection);
                 }
             });
-            
+
             companyGroup.appendChild(projectsGrid);
             printContainer.appendChild(companyGroup);
         });
@@ -217,7 +217,7 @@ function initializeApp() {
     // GitHub Pages 환경 체크
     const isGitHubPages = window.location.hostname.includes('github.io');
     const isLocalDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-    
+
     // 향상된 관리자 인증 시스템
     class AdminAuth {
         constructor() {
@@ -233,7 +233,7 @@ function initializeApp() {
                     timestamp: Date.now(),
                     fingerprint: this.generateFingerprint()
                 };
-                
+
                 sessionStorage.setItem(this.sessionKey, btoa(JSON.stringify(session)));
                 return true;
             }
@@ -273,7 +273,7 @@ function initializeApp() {
                 screen.width + 'x' + screen.height,
                 new Date().getTimezoneOffset()
             ].join('|');
-            
+
             return btoa(data);
         }
 
@@ -284,11 +284,11 @@ function initializeApp() {
 
     // 관리자 인증 인스턴스 생성
     const adminAuth = new AdminAuth();
-    
+
     // URL 파라미터 확인
     const urlParams = new URLSearchParams(window.location.search);
     const accessKey = urlParams.get('key');
-    
+
     // 액세스 키가 있으면 인증 시도
     if (accessKey) {
         if (adminAuth.authenticate(accessKey)) {
@@ -299,13 +299,13 @@ function initializeApp() {
             console.warn('잘못된 액세스 키');
         }
     }
-    
+
     // 관리자 모드 확인
     const isAdminMode = adminAuth.isAuthenticated();
-    
+
     // adminAuth를 전역으로 사용할 수 있도록 설정
     window.adminAuth = adminAuth;
-    
+
     // GitHub Pages 환경에서는 편집 및 설정 버튼 숨기기 (관리자 모드가 아닌 경우)
     if (isGitHubPages && !isLocalDev && !isAdminMode) {
         // 편집 버튼 숨기기
@@ -313,19 +313,19 @@ function initializeApp() {
         if (editButton) {
             editButton.style.display = 'none';
         }
-        
+
         // 설정 버튼 컨테이너 숨기기
         const settingsContainer = document.querySelector('div[style*="bottom: 1rem; left: 1rem"]');
         if (settingsContainer) {
             settingsContainer.style.display = 'none';
         }
-        
+
         // 편집 관련 클래스들 제거 (보안 강화)
         document.querySelectorAll('.editable').forEach(el => {
             el.classList.remove('editable');
             el.removeAttribute('contenteditable');
         });
-        
+
     }
 
     // --- DATA ---
@@ -340,7 +340,7 @@ function initializeApp() {
                 { id: 'sm_gw', period: '2025.01 - 2025.06', title: 'SM엔터테인먼트 그룹웨어 SAP 고도화', description: 'SM Ent 그룹웨어 전자결재 시스템과 SAP 연동 고도화 프로젝트<br>공통 모듈 개발 및 연동 프로세스 개선을 담당했습니다.', achievements: ['CO, SA, MM 모듈 SAP RFC 연동 개발<br>• 결재 비동기 처리로 시스템 성능 및 안정성 확보', 'Jxls 활용 공통 엑셀 다운로드 유틸 개발<br>• 코드 재사용성 향상 및 유지보수 효율 개선', 'SAP 연동 공통 모듈 개발<br>• 연동 개발 리소스 <span class="font-semibold text-red-600">50% 이상 단축</span>', 'LLM을 활용한 테스트 코드 작성 방안 연구<br>• 팀의 기술적 성장 도모'], tech: ['Java', 'Spring Boot', 'JPA', 'SAP RFC', 'MySQL', 'Kubernetes', 'Vue.js'] },
                 { id: 'dkt_pms_all', period: '2024.06 - 2024.12', title: 'DKT 프로젝트 매니징 시스템(PMS) 2.7 구축', description: '사내 프로젝트 관리 시스템(PMS) 2.7 버전 구축 프로젝트에서<br>서비스 개발 및 핵심 성능 최적화를 담당했습니다.', achievements: ['발주 검색 로직 리팩토링<br>• 응답 시간 <span class="font-semibold text-red-600">20초 → 0.1초</span> (99.5% 단축)', '병렬 처리 도입<br>• 프로젝트 현황 계산 <span class="font-semibold text-red-600">16초 → 1초</span> (93.7% 감소)', 'N+1 문제 해결 및 쿼리 최적화<br>• 프로젝트 조회 성능 <span class="font-semibold text-red-600">30초 → 1초</span> (96.7% 개선)', '프로젝트 히스토리 기능 개발<br>• 변경 이력 관리 및 추적성 강화', '체계적인 데이터 마이그레이션 및 bulk insert 적용<br>• 대량 데이터 처리 성능 향상', '일정 단축 달성<br>• <span class="font-semibold text-green-600">50MD → 43MD</span> 및 FT 작업 동시 진행'], tech: ['Java', 'Spring Boot', 'JPA', 'QueryDSL', 'MySQL', 'Kubernetes', 'Vue.js'] },
                 { id: 'kakao_am', period: '2024.02 - 2024.06', title: '카카오모빌리티 자산관리시스템 구축', description: '카카오모빌리티 사내 자산관리 시스템을 신규 구축하며<br>DevOps, DB 마이그레이션 등을 담당했습니다.', achievements: ['Kubernetes 기반 인프라 환경 설계 및 Helm Chart 구성<br>• 배포 자동화 및 운영 효율성 증대', 'Spring Boot 3.3.3, JDK 17 버전 업그레이드<br>• 시스템 최신성 유지 및 보안 강화', 'SSO 로그인 도입 및 통합 인증 시스템 구축<br>• 보안성 및 사용자 편의성 동시 달성', 'Zebra 프린터 연동 개발<br>• 자산 라벨링 및 관리 프로세스 자동화', '대용량 수기 관리 데이터 마이그레이션<br>• Temp Table 및 Join Update 방식으로 안정적 이관'], tech: ['Java', 'Spring Boot', 'JPA', 'MySQL', 'Kubernetes', 'D2hub', 'Vue.js'] },
-                { id: 'kakao_cr', period: '2023.09 - 2024.03', title: '카카오 캠퍼스 예약 코어시스템 개발', description: '카카오 신규 사옥의 예약 시스템 코어 개발에 참여하여<br>대용량 트랜잭션 처리 및 동시성 제어를 담당했습니다.', achievements: ['JdbcTemplate BatchUpdate 적용으로 재고 데이터 생성 성능 획기적 개선.', 'Entity 관계 설계 최적화 및 QueryDSL Projections 활용으로 N+1 문제를 원천적으로 해결.', 'Redisson 분산 락(Distributed Lock) 구현을 통해 예약 채번 프로세스의 동시성 이슈 해결 및 데이터 정합성 확보.', '사용자 테이블 이원화 대응 및 Subselect 활용으로 기존 코드 영향도 최소화.'], tech: ['Java', 'Spring Boot', 'JPA', 'Redisson', 'MySQL', 'GitLab'] },
+                { id: 'kakao_cr', period: '2023.09 - 2024.03', title: '카카오 캠퍼스 예약 코어시스템 개발', description: '카카오 신규 사옥의 예약 시스템 코어 개발에 참여하여<br>대용량 트랜잭션 처리 및 동시성 제어를 담당했습니다.', achievements: ['JdbcTemplate BatchUpdate 적용으로 재고 데이터 생성 성능 획기적 개선.', 'Entity 관계 설계 최적화 및 QueryDSL Projections 활용으로 N+1 문제 해결.', 'Redisson 분산 락으로 예약 채번 프로세스의 동시성 이슈 해결 및 데이터 정합성 확보.', '사용자 테이블 이원화 대응 및 Subselect 활용으로 기존 코드 영향도 최소화.'], tech: ['Java', 'Spring Boot', 'JPA', 'Redisson', 'MySQL', 'GitLab'] },
                 { id: 'dkt_internal_all', period: '2022.05 - 현재', title: 'DKT 사내시스템 통합 개발 및 운영', description: '하루, 휴가, IDC캘린더, 자원예약, 프라이데이 연동 등<br>다양한 사내 시스템의 개발 및 운영을 통합 관리하고 있습니다.', achievements: ['휴가 신청 성능 최적화<br>• <span class="font-semibold text-red-600">15초 → 1-3초</span> (80% 이상 개선)', '월 근무 내역 조회 성능 개선<br>• <span class="font-semibold text-red-600">6초 → 1초</span> (인덱스 최적화)', '프라이데이-하루 시스템 연동<br>• 월 10만건 이상 데이터 동기화 안정화', '부서별 권한 체계 개선<br>• 자원예약 시스템 권한 관리 고도화', 'N+1 문제 체계적 해결<br>• 전체 시스템 API 성능 향상', '보안 강화<br>• EOL 대응 및 개인정보영향평가 수행'], tech: ['Java', 'Spring Boot', 'JPA', 'QueryDSL', 'MySQL', 'REST API'] },
             ]
         },
@@ -356,19 +356,19 @@ function initializeApp() {
             ]
         }
     ];
-    
+
     // 기존 experienceData와의 호환성을 위한 flatten
-    const experienceData = companyExperienceData.flatMap(company => 
+    const experienceData = companyExperienceData.flatMap(company =>
         company.projects.map(project => ({
             ...project,
             company: company.company
         }))
     );
-    
+
     // 전역 변수로 설정
     window.companyExperienceData = companyExperienceData;
     window.experienceData = experienceData;
-    
+
     // Call timeline initialization after data is defined
     console.log('About to call initializeTimeline');
     console.log('companyExperienceData:', window.companyExperienceData);
@@ -377,11 +377,11 @@ function initializeApp() {
 
     const performanceData = {
         labels: [
-            '발주 검색\n(20s → 0.1s)', 
-            '프로젝트 현황\n(16s → 1s)', 
-            '프로젝트 조회\n(30s → 1s)', 
+            '발주 검색\n(20s → 0.1s)',
+            '프로젝트 현황\n(16s → 1s)',
+            '프로젝트 조회\n(30s → 1s)',
             'GetMoim Latency\n(200ms → 40ms)',
-            'AI 코드 생산성\n(100% → 320%)', 
+            'AI 코드 생산성\n(100% → 320%)',
             'SAP 연동\n(100% → 50%)'
         ],
         datasets: [
@@ -418,7 +418,7 @@ function initializeApp() {
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
-                legend: { 
+                legend: {
                     position: 'top',
                     labels: {
                         font: {
@@ -442,7 +442,7 @@ function initializeApp() {
                         let index = context.dataIndex;
                         let beforeValue = performanceData.datasets[0].data[index];
                         let improvement;
-                        
+
                         if (index === 4) { // AI 코드 생산성
                             improvement = ((value / beforeValue - 1) * 100).toFixed(0) + '%';
                             return '↑' + improvement;
@@ -473,11 +473,11 @@ function initializeApp() {
                             let label = context.dataset.label || '';
                             let index = context.dataIndex;
                             let value = context.parsed.y;
-                            
+
                             if (label) {
                                 label += ': ';
                             }
-                            
+
                             if (index === 3) {
                                 // GetMoim P95 Latency는 ms 단위
                                 label += value + 'ms';
@@ -501,7 +501,7 @@ function initializeApp() {
                                 // 나머지는 초 단위
                                 label += value + '초';
                             }
-                            
+
                             // 개선율 표시
                             if (context.datasetIndex === 1) {
                                 let beforeValue = context.chart.data.datasets[0].data[index];
@@ -516,7 +516,7 @@ function initializeApp() {
                                     }
                                 }
                             }
-                            
+
                             return label;
                         }
                     }
@@ -597,25 +597,25 @@ function exportToPDF() {
     // 현재 날짜 가져오기
     const today = new Date();
     const dateStr = today.toISOString().split('T')[0];
-    
+
     // 파일명 설정
     const filename = `박정호_백엔드엔지니어_이력서_${dateStr}`;
-    
+
     // 버튼 텍스트 변경
     const button = document.querySelector('.pdf-button');
     const originalHTML = button.innerHTML;
     button.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>준비 중...</span>';
     button.style.pointerEvents = 'none';
-    
+
     // 인쇄 준비 시간
     setTimeout(() => {
         // 브라우저 인쇄 기능 호출
         window.print();
-        
+
         // 버튼 텍스트 복원
         button.innerHTML = originalHTML;
         button.style.pointerEvents = 'auto';
-        
+
         // 성공 메시지 표시
         showNotification('🎉 PDF 내보내기 준비 완료! 인쇄 대화상자에서 PDF로 저장하세요.');
     }, 300);
@@ -628,7 +628,7 @@ function showNotification(message) {
     if (existingNotification) {
         existingNotification.remove();
     }
-    
+
     const notification = document.createElement('div');
     notification.className = 'notification-toast fixed top-8 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-4 rounded-xl shadow-2xl z-50 flex items-center gap-3';
     notification.style.transform = 'translate(-50%, -20px)';
@@ -639,13 +639,13 @@ function showNotification(message) {
         <span class="font-medium">${message}</span>
     `;
     document.body.appendChild(notification);
-    
+
     // 페이드 인 애니메이션
     requestAnimationFrame(() => {
         notification.style.transform = 'translate(-50%, 0)';
         notification.style.opacity = '1';
     });
-    
+
     // 페이드 아웃 및 제거
     setTimeout(() => {
         notification.style.opacity = '0';
@@ -667,14 +667,14 @@ function centerActiveNavItem() {
     if (window.innerWidth <= 768) {
         const activeItem = document.querySelector('.nav-item.active');
         const nav = document.querySelector('nav');
-        
+
         if (activeItem && nav) {
             const activeItemRect = activeItem.getBoundingClientRect();
             const navRect = nav.getBoundingClientRect();
             const scrollLeft = nav.scrollLeft;
             const activeItemCenter = activeItemRect.left + activeItemRect.width / 2 - navRect.left;
             const navCenter = navRect.width / 2;
-            
+
             nav.scrollTo({
                 left: scrollLeft + activeItemCenter - navCenter,
                 behavior: 'smooth'
@@ -687,7 +687,7 @@ function centerActiveNavItem() {
 window.addEventListener('scroll', function() {
     const sections = document.querySelectorAll('section[id]');
     const navItems = document.querySelectorAll('.nav-item');
-    
+
     let current = '';
     sections.forEach(section => {
         const sectionTop = section.offsetTop;
@@ -696,14 +696,14 @@ window.addEventListener('scroll', function() {
             current = section.getAttribute('id');
         }
     });
-    
+
     navItems.forEach(item => {
         item.classList.remove('active');
         if (item.getAttribute('href').substring(1) === current) {
             item.classList.add('active');
         }
     });
-    
+
     centerActiveNavItem();
 });
 
@@ -715,19 +715,19 @@ function toggleEditMode() {
     const isGitHubPages = window.location.hostname.includes('github.io');
     const isLocalDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
     const isAdminMode = window.adminAuth ? window.adminAuth.isAuthenticated() : false;
-    
+
     if (isGitHubPages && !isLocalDev && !isAdminMode) {
         alert('편집 권한이 없습니다.');
         return;
     }
-    
+
     isEditMode = !isEditMode;
     const editMenuText = document.getElementById('editMenuText');
     const editNotification = document.getElementById('editNotification');
     const editables = document.querySelectorAll('.editable');
     const techCards = document.querySelectorAll('.editable-tech');
     const addTechBtns = document.querySelectorAll('.add-tech-btn');
-    
+
     if (isEditMode) {
         // 편집 모드 활성화
         if (editMenuText) {
@@ -736,27 +736,27 @@ function toggleEditMode() {
         if (editNotification) {
             editNotification.classList.add('active');
         }
-        
+
         // 모든 편집 가능한 요소에 contenteditable 속성 추가
         editables.forEach(element => {
             element.setAttribute('contenteditable', 'true');
             element.setAttribute('spellcheck', 'false');
-            
+
             // 원본 내용 저장
             element.dataset.original = element.innerHTML;
-            
+
             // 포커스 이벤트 추가
             element.addEventListener('focus', handleFocus);
             element.addEventListener('blur', handleBlur);
             element.addEventListener('paste', handlePaste);
         });
-        
+
         // 기술 스택 편집 활성화
         const techItems = document.querySelectorAll('.tech-item');
         techItems.forEach(item => {
             const span = item.querySelector('span');
             const removeBtn = item.querySelector('.tech-remove');
-            
+
             if (span) {
                 span.setAttribute('contenteditable', 'true');
                 span.setAttribute('spellcheck', 'false');
@@ -765,13 +765,13 @@ function toggleEditMode() {
                 removeBtn.style.display = 'block';
             }
         });
-        
+
         // 기술 추가 버튼 표시
         const techAdd = document.querySelector('.tech-add');
         if (techAdd) {
             techAdd.style.display = 'inline-flex';
         }
-        
+
         // 편집 모드 안내 메시지
         showNotification('편집 모드가 활성화되었습니다. 텍스트를 클릭하여 수정하세요.');
     } else {
@@ -782,23 +782,23 @@ function toggleEditMode() {
         if (editNotification) {
             editNotification.classList.remove('active');
         }
-        
+
         // 모든 편집 가능한 요소에서 contenteditable 속성 제거
         editables.forEach(element => {
             element.removeAttribute('contenteditable');
-            
+
             // 이벤트 리스너 제거
             element.removeEventListener('focus', handleFocus);
             element.removeEventListener('blur', handleBlur);
             element.removeEventListener('paste', handlePaste);
         });
-        
+
         // 기술 스택 편집 비활성화
         const techItems = document.querySelectorAll('.tech-item');
         techItems.forEach(item => {
             const span = item.querySelector('span');
             const removeBtn = item.querySelector('.tech-remove');
-            
+
             if (span) {
                 span.removeAttribute('contenteditable');
             }
@@ -806,13 +806,13 @@ function toggleEditMode() {
                 removeBtn.style.display = 'none';
             }
         });
-        
+
         // 기술 추가 버튼 숨기기
         const techAdd = document.querySelector('.tech-add');
         if (techAdd) {
             techAdd.style.display = 'none';
         }
-        
+
         // 변경사항 저장
         saveChanges();
     }
@@ -845,10 +845,10 @@ function saveChanges() {
     const resumeData = collectAllData();
     resumeData.version = "1.0";
     resumeData.lastModified = new Date().toISOString();
-    
+
     // localStorage에 저장
     localStorage.setItem('resumeData', JSON.stringify(resumeData));
-    
+
     showNotification('변경사항이 저장되었습니다!');
 }
 
@@ -856,7 +856,7 @@ function saveChanges() {
 function collectAllData() {
     // 모든 editable 요소들을 수집
     const editables = Array.from(document.querySelectorAll('.editable'));
-    
+
     const resumeData = {
         personalInfo: {
             name: document.querySelector('h1.editable')?.textContent || '박정호',
@@ -875,19 +875,19 @@ function collectAllData() {
         education: {},
         certifications: []
     };
-    
+
     // 기술 스택 수집 (카테고리별로)
     document.querySelectorAll('.tech-stack-container').forEach(container => {
         const category = container.dataset.category;
         resumeData.techStacks[category] = Array.from(container.querySelectorAll('.editable-tech')).map(tech => tech.textContent);
     });
-    
+
     // 프로젝트 데이터 수집
     document.querySelectorAll('#projects .card').forEach(projectCard => {
         const titleEl = projectCard.querySelector('.editable');
         if (titleEl) {
             const techTags = Array.from(projectCard.querySelectorAll('span.text-xs.px-1\\.5')).map(badge => badge.textContent);
-            
+
             resumeData.projects.push({
                 title: titleEl.textContent,
                 period: projectCard.querySelectorAll('.editable')[1]?.textContent || '',
@@ -897,13 +897,13 @@ function collectAllData() {
             });
         }
     });
-    
+
     // 핵심 성과 데이터 수집
     document.querySelectorAll('#impact .bg-white.border').forEach((card) => {
         const titleEl = card.querySelector('h4');
         const valueEl = card.querySelector('p.text-2xl');
         const detailEl = card.querySelector('p.text-xs');
-        
+
         if (titleEl && valueEl) {
             resumeData.keyMetrics.push({
                 title: titleEl.textContent,
@@ -912,9 +912,9 @@ function collectAllData() {
             });
         }
     });
-    
+
     // 경력 데이터는 이미 window.companyExperienceData에서 가져옴
-    
+
     // 학력 정보 수집
     const educationSection = document.querySelector('#education-cert');
     if (educationSection) {
@@ -924,7 +924,7 @@ function collectAllData() {
             period: educationSection.querySelector('.education-period')?.textContent || ''
         };
     }
-    
+
     // 자격증 정보 수집
     const certCards = document.querySelectorAll('.cert-card');
     certCards.forEach(card => {
@@ -934,7 +934,7 @@ function collectAllData() {
             date: card.querySelector('.cert-date')?.textContent || ''
         });
     });
-    
+
     return resumeData;
 }
 
@@ -944,7 +944,7 @@ function loadSavedData() {
     if (savedData) {
         const resumeData = JSON.parse(savedData);
         const editables = document.querySelectorAll('.editable');
-        
+
         editables.forEach((element, index) => {
             const savedContent = resumeData[`editable_${index}`];
             if (savedContent) {
@@ -966,7 +966,7 @@ function resetData() {
 function initializeResumeService() {
     // HTML에 이미 있는 데이터를 유지하되, localStorage에 저장된 데이터가 있으면 사용
     const savedData = localStorage.getItem('resumeData');
-    
+
     if (savedData) {
         try {
             const resumeData = JSON.parse(savedData);
@@ -985,10 +985,10 @@ function initializeResumeService() {
         currentData.lastModified = new Date().toISOString();
         localStorage.setItem('resumeData', JSON.stringify(currentData));
     }
-    
+
     // 3. 자동 저장 기능 활성화
     enableAutoSave();
-    
+
     // 4. 데이터 관리 UI 초기화 (이제 설정 버튼으로 대체됨)
     // initializeDataManagement();
 }
@@ -1028,7 +1028,7 @@ function loadDefaultTemplate() {
             {
                 title: "겟모임(GetMoim) - 그룹 여행 통합 관리 플랫폼",
                 period: "2025.05 - 진행중 (Phase 3 94%)",
-                description: "Spring Boot + JPA 기반 서비스 개발 특히 <strong>바이브코딩(AI Pair-Programming)</strong>을 적극 활용하여 <br/>코드 생산성을 3.2배 향상시키고, 2-Level Caching으로 P95 latency 80% 개선<br>AI OCR 및 일정 생성 기능 추가",
+                description: "Spring Boot + JPA 기반 서비스 개발 특히 <strong>바이브코딩</strong>을 적극 활용하여 <br/>코드 생산성을 3.2배 향상시키고, 2-Level Caching으로 P95 latency 80% 개선<br>AI OCR 및 일정 생성 기능 추가",
                 tech: ["Spring Boot", "PostgreSQL", "Redis", "AI (Gemini API)"],
                 link: "https://getmoim.com"
             },
@@ -1081,7 +1081,7 @@ function loadDefaultTemplate() {
             }
         ]
     };
-    
+
     // 현재 HTML에 있는 내용은 유지하되, localStorage만 초기화
     localStorage.setItem('resumeData', JSON.stringify(defaultData));
     showNotification('기본 템플릿으로 초기화되었습니다.');
@@ -1090,7 +1090,7 @@ function loadDefaultTemplate() {
 // 자동 저장 기능
 function enableAutoSave() {
     let saveTimeout;
-    
+
     // 모든 contenteditable 요소에 input 이벤트 리스너 추가
     document.addEventListener('input', function(e) {
         if (e.target.hasAttribute('contenteditable') || e.target.classList.contains('editable')) {
@@ -1112,12 +1112,12 @@ function toggleSettingsMenu() {
     const isGitHubPages = window.location.hostname.includes('github.io');
     const isLocalDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
     const isAdminMode = window.adminAuth ? window.adminAuth.isAuthenticated() : false;
-    
+
     if (isGitHubPages && !isLocalDev && !isAdminMode) {
         alert('설정 권한이 없습니다.');
         return;
     }
-    
+
     const settingsMenu = document.getElementById('settingsMenu');
     if (settingsMenu.style.visibility === 'visible') {
         settingsMenu.style.opacity = '0';
@@ -1134,7 +1134,7 @@ function toggleSettingsMenu() {
 document.addEventListener('click', function(event) {
     const settingsButton = document.getElementById('settingsButton');
     const settingsMenu = document.getElementById('settingsMenu');
-    
+
     if (!settingsButton.contains(event.target) && !settingsMenu.contains(event.target)) {
         settingsMenu.style.opacity = '0';
         settingsMenu.style.visibility = 'hidden';
@@ -1223,7 +1223,7 @@ function initializeDataManagement() {
         }
     `;
     document.head.appendChild(style);
-    
+
     // 데이터 관리 컨테이너 생성
     const dataManagementDiv = document.createElement('div');
     dataManagementDiv.className = 'data-management-container';
@@ -1260,22 +1260,22 @@ function exportData() {
     const data = collectAllData();
     data.version = "1.0";
     data.lastModified = new Date().toISOString();
-    
+
     const dataStr = JSON.stringify(data, null, 2);
     const dataBlob = new Blob([dataStr], { type: 'application/json' });
     const url = URL.createObjectURL(dataBlob);
     const link = document.createElement('a');
     link.href = url;
-    
+
     const today = new Date().toISOString().split('T')[0];
     const name = data.personalInfo?.name || '이력서';
     link.download = `${name}_이력서_${today}.json`;
-    
+
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
-    
+
     showNotification('이력서 데이터를 내보냈습니다.');
 }
 
@@ -1283,7 +1283,7 @@ function exportData() {
 function importData(event) {
     const file = event.target.files[0];
     if (!file) return;
-    
+
     const reader = new FileReader();
     reader.onload = function(e) {
         try {
@@ -1297,7 +1297,7 @@ function importData(event) {
         }
     };
     reader.readAsText(file);
-    
+
     // 파일 입력 초기화
     event.target.value = '';
 }
@@ -1349,14 +1349,14 @@ function saveGitHubSettings() {
     githubToken = document.getElementById('githubTokenInput').value;
     githubRepo = document.getElementById('githubRepoInput').value;
     githubPath = document.getElementById('githubPathInput').value;
-    
+
     localStorage.setItem('githubToken', githubToken);
     localStorage.setItem('githubRepo', githubRepo);
     localStorage.setItem('githubPath', githubPath);
-    
+
     document.querySelector('.fixed').remove();
     showNotification('GitHub 연동 설정이 저장되었습니다.');
-    
+
     // 설정 후 자동으로 GitHub에서 데이터 로드 시도
     loadFromGitHub();
 }
@@ -1364,7 +1364,7 @@ function saveGitHubSettings() {
 // GitHub에서 데이터 로드
 async function loadFromGitHub() {
     if (!githubToken || !githubRepo) return;
-    
+
     try {
         const [owner, repo] = githubRepo.split('/');
         const response = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${githubPath}`, {
@@ -1373,7 +1373,7 @@ async function loadFromGitHub() {
                 'Accept': 'application/vnd.github.v3+json'
             }
         });
-        
+
         if (response.ok) {
             const data = await response.json();
             const content = JSON.parse(atob(data.content));
@@ -1393,22 +1393,22 @@ async function saveToGitHub() {
         showNotification('GitHub 연동 설정이 필요합니다.');
         return;
     }
-    
+
     try {
         const [owner, repo] = githubRepo.split('/');
         const data = collectAllData();
         data.version = "1.0";
         data.lastModified = new Date().toISOString();
-        
+
         const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
         const sha = localStorage.getItem('githubSha');
-        
+
         const body = {
             message: `Update resume data - ${new Date().toLocaleString()}`,
             content: content,
             sha: sha
         };
-        
+
         const response = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${githubPath}`, {
             method: 'PUT',
             headers: {
@@ -1418,7 +1418,7 @@ async function saveToGitHub() {
             },
             body: JSON.stringify(body)
         });
-        
+
         if (response.ok) {
             const result = await response.json();
             localStorage.setItem('githubSha', result.content.sha);
@@ -1437,15 +1437,15 @@ function saveChanges() {
     const resumeData = collectAllData();
     resumeData.version = "1.0";
     resumeData.lastModified = new Date().toISOString();
-    
+
     // localStorage에 저장
     localStorage.setItem('resumeData', JSON.stringify(resumeData));
-    
+
     // GitHub 연동이 설정되어 있으면 GitHub에도 저장
     if (githubToken && githubRepo) {
         saveToGitHub();
     }
-    
+
     showNotification('변경사항이 저장되었습니다!');
 }
 
@@ -1464,25 +1464,25 @@ function restoreData(data) {
         // 헤더 정보 복원
         const nameEl = document.querySelector('h1.editable');
         if (nameEl) nameEl.textContent = data.personalInfo.name || nameEl.textContent;
-        
+
         const titleEl = document.querySelector('header p.editable');
         if (titleEl) titleEl.textContent = data.personalInfo.title || titleEl.textContent;
-        
+
         const yearsEl = document.querySelector('.text-right .editable');
         if (yearsEl) yearsEl.textContent = data.personalInfo.years || yearsEl.textContent;
-        
+
         const emailEl = document.querySelector('.fa-envelope').parentElement.querySelector('.editable');
         if (emailEl) emailEl.textContent = data.personalInfo.email || emailEl.textContent;
-        
+
         const locationEl = document.querySelector('.fa-map-marker-alt').parentElement.querySelector('.editable');
         if (locationEl) locationEl.textContent = data.personalInfo.location || locationEl.textContent;
-        
+
         const jobTypeEl = document.querySelector('.fa-code').parentElement.querySelector('.editable');
         if (jobTypeEl) jobTypeEl.textContent = data.personalInfo.jobType || jobTypeEl.textContent;
-        
+
         const availabilityEl = document.querySelector('.fa-calendar-check').parentElement.querySelector('.editable');
         if (availabilityEl) availabilityEl.textContent = data.personalInfo.availability || availabilityEl.textContent;
-        
+
         // 개요 섹션 복원
         const summaryElement = document.querySelector('#summary .editable');
         if (summaryElement && data.personalInfo.summary) {
@@ -1499,7 +1499,7 @@ function restoreData(data) {
                 const addBtn = container.querySelector('.add-tech-btn');
                 // 기존 기술 제거 (add 버튼 제외)
                 container.querySelectorAll('.editable-tech').forEach(tech => tech.remove());
-                
+
                 // 저장된 기술 추가
                 techs.forEach(techName => {
                     const tech = document.createElement('span');
@@ -1518,18 +1518,18 @@ function restoreData(data) {
             if (projectCards[index]) {
                 const card = projectCards[index];
                 const editables = card.querySelectorAll('.editable');
-                
+
                 if (editables[0]) editables[0].textContent = project.title || editables[0].textContent;
                 if (editables[1]) editables[1].textContent = project.period || editables[1].textContent;
                 if (editables[2]) editables[2].innerHTML = project.description || editables[2].innerHTML;
-                
+
                 // 기술 태그 업데이트
                 if (project.tech && Array.isArray(project.tech)) {
                     const techContainer = card.querySelector('.flex.flex-wrap.gap-1\\.5.mb-2');
                     if (techContainer) {
                         // 기존 기술 태그 제거
                         techContainer.querySelectorAll('span.text-xs.px-1\\.5').forEach(span => span.remove());
-                        
+
                         // 새 기술 태그 추가
                         project.tech.forEach(tech => {
                             const span = document.createElement('span');
@@ -1540,7 +1540,7 @@ function restoreData(data) {
                         });
                     }
                 }
-                
+
                 // 링크 업데이트
                 if (project.link) {
                     const link = card.querySelector('a');
@@ -1559,7 +1559,7 @@ function restoreData(data) {
                 const titleEl = card.querySelector('h4');
                 const valueEl = card.querySelector('p.text-2xl');
                 const detailEl = card.querySelector('p.text-xs');
-                
+
                 if (titleEl) titleEl.textContent = metric.title || titleEl.textContent;
                 if (valueEl) valueEl.textContent = metric.value || valueEl.textContent;
                 if (detailEl) detailEl.textContent = metric.detail || detailEl.textContent;
@@ -1591,7 +1591,7 @@ function restoreData(data) {
                 });
                 timelineContainer.appendChild(item);
             });
-            
+
             // Display first item by default
             if (experienceData.length > 0 && typeof displayExperienceDetails === 'function') {
                 displayExperienceDetails(experienceData[0].id);
@@ -1606,7 +1606,7 @@ function restoreData(data) {
             const schoolEl = educationSection.querySelector('.education-school');
             const majorEl = educationSection.querySelector('.education-major');
             const periodEl = educationSection.querySelector('.education-period');
-            
+
             if (schoolEl) schoolEl.textContent = data.education.school || schoolEl.textContent;
             if (majorEl) majorEl.textContent = data.education.major || majorEl.textContent;
             if (periodEl) periodEl.textContent = data.education.period || periodEl.textContent;
@@ -1641,16 +1641,16 @@ function addTech() {
     if (newTech && newTech.trim()) {
         const techContainer = document.querySelector('.tech-container');
         const addButton = techContainer.querySelector('.tech-add');
-        
+
         const techCard = document.createElement('div');
         techCard.className = 'tech-card tech-item';
         techCard.innerHTML = `
             <span contenteditable="true" spellcheck="false">${newTech.trim()}</span>
             <button class="tech-remove" onclick="removeTech(this)">×</button>
         `;
-        
+
         techContainer.insertBefore(techCard, addButton);
-        
+
         // 즉시 저장
         const data = collectAllData();
         localStorage.setItem('resumeData', JSON.stringify(data));
@@ -1661,7 +1661,7 @@ function addTech() {
 function removeTech(button) {
     if (confirm('이 기술을 삭제하시겠습니까?')) {
         button.parentElement.remove();
-        
+
         // 즉시 저장
         const data = collectAllData();
         localStorage.setItem('resumeData', JSON.stringify(data));
@@ -1686,21 +1686,21 @@ document.addEventListener('keydown', function(e) {
 // 기술 스택 편집 함수들
 function handleTechEdit(e) {
     if (!isEditMode) return;
-    
+
     const tech = e.target;
     const originalText = tech.textContent;
-    
+
     tech.contentEditable = true;
     tech.classList.add('editing');
     tech.focus();
-    
+
     // 텍스트 전체 선택
     const range = document.createRange();
     range.selectNodeContents(tech);
     const selection = window.getSelection();
     selection.removeAllRanges();
     selection.addRange(range);
-    
+
     const finishEdit = () => {
         tech.contentEditable = false;
         tech.classList.remove('editing');
@@ -1709,7 +1709,7 @@ function handleTechEdit(e) {
         }
         saveTechStack();
     };
-    
+
     tech.addEventListener('blur', finishEdit, { once: true });
     tech.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
@@ -1722,7 +1722,7 @@ function handleTechEdit(e) {
 function handleTechDelete(e) {
     if (!isEditMode) return;
     e.preventDefault();
-    
+
     if (confirm('이 기술을 삭제하시겠습니까?')) {
         e.target.remove();
         saveTechStack();
@@ -1732,17 +1732,17 @@ function handleTechDelete(e) {
 function addTech(category) {
     const container = document.querySelector(`.tech-stack-container[data-category="${category}"]`);
     const addBtn = container.querySelector('.add-tech-btn');
-    
+
     const newTech = document.createElement('span');
     newTech.className = 'text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded editable-tech';
     newTech.textContent = '새 기술';
-    
+
     container.insertBefore(newTech, addBtn);
-    
+
     // 편집 모드로 전환
     newTech.addEventListener('click', handleTechEdit);
     newTech.addEventListener('contextmenu', handleTechDelete);
-    
+
     // 즉시 편집 시작
     handleTechEdit({ target: newTech });
 }
@@ -1755,7 +1755,7 @@ function saveTechStack() {
         const techs = Array.from(container.querySelectorAll('.editable-tech')).map(tech => tech.textContent);
         techData[category] = techs;
     });
-    
+
     const savedData = JSON.parse(localStorage.getItem('resumeData') || '{}');
     savedData.techStack = techData;
     localStorage.setItem('resumeData', JSON.stringify(savedData));
@@ -1771,7 +1771,7 @@ function loadTechStack() {
                 const addBtn = container.querySelector('.add-tech-btn');
                 // 기존 기술 제거
                 container.querySelectorAll('.editable-tech').forEach(tech => tech.remove());
-                
+
                 // 저장된 기술 추가
                 techs.forEach(techName => {
                     const tech = document.createElement('span');
@@ -1787,7 +1787,7 @@ function loadTechStack() {
 // JSON 내보내기
 function exportData() {
     const resumeData = collectAllData();
-    
+
     const dataStr = JSON.stringify(resumeData, null, 2);
     const dataBlob = new Blob([dataStr], { type: 'application/json' });
     const url = URL.createObjectURL(dataBlob);
@@ -1798,7 +1798,7 @@ function exportData() {
     link.click();
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
-    
+
     showNotification('이력서 데이터가 JSON 파일로 내보내졌습니다.');
 }
 
@@ -1814,7 +1814,7 @@ document.body.appendChild(fileInput);
 function handleFileImport(e) {
     const file = e.target.files[0];
     if (!file) return;
-    
+
     const reader = new FileReader();
     reader.onload = function(event) {
         try {
@@ -1827,7 +1827,7 @@ function handleFileImport(e) {
         }
     };
     reader.readAsText(file);
-    
+
     // 파일 input 초기화
     e.target.value = '';
 }
@@ -1851,14 +1851,14 @@ function clearCache() {
                 });
             });
         }
-        
+
         // localStorage와 sessionStorage 클리어 (선택사항)
         // localStorage.clear();
         // sessionStorage.clear();
-        
+
         // 캐시를 무시하고 강제 새로고침
         showNotification('캐시를 비우고 새로고침합니다...');
-        
+
         setTimeout(() => {
             // 캐시 무효화를 위해 타임스탬프 파라미터 추가
             const timestamp = new Date().getTime();
@@ -1885,10 +1885,10 @@ function addCertification() {
             <i class="fas fa-trash"></i> 삭제
         </button>
     `;
-    
+
     // 추가 버튼 바로 위에 삽입
     certContainer.insertBefore(newCert, document.querySelector('.add-cert-btn'));
-    
+
     // 편집 가능하도록 설정
     newCert.querySelectorAll('.editable').forEach(element => {
         element.setAttribute('contenteditable', 'true');
@@ -1897,7 +1897,7 @@ function addCertification() {
         element.addEventListener('blur', handleBlur);
         element.addEventListener('paste', handlePaste);
     });
-    
+
     // 첫 번째 요소에 포커스
     newCert.querySelector('.cert-name').focus();
 }
@@ -1914,11 +1914,11 @@ function removeCertification(button) {
 const originalToggleEditMode = toggleEditMode;
 toggleEditMode = function() {
     originalToggleEditMode();
-    
+
     // 자격증 추가 버튼 표시/숨김
     const addCertBtn = document.querySelector('.add-cert-btn');
     const certRemoveBtns = document.querySelectorAll('.cert-remove');
-    
+
     if (isEditMode) {
         if (addCertBtn) addCertBtn.style.display = 'block';
         certRemoveBtns.forEach(btn => btn.style.display = 'inline-block');
