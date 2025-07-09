@@ -1,0 +1,28 @@
+/* 사이드 프로젝트 기술 스택 태그 간격 조정 */
+#projects .flex-wrap {
+    gap: 0.25rem !important;
+}
+
+/* 모바일에서는 간격 더 작게 */
+@media screen and (max-width: 768px) {
+    #projects .flex-wrap {
+        gap: 0.125rem !important;
+    }
+}
+
+/* PDF 출력 시 간격 최소화 */
+@media print {
+    #projects .flex-wrap {
+        gap: 0.125rem !important;
+    }
+    
+    /* 사이드 프로젝트 tech-card 색상 - 그레이로 통일 */
+    #projects .tech-card {
+        background: #f3f4f6 !important;
+        color: #374151 !important;
+        border: 1px solid #e5e7eb !important;
+        font-size: 0.4375rem !important;
+        padding: 0.125rem 0.25rem !important;
+        line-height: 1.1 !important;
+    }
+}
