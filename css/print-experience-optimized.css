@@ -18,7 +18,7 @@
     .company-group {
         grid-column: 1 / -1 !important;
         margin-bottom: 1rem !important;
-        page-break-before: always !important;
+        page-break-inside: avoid !important;
     }
 
     /* 첫 번째 회사는 페이지 분리 안함 */
@@ -44,6 +44,9 @@
         page-break-inside: avoid !important;
         background: white !important;
         border: 1px solid #e5e7eb !important;
+        display: flex !important;
+        flex-direction: column !important;
+        min-height: 200px !important;
     }
 
     .experience-print-section h3 {
@@ -89,10 +92,17 @@
         margin-right: 0.125rem !important;
     }
 
+    /* 사용 기술 헤더를 하단에 고정 */
+    .experience-print-section h4:last-of-type {
+        margin-top: auto !important;
+        padding-top: 0.25rem !important;
+    }
+
     .experience-print-section ul {
         margin-bottom: 0.5rem !important;
         margin-left: 0 !important;
         list-style: none !important;
+        flex: 1 !important;
     }
 
     .experience-print-section li {
